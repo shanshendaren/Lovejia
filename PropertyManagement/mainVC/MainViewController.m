@@ -203,7 +203,7 @@
                 self.advertisementAry = [json objectForKey:@"picInfo"];
             }else{
             //视图数组
-            NSArray * arr =[[NSArray alloc]init];
+            NSArray * arr =[NSArray array];
             arr =[json objectForKey:@"picInfo"];
             viewsArray = [@[] mutableCopy];
             //遍历视图

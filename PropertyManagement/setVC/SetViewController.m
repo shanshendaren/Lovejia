@@ -226,7 +226,6 @@
 //            }
 //            [newcell.contentView addSubview:recView1];
 //        }
-
     }
     else if (indexPath.section == 2) {
         newcell.newsIV.image = [UIImage imageNamed:@"22"];

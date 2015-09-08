@@ -11,6 +11,7 @@
 #import "BZAppDelegate.h"
 
 #import "WebsViewController.h"
+#import"SFSafeCommunityViewController.h"
 
 
 @interface ConvenientServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -33,11 +34,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.imageAry = @[@"zixun",@"sffw",@"zh_shang",@"sh_wei",@"ji_fen",@"ping_an",@"zheng_neng",@"wei_yuan",@"shang_quan"];
-    self.labelAry = @[@"生活资讯",@"缴费服务",@"中商爱家",@"生活微超",@"积分商城",@"平安社区",@"社区正能量",@"业主委员会",@"社区商圈"];
+    self.imageAry = @[@"zixun",@"sffw",@"sh_wei",@"ji_fen",@"ping_an",@"zheng_neng",@"wei_yuan",@"shang_quan"];
+    self.labelAry = @[@"生活资讯",@"缴费服务",@"生活微超",@"积分商城",@"平安社区",@"社区正能量",@"业主委员会",@"社区商圈"];
     self.view.backgroundColor = [UIColor clearColor];
     [self initUI];
-
 }
 
 -(void)initUI{
@@ -71,7 +71,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 9;
+    return 8;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,12 +100,16 @@
     
         [self.navigationController pushViewController:cv animated:NO];
     }
-    else if(indexPath.row ==8){
+    else if(indexPath.row ==4){
+        SFSafeCommunityViewController *safeCommunityVc = [[SFSafeCommunityViewController alloc] init];
+        
+        [self.navigationController pushViewController:safeCommunityVc animated:NO];
+    }
+    else if(indexPath.row ==7){
         WebsViewController *cv1 = [[WebsViewController alloc] init];
         
         [self.navigationController pushViewController:cv1 animated:NO];
-    }
-    else{
+    }else{
         
     }
 }

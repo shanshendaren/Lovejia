@@ -1,6 +1,6 @@
 //
 //  WebsViewController.m
-//  PropertyManagement
+//  PropertyManagement
 //
 //  Created by mac on 15/8/17.
 //  Copyright (c) 2015年 mac. All rights reserved.
@@ -9,7 +9,7 @@
 #import "WebsViewController.h"
 #import "RequestUtil.h"
 #import "BZAppDelegate.h"
-#import <CoreLocation/CoreLocation.h>
+
 
 @interface WebsViewController ()<CLLocationManagerDelegate>
 @property(strong,nonatomic) CLLocationManager *locationMgr;
@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
     
-    //???  定位
+    //???:   定位
     self.locationMgr = [[CLLocationManager alloc] init];
     self.locationMgr.delegate = self;
     // 设置定位精度
@@ -43,13 +43,12 @@
     
     webView = [[UIWebView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [webView setUserInteractionEnabled:YES];//是否支持交互
-    //[webView setDelegate:self];
     webView.delegate=self;
     [webView setOpaque:NO];//opaque是不透明的意思
     [webView setScalesPageToFit:YES];//自动缩放以适应屏幕
     [self.view addSubview:webView];
     
-    //??? 加载网页的方式
+    //???:   加载网页的方式
     //1.创建并加载远程网页
     NSURL *url = [NSURL URLWithString:@"http://www.whaijia.cn/PropertyManagement/maps.jsp"];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
@@ -79,14 +78,15 @@
     NSLog(@"经度 %f ",cl.coordinate.longitude);
   //  BZAppDelegate *app =[UIApplication sharedApplication].delegate;
     RequestUtil *requestUtil = [[RequestUtil alloc]init];
-    NSString *biz = [NSString  stringWithFormat:@"{\"userId\":\"%f\",\"title\":\"%f\"}",cl.coordinate.longitude,cl.coordinate.latitude];
+    NSString *biz = [NSString  stringWithFormat:@"{\"lng\":\"%f\",\"lat\":\"%f\"}",cl.coordinate.longitude,cl.coordinate.latitude];
     NSString *sid = @"maps.jsp";
     [requestUtil startRequest:sid biz:biz send:self];
     NSLog(@"xxxxxxxxxxxxxxxxxxxxxxx");
 }
 #pragma mark- 获取定位失败回调方法(location delegate)
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"Location Error");
+   // NSLog(@"Location Error");
+    NSLog(@"Location Error ->%@",error);
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{

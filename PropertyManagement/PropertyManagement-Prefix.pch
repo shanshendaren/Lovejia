@@ -14,4 +14,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+//TODO: release版本屏蔽NSLog语句
+#if DEBUG
+#warning NSLogs will be shown
+#else
+#define NSLog(...) {}
+#endif
+
 #endif

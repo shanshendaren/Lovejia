@@ -231,6 +231,7 @@
     {
         NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:car.photos[0]];
         paths = [NSString stringWithFormat:@"%@",dic[@"paths"]];
+        NSLog(@"paths---->%@",paths);
     }
     
     for (UIView *v in newcell.contentView.subviews) {

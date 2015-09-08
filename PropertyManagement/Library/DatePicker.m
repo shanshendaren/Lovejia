@@ -295,7 +295,7 @@ typedef enum {
 #pragma mark -
 -(void)resetDateToCurrentDate{
     NSDate* nowDate = [NSDate date];
-    NSInteger month = [[NSDate date] getMonth];
+    NSInteger month = [[NSDate date]getMonth];
     NSInteger day = [[NSDate date] getDay];
 
 //    [self.yearPicker selectRow:[self.yearArray count]-1 inComponent:0 animated:YES];

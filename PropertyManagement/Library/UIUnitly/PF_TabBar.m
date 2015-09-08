@@ -20,7 +20,7 @@
 {
     UIView *tabBarView;
 }
-
+//TODO: 自定义tabbarView设置
 @property (strong, nonatomic) NSMutableArray *tabBarControlArray;   //自定义TabBarControl的数组
 @property (strong, nonatomic) UIImageView *tabBarImageView;         //自定义图片的数组
 @property (strong, nonatomic) NSMutableArray *tabBarButtonArray;    //自定义按钮的数组

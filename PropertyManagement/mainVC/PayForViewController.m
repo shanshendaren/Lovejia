@@ -23,9 +23,9 @@
 
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.bounds.size.height - 44 - [VersionAdapter getMoreVarHead])];
     [webView setBackgroundColor:[UIColor whiteColor]];
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://113.106.48.182:8080/property/jf/jf.htm"]];
+//    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://113.106.48.182:8080/property/jf/jf.htm"]];
     [self.view addSubview: webView];
-    [webView loadRequest:request];
+
     [self createBack];
     
 }

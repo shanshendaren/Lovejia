@@ -47,6 +47,7 @@
     navigationController.navigationBarHidden = YES;
     [_window setRootViewController:navigationController];
     timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector: @selector(logo) userInfo: nil repeats: YES];
+    
 }
 
 -(void)logo{
@@ -77,13 +78,12 @@
     navigationController.navigationBarHidden = YES;
     [_window setRootViewController:navigationController];
 }
-
+#pragma mark-   创建视图控制器
 -(void)bootMainViewController{
     BZAppDelegate *app =[UIApplication sharedApplication].delegate;
-    //创建视图控制器
+
     MainViewController *first = [[MainViewController alloc] init];
 //    BuyViewController *second = [[BuyViewController alloc] init];
-
     ConvenientServiceViewController *third = [[ConvenientServiceViewController alloc] init];
     SetViewController *fourth = [[SetViewController alloc] init];
     //视图控制器的数组
@@ -113,19 +113,19 @@
 
     
     //调用自定义的方法设置TabBar上的视图
-    [tabBar tabBarWithBackgroundImage:[UIImage imageNamed:@"menu_bg_02.png"] andNormalBackgroundArray:normalBackgroundArray andSelectedBackgroundArray:selectedBackgroundArray andTabBarLabelArray:l];
+    [tabBar tabBarWithBackgroundImage:[UIImage imageNamed:@"menu_bg_02"] andNormalBackgroundArray:normalBackgroundArray andSelectedBackgroundArray:selectedBackgroundArray andTabBarLabelArray:l];
     tabBar.selectedIndex = 0;
     //设置自定义的TabBar为主控制器
     self.window.rootViewController = tabBar;
 }
 
+#pragma mark- 版本更新
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [HYBJPushHelper registerDeviceToken:deviceToken];
     self.registrationID = [APService registrationID];
     [self onCheckVersion];
     return;
 }
-
 
 -(void)onCheckVersion
 {
