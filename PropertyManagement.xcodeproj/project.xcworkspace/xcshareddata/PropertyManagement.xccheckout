@@ -12,22 +12,34 @@
 	<dict>
 		<key>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</key>
 		<string>https://github.com/MyLoveShi/PropertyManagement-.git</string>
+		<key>FE7584BD4C44592F9D15A624C9670CC7B7656A80</key>
+		<string>https://github.com/shanshendaren/Lovejia.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>PropertyManagement.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</key>
+		<string>../../../PropertyManagement%20</string>
+		<key>FE7584BD4C44592F9D15A624C9670CC7B7656A80</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/MyLoveShi/PropertyManagement-.git</string>
+	<string>https://github.com/shanshendaren/Lovejia.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</string>
+	<string>FE7584BD4C44592F9D15A624C9670CC7B7656A80</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FE7584BD4C44592F9D15A624C9670CC7B7656A80</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Lovejia</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
