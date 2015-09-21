@@ -61,6 +61,7 @@
     [super viewWillAppear:animated];
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     [app.tabBar customTabBarHidden:NO];
+
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_bg1"] forBarMetrics:UIBarMetricsDefault];
 //    self.navigationController.navigationBar.shadowImage =[[UIImage alloc]init];
 //
@@ -75,18 +76,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
     self.view.backgroundColor = [UIColor whiteColor];
-   
-
-//    
-//    UIImageView * imageV =[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 110)];
-//    
-//    imageV.image = [UIImage imageNamed:@"广告"];
-//    [self.view addSubview:imageV];
+    [self.navigationController setNavigationBarHidden:YES];
+    
     [self createUI];
     newCount = 0;
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
+//    RequestUtil *request4 =[[RequestUtil alloc]init];
+//    NSString *biz4 = [NSString  stringWithFormat:@"{\"type\":\"3\"}"];
+//    NSString *sid4 = @"QueryPic";
+//    [request4 startRequest:sid4 biz:biz4 send:self];
+//    
     RequestUtil *request2 =[[RequestUtil alloc]init];
     NSString *biz2 = [NSString  stringWithFormat:@"{\"type\":\"0\"}"];
     NSString *sid2 = @"QueryRegistorNum";
@@ -111,9 +111,9 @@
 }
 
 -(void)createUI{
-    [VersionAdapter setViewLayout:self];
-    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
-    self.title =@"爱家";
+//    [VersionAdapter setViewLayout:self];
+//    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
+//    self.title =@"爱家";
     
 //    UIButton * item = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 25)];
 //    [item setBackgroundImage:[UIImage imageNamed:@"15"] forState:UIControlStateNormal];
@@ -121,22 +121,21 @@
 //    self.navigationItem.rightBarButtonItem = rightbut;
     
     //主页的武汉设置
-    ysButton * leftbtn = [[ysButton alloc]initWithFrame:CGRectMake(0, 0, 50, 25)];
+ //   ysButton * leftbtn = [[ysButton alloc]initWithFrame:CGRectMake(0, 0, 50, 25)];
  //   [leftbtn setImage:[UIImage imageNamed:@"16"] forState:UIControlStateNormal];
-    [leftbtn setTitle:@"武汉" forState:(UIControlStateNormal)];
-    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftbtn];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+//    [leftbtn setTitle:@"武汉" forState:(UIControlStateNormal)];
+//    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftbtn];
+//    self.navigationItem.leftBarButtonItem = leftItem;
+//    
+//    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+//    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     self.flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [self.flowLayout setItemSize:CGSizeMake((self.view.frame.size.width-3)/4.0, 75)];
     [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     self.flowLayout.minimumInteritemSpacing = 1.0;
     self.flowLayout.minimumLineSpacing = 1.0;
-//    [flowLayout setSectionInset:UIEdgeInsetsMake(5, 5, 5, 5)];
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 125, 320, self.view.frame.size.height-64-49-120-5) collectionViewLayout:self.flowLayout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 150, 320, self.view.frame.size.height-150) collectionViewLayout:self.flowLayout];
 //    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"hxwHeader"];
 //    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"hxwHeader"];
     UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, self.collectionView.frame.size.height)];
@@ -154,25 +153,18 @@
 //    [self createBack];
 }
 
-
-#pragma mark collection
-
-
-
-
-
--(void)createBack{
-    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 110, 20);
-    backButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    countLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 110, 20)];
-    countLabel.textAlignment = NSTextAlignmentRight;
-    countLabel.font =[UIFont fontWithName:nil size:13];
-    countLabel.textColor =[UIColor blackColor];
-    [backButton addSubview:countLabel];
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
-}
+//-(void)createBack{
+//    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
+//    backButton.frame = CGRectMake(0, 0, 110, 20);
+//    backButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//    countLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 110, 20)];
+//    countLabel.textAlignment = NSTextAlignmentRight;
+//    countLabel.font =[UIFont fontWithName:nil size:13];
+//    countLabel.textColor =[UIColor blackColor];
+//    [backButton addSubview:countLabel];
+//    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
+//}
 
 
 
@@ -210,20 +202,20 @@
             for (int i = 0; i < arr.count; ++i) {
                 NSDictionary *dic =[arr objectAtIndex:i];
                 NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"picPath"]]];
-                UIImageView *bgIV= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 120)];
+                UIImageView *bgIV= [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 120)];
                 [bgIV sd_setImageWithURL:url placeholderImage:nil];
                 [viewsArray addObject:bgIV];
             }
+            }
             //创建一个自动滚动的ScrollView
-            PFAutomaticScrollView *scrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 120) animationDuration:5.5 delegate:self];
+            PFAutomaticScrollView *scrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 20, 320, 150) animationDuration:5.5 delegate:self];
             //ScrollView的背景
-            scrollView.backgroundColor = [[UIColor purpleColor] colorWithAlphaComponent:0.1];
+                scrollView.backgroundColor = [[UIColor purpleColor]colorWithAlphaComponent:0.1];
             [self.view addSubview:scrollView];
             }
         }
         if([json objectForKey:@"registorNum"]){
             countStr =[NSString stringWithFormat:@"在线人数:%@",[json objectForKey:@"registorNum"]];
-        }
     }else{
         [SVProgressHUD showErrorWithStatus:json[@"message"]];
     }
@@ -261,14 +253,14 @@
 //设置点击事件
 - (void)automaticScrollView:(PFAutomaticScrollView *)automaticScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    NSLog(@"点击了第%ld个", (long)index);
+ //   NSLog(@"点击了第%ld个", (long)index);
 }
 
 #pragma mark - CollectionViewDelegate
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==0 ||section ==1) {
-        return CGSizeMake(self.view.frame.size.width, 10);
+        return CGSizeMake(self.view.frame.size.width, 20);
     }
     else if (section ==2){
    return CGSizeMake(self.view.frame.size.width, 1);
@@ -277,8 +269,6 @@
 }
 
 //设置头尾部
-
-
 //-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
 //    UICollectionReusableView  * headView;
 //    if ([kind isEqual:UICollectionElementKindSectionHeader]||indexPath.section ==2) {
@@ -294,10 +284,10 @@
 //每组的cell的size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 || indexPath.section == 3) {
-        return CGSizeMake((self.view.frame.size.width-3)/4.0, 70);
+        return CGSizeMake((self.view.frame.size.width-3)/4.0, 80);
     }
     else if(indexPath.section == 2){
-        return CGSizeMake(self.view.frame.size.width, 20);
+        return CGSizeMake(self.view.frame.size.width, 10);
     }
     else{
         return CGSizeMake(self.view.frame.size.width, 100) ;
@@ -334,12 +324,13 @@
     for (UIView *view in cell.contentView.subviews) {
         [view removeFromSuperview];
     }
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(7, 50, 60, 20)];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(7, 45, 60, 20)];
     label.textAlignment = 1;
-    [label setFont:[UIFont fontWithName:nil size:9]];
-      label.textColor = [UIColor colorWithRed:(147.0f/255.0f) green:(147.0f/255.0f) blue:(147.0f/255.0f) alpha:1.0f];
+    [label setFont:[UIFont fontWithName:@"Arial" size:8]];
+      label.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1);
     [cell.contentView addSubview:label];
-    UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(12, 0, 50, 50)];
+    
+    UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(25, 18, 25, 25)];
     [cell.contentView addSubview:iv];
 
     
@@ -396,6 +387,7 @@
         
     }
 }
+#pragma mark- 首页上边广告展示
   else if (indexPath.section ==1){
       UIScrollView * scrollview = [[UIScrollView alloc]init];
       scrollview.frame = cell.bounds;
@@ -426,7 +418,7 @@
       scrollview.scrollEnabled = NO;
       self.ScrollV = scrollview;
       
-      
+#pragma mark- 首页下边广告展示
       UIButton * button1 =[[UIButton alloc]initWithFrame:CGRectMake(5, 38, 15, 30)];
       [button1 setImage:[UIImage imageNamed:@"14"] forState:UIControlStateNormal];
       [button1 addTarget:self action:@selector(onScrollview) forControlEvents:UIControlEventTouchUpInside];

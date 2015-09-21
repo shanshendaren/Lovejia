@@ -49,7 +49,7 @@
     [self.view addSubview:titleLabel];
     
     timeLabel =  [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-120, 40,120,20)];
-    timeLabel.font = [UIFont fontWithName:nil size:12];
+    timeLabel.font = [UIFont fontWithName:@"Arial" size:12];
     [self.view addSubview:timeLabel];
     
     contentView= [[UITextView  alloc] initWithFrame:CGRectMake(20, 60, self.view.frame.size.width-40, self.view.frame.size.height-60-[VersionAdapter getMoreVarHead])] ; //初始化大小

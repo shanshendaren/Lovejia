@@ -89,12 +89,12 @@
     [sv addSubview:view1];
     
     UILabel * l1 =[[UILabel alloc]initWithFrame:CGRectMake(10, 215, 60, 30)];
-    [l1 setFont:[UIFont fontWithName:nil size:14]];
+    [l1 setFont:[UIFont fontWithName:@"Arial" size:14]];
     l1.text = @"小区名:";
     [sv addSubview:l1];
     
     l2 =[[UILabel alloc]initWithFrame:CGRectMake(70, 215, self.view.frame.size.width-80, 30)];
-    [l2 setFont:[UIFont fontWithName:nil size:14]];
+    [l2 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l2];
     
     UIView *line1 =[[UIView alloc]initWithFrame:CGRectMake(0, 245, self.view.frame.size.width, 1)];
@@ -103,11 +103,11 @@
     
     UILabel * l3 =[[UILabel alloc]initWithFrame:CGRectMake(10, 246, 60, 30)];
     l3.text = [NSString stringWithFormat:@"%@",@"地    址:" ];
-    [l3 setFont:[UIFont fontWithName:nil size:14]];
+    [l3 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l3];
     
     l4 =[[UILabel alloc]initWithFrame:CGRectMake(70, 246, self.view.frame.size.width-80, 30)];
-    [l4 setFont:[UIFont fontWithName:nil size:14]];
+    [l4 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l4];
     
     
@@ -118,11 +118,11 @@
     
     UILabel * l5 =[[UILabel alloc]initWithFrame:CGRectMake(10, 290, 60, 30)];
     l5.text = [NSString stringWithFormat:@"%@",@"物    管:" ];
-    [l5 setFont:[UIFont fontWithName:nil size:14]];
+    [l5 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l5];
     
     l6 =[[UILabel alloc]initWithFrame:CGRectMake(70, 290, self.view.frame.size.width-80, 30)];
-    [l6 setFont:[UIFont fontWithName:nil size:14]];
+    [l6 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l6];
     
     UIView *line2 =[[UIView alloc]initWithFrame:CGRectMake(0, 320, self.view.frame.size.width, 1)];
@@ -132,11 +132,11 @@
     
     UILabel * l7 =[[UILabel alloc]initWithFrame:CGRectMake(10, 320, 60, 30)];
     l7.text = @"居委会:";
-    [l7 setFont:[UIFont fontWithName:nil size:14]];
+    [l7 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l7];
     
     l8 =[[UILabel alloc]initWithFrame:CGRectMake(70, 320, self.view.frame.size.width-80, 30)];
-    [l8 setFont:[UIFont fontWithName:nil size:14]];
+    [l8 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [sv addSubview:l8];
     
     UIView *view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 351, self.view.frame.size.width, 13)];
@@ -187,10 +187,10 @@
         contentView.text = [NSString stringWithFormat:@"%@",[biz objectForKey:@"vallageDetail"]];
         contentView.lineBreakMode = NSLineBreakByWordWrapping;
         contentView.numberOfLines = 0;
-        UIFont* font = [UIFont fontWithName:nil size:14];
+        UIFont* font = [UIFont fontWithName:@"Arial" size:14];
         CGSize titleSize = [ contentView.text sizeWithFont:font constrainedToSize:CGSizeMake(self.view.frame.size.width-20, 2000) lineBreakMode:NSLineBreakByWordWrapping];
         [contentView setFrame:CGRectMake(10, 410, titleSize.width, titleSize.height)];
-        contentView.font =[UIFont fontWithName:nil size:14];
+        contentView.font =[UIFont fontWithName:@"Arial" size:14];
         [sv setContentSize:CGSizeMake(self.view.frame.size.width, 410+contentView.frame.size.height)];
     }
     else{
@@ -236,7 +236,7 @@
     backButton1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     countLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 110, 20)];
     countLabel.textAlignment = NSTextAlignmentRight;
-    countLabel.font =[UIFont fontWithName:nil size:13];
+    countLabel.font =[UIFont fontWithName:@"Arial" size:13];
     countLabel.textColor =[UIColor whiteColor];
     [backButton1 addSubview:countLabel];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton1];

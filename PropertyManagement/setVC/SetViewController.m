@@ -93,7 +93,7 @@
     [bgIV addSubview:userIV];
 
     userLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 105, self.view.frame.size.width, 20)];
-    [userLabel setFont:[UIFont fontWithName:nil size:14]];
+    [userLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     userLabel.text = [NSString stringWithFormat:@"欢迎您,%@",app.userName];
     userLabel.textAlignment = 0;
     userLabel.adjustsFontSizeToFitWidth = YES;
@@ -134,7 +134,7 @@
     if (!newcell) {
         newcell = [[AppCenterTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    newcell.titleLabel.font = [UIFont fontWithName:nil size:15];
+    newcell.titleLabel.font = [UIFont fontWithName:@"Arial" size:15];
     if (indexPath.section == 0) {
         UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0,54,self.view.frame.size.width , 1)];
         view.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0];

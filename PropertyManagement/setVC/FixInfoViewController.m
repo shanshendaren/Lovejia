@@ -108,12 +108,12 @@
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     titleLabel.text = @"报修标题";
-    [titleLabel setFont:[UIFont fontWithName:nil size:15]];
+    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
     [titleLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view1 addSubview:titleLabel];
     
     titleLabelInfo = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, self.view.frame.size.width-120, 30)];
-    titleLabelInfo.font = [UIFont fontWithName:nil size:14];
+    titleLabelInfo.font = [UIFont fontWithName:@"Arial" size:14];
     [view1 addSubview:titleLabelInfo];
     
     Y = view1.frame.size.height + view1.frame.origin.y+ 10;
@@ -128,12 +128,12 @@
     
     UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     complainLabel.text = @"创建时间";
-    [complainLabel setFont:[UIFont fontWithName:nil size:15]];
+    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
     [complainLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view2 addSubview:complainLabel];
 
     timeLabel =  [[UILabel alloc]initWithFrame:CGRectMake(120, 5,self.view.frame.size.width-120,30)];
-    timeLabel.font = [UIFont fontWithName:nil size:12];
+    timeLabel.font = [UIFont fontWithName:@"Arial" size:12];
     [view2 addSubview:timeLabel];
     
     Y = view2.frame.size.height + view2.frame.origin.y+ 10;
@@ -144,7 +144,7 @@
     
     UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 65, 80, 40)];
     infoLabel.text = @"报修内容";
-    [infoLabel setFont:[UIFont fontWithName:nil size:15]];
+    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
     [infoLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view3 addSubview:infoLabel];
     
@@ -177,12 +177,12 @@
     
     UILabel *doLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     doLabel.text = @"处理时间";
-    [doLabel setFont:[UIFont fontWithName:nil size:15]];
+    [doLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
     [doLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view4 addSubview:doLabel];
 
     isdone = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, self.view.frame.size.width-120, 30)];
-    isdone.font = [UIFont fontWithName:nil size:14];
+    isdone.font = [UIFont fontWithName:@"Arial" size:14];
     [view4 addSubview:isdone];
     
     Y = view4.frame.size.height + view4.frame.origin.y+ 10;
@@ -194,7 +194,7 @@
     
     UILabel *infoLabel6 = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 80, 40)];
     infoLabel6.text = @"受理方案";
-    [infoLabel6 setFont:[UIFont fontWithName:nil size:15]];
+    [infoLabel6 setFont:[UIFont fontWithName:@"Arial" size:15]];
     [infoLabel6 setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view6 addSubview:infoLabel6];
     
@@ -226,7 +226,7 @@
     
     UILabel *doLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     doLabel1.text = @"   评价";
-    [doLabel1 setFont:[UIFont fontWithName:nil size:15]];
+    [doLabel1 setFont:[UIFont fontWithName:@"Arial" size:15]];
     [doLabel1 setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view5 addSubview:doLabel1];
     

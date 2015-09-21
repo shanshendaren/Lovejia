@@ -43,7 +43,7 @@
     UIImageView *iv1 =[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv1 setImage:[UIImage imageNamed:@"step_now_1.png"]];
     UILabel * label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label1 setFont:[UIFont fontWithName:nil size:14]];
+    [label1 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label1.text = @"1.手机验证";
     label1.textAlignment = 1;
     [iv1 addSubview:label1];
@@ -53,7 +53,7 @@
     [iv2 setImage:[UIImage imageNamed:@"step_1.png"]];
     
     UILabel * label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label2 setFont:[UIFont fontWithName:nil size:14]];
+    [label2 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label2.text = @"2.手机确认";
     label2.textAlignment = 1;
     [iv2 addSubview:label2];
@@ -62,7 +62,7 @@
     UIImageView *iv3 =[[UIImageView alloc]initWithFrame:CGRectMake(30+2*iv1.frame.size.width, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv3 setImage:[UIImage imageNamed:@"step_2.png"]];
     UILabel * label3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label3 setFont:[UIFont fontWithName:nil size:14]];
+    [label3 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label3.text = @"3.密码重置";
     label3.textAlignment = 1;
     [iv3 addSubview:label3];
@@ -74,13 +74,13 @@
     
     
     UILabel * infoL = [[UILabel alloc]initWithFrame:CGRectMake(10, 55, self.view.frame.size.width, 30)];
-    [infoL setFont:[UIFont fontWithName:nil size:14]];
+    [infoL setFont:[UIFont fontWithName:@"Arial" size:14]];
     infoL.text = @"请输入您的手机号（用户号）进行验证";
     [self.view addSubview:infoL];
 
     
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 95, 60, 30)];
-    [label setFont:[UIFont fontWithName:nil size:14]];
+    [label setFont:[UIFont fontWithName:@"Arial" size:14]];
     label.text = @"手机号";
     label.textAlignment = 1;
     [self.view addSubview:label];
@@ -95,7 +95,7 @@
     cardFiled.placeholder = @"请输入手机";
     [cardFiled setBackgroundColor:[UIColor clearColor]];
     cardFiled.delegate = self;
-    [cardFiled setFont:[UIFont fontWithName:nil size:14]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [im addSubview:cardFiled];
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];

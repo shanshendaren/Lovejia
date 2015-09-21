@@ -47,7 +47,7 @@
     
     UILabel *oldLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 15, 200, 20)];
     oldLabel.text = @"原始密码";
-    [oldLabel setFont:[UIFont fontWithName:nil size:14]];
+    [oldLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     [self.view addSubview:oldLabel];
     
     UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, 40)];
@@ -59,13 +59,13 @@
     OldpassWordFiled.placeholder = @"6-16个字符，区分大小写";
     OldpassWordFiled.delegate = self;
     OldpassWordFiled.secureTextEntry = YES;
-    [OldpassWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [OldpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view1 addSubview:OldpassWordFiled];
     
     
     UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 95, 200, 20)];
     newLabel.text = @"新密码";
-    [newLabel setFont:[UIFont fontWithName:nil size:14]];
+    [newLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
 
     [self.view addSubview:newLabel];
     
@@ -77,13 +77,13 @@
     newpassWordFiled.tag =1;
     newpassWordFiled.placeholder = @"6-16个字符，区分大小写";
     newpassWordFiled.delegate = self;
-    [newpassWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [newpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     newpassWordFiled.secureTextEntry = YES;
     [view2 addSubview:newpassWordFiled];
     
     UILabel *renewLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 175, 200, 20)];
     renewLabel.text = @"确认新密码";
-    [renewLabel setFont:[UIFont fontWithName:nil size:14]];
+    [renewLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     [self.view addSubview:renewLabel];
     
     UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 40)];
@@ -92,7 +92,7 @@
     
     rePassWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(20, 5, self.view.frame.size.width-40, 30)];
     rePassWordFiled.tag = 2;
-    [rePassWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [rePassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     rePassWordFiled.placeholder = @"6-16个字符，区分大小写";
     rePassWordFiled.delegate = self;
     rePassWordFiled.secureTextEntry = YES;

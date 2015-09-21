@@ -10,8 +10,6 @@
 	<string>PropertyManagement</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</key>
-		<string>https://github.com/MyLoveShi/PropertyManagement-.git</string>
 		<key>FE7584BD4C44592F9D15A624C9670CC7B7656A80</key>
 		<string>https://github.com/shanshendaren/Lovejia.git</string>
 	</dict>
@@ -19,8 +17,6 @@
 	<string>PropertyManagement.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</key>
-		<string>../../../PropertyManagement%20</string>
 		<key>FE7584BD4C44592F9D15A624C9670CC7B7656A80</key>
 		<string>../..</string>
 	</dict>
@@ -39,14 +35,6 @@
 			<string>FE7584BD4C44592F9D15A624C9670CC7B7656A80</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Lovejia</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>273DE30CD70AC4298D179721FEDEBF1B9CE368F1</string>
-			<key>IDESourceControlWCCName</key>
-			<string>PropertyManagement%20</string>
 		</dict>
 	</array>
 </dict>

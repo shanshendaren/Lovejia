@@ -57,27 +57,30 @@
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
     
-    UIImageView *userIV = [[UIImageView alloc]initWithFrame:CGRectMake(40, 200, self.view.frame.size.width-80, 40)];
+    UIImageView *userIV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 145, self.view.frame.size.width-40, 40)];
     [userIV setUserInteractionEnabled:YES];
     [userIV setImage:[UIImage imageNamed:@"user_inputbox.png"]];
     [bgIV addSubview:userIV];
     
-    userLogin =[[UITextField alloc]initWithFrame:CGRectMake(30, 0, self.view.frame.size.width-110, 40)];
+    userLogin =[[UITextField alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-110, 40)];
+    userLogin.font = [UIFont fontWithName:@"Arial" size:14];
     userLogin.tag = 0;
     userLogin.delegate = self;
-    userLogin.placeholder = @"请输入账号";
+    userLogin.placeholder = @"账号";
     [userIV addSubview:userLogin];
     
     if ([userDefault objectForKey:@"userName"]) {
         userLogin.text = [NSString stringWithFormat:@"%@",[userDefault objectForKey:@"userName"]];
     }
-    UIImageView *passWordIV = [[UIImageView alloc]initWithFrame:CGRectMake(40, 250, self.view.frame.size.width-80, 40)];
+    UIImageView *passWordIV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 185, self.view.frame.size.width-40, 40)];
+    passWordIV.backgroundColor = [UIColor whiteColor];
     [passWordIV setUserInteractionEnabled:YES];
     [passWordIV setImage:[UIImage imageNamed:@"password_inputbox.png"]];
     [bgIV addSubview:passWordIV];
     
-    passWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(30, 0, self.view.frame.size.width-110, 40)];
-    passWordFiled.placeholder = @"请输入密码";
+    passWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-110, 40)];
+    passWordFiled.font = [UIFont fontWithName:@"Arial" size:14];
+    passWordFiled.placeholder = @"密码";
     userLogin.tag = 1;
     passWordFiled.delegate = self;
     passWordFiled.secureTextEntry = YES;
@@ -87,7 +90,7 @@
     }
     UIButton *LoginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     LoginBtn.tag = 1;
-    [LoginBtn setFrame:CGRectMake(40, 300, self.view.frame.size.width-80, 40)];
+    [LoginBtn setFrame:CGRectMake(20, 245, self.view.frame.size.width-40, 30)];
     [LoginBtn setTitle:@"登  录" forState:UIControlStateNormal];
     [LoginBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [LoginBtn setTintColor:[UIColor whiteColor]];
@@ -96,22 +99,24 @@
     [bgIV addSubview:LoginBtn];
     
     UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    forgetBtn.tag = 2;
-    [forgetBtn setFrame:CGRectMake(self.view.frame.size.width/2-70, 375, 60, 30)];
-    [forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    forgetBtn.tag = 3;
+    [forgetBtn setFrame:CGRectMake(self.view.frame.size.width/2-100,290, 100, 30)];
+    [forgetBtn setTitle:@"注册爱家账号" forState:UIControlStateNormal];
+    forgetBtn.titleLabel.font = [UIFont fontWithName:@"Arial" size:12];
     [forgetBtn setTintColor:[UIColor lightGrayColor]];
     [forgetBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
     [forgetBtn setBackgroundColor:[UIColor clearColor]];
     [bgIV addSubview:forgetBtn];
     
-    UIView * iv = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2, 382, 1, 16)];
+    UIView * iv = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2, 295, 1, 16)];
     [iv setBackgroundColor:[UIColor lightGrayColor]];
     [bgIV addSubview:iv];
     
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    registerBtn.tag = 3;
-    [registerBtn setFrame:CGRectMake(self.view.frame.size.width/2+10,375, 60, 30)];
-    [registerBtn setTitle:@"注册账号" forState:UIControlStateNormal];
+    registerBtn.tag = 2;
+    [registerBtn setFrame:CGRectMake(self.view.frame.size.width/2+10, 290, 60, 30)];
+    [registerBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+    registerBtn.titleLabel.font = [UIFont fontWithName:@"Arial" size:12];
     [registerBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
     [registerBtn setTintColor:[UIColor lightGrayColor]];
     [registerBtn setBackgroundColor:[UIColor clearColor]];
@@ -158,13 +163,14 @@
             break;
         case 3:
         {
-            CATransition *transition = [CATransition animation];
-            transition.duration = 1.f;
-            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-            transition.type = @"oglFlip";
-            transition.subtype = kCATransitionFromRight;
-            transition.delegate = self;
-            [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//            CATransition *transition = [CATransition animation];
+//            transition.duration = 1.f;
+//            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//            transition.type = @"oglFlip";
+//            transition.subtype = kCATransitionFromRight;
+//            transition.delegate = self;
+//            [self.navigationController.view.layer addAnimation:transition forKey:nil];
+ 
             RegisterViewController *rc = [[RegisterViewController alloc]init];
             rc.title = @"注册";
             [self.navigationController pushViewController:rc animated:YES];

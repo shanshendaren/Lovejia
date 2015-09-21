@@ -22,6 +22,7 @@
 
 @implementation BZAppDelegate
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     application.statusBarHidden = NO;
@@ -83,11 +84,9 @@
     BZAppDelegate *app =[UIApplication sharedApplication].delegate;
 
     MainViewController *first = [[MainViewController alloc] init];
-//    BuyViewController *second = [[BuyViewController alloc] init];
     ConvenientServiceViewController *third = [[ConvenientServiceViewController alloc] init];
     SetViewController *fourth = [[SetViewController alloc] init];
     //视图控制器的数组
-//    NSArray *array = [[NSArray alloc] initWithObjects:first, second, third, fourth, nil];
     NSArray *array = [[NSArray alloc] initWithObjects:first, third, fourth, nil];
 
     
@@ -97,19 +96,17 @@
     tabBar.newCount = app.unReadBarterNum + app.unReadNeigNum;
     _tabBar = tabBar;
     //未被选中的图片的数组
-//    NSArray *normalBackgroundArray = [[NSArray alloc] initWithObjects:@"main.png", @"buy.png", @"inf.png", @"per.png", nil];
     
     NSArray *normalBackgroundArray = [[NSArray alloc] initWithObjects:@"tabbar", @"tabbar2", @"tabbar1", nil];
 
     //被选中的图片的数组
-//    NSArray *selectedBackgroundArray = [[NSArray alloc] initWithObjects:@"main_hover.png", @"buy_hover.png", @"inf_hover.png", @"per_hover.png", nil];
     NSArray *selectedBackgroundArray = [[NSArray alloc] initWithObjects:@"tabbarSel", @"tabbarSel2", @"tabbarSel1", nil];
 
     
     
     //TabBar的文字的数组
 //    NSArray *l = [[NSArray alloc] initWithObjects:@"物业服务", @"物业代购", @"生活服务", @"个人中心",  nil];
-    NSArray *l = [[NSArray alloc] initWithObjects:@"物业管理", @"便民服务", @"我的",  nil];
+    NSArray *l = [[NSArray alloc] initWithObjects:@"首页", @"便民服务", @"我的",  nil];
 
     
     //调用自定义的方法设置TabBar上的视图
@@ -123,7 +120,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [HYBJPushHelper registerDeviceToken:deviceToken];
     self.registrationID = [APService registrationID];
-    [self onCheckVersion];
+   // [self onCheckVersion];
     return;
 }
 
@@ -157,11 +154,11 @@
             
             //trackViewURL = [releaseInfo objectForKey:@trackVireUrl];
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"更新" message:@"有新的版本更新，是否前往更新？" delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
-            
-            alert.tag = 10000;
-            
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"更新" message:@"有新的版本更新，是否前往更新？" delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
+//            
+//            alert.tag = 10000;
+//            
+//            [alert show];
             
         }
         else{

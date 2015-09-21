@@ -78,13 +78,13 @@
     
     UILabel *l1 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 60, 20)];
     l1.textAlignment =1;
-    l1.font =[UIFont fontWithName:nil size:13];
+    l1.font =[UIFont fontWithName:@"Arial" size:13];
     l1.text = @"姓名";
     [view1 addSubview:l1];
     
     nameFiled =[[UITextField alloc]initWithFrame:CGRectMake(70, 5, self.view.frame.size.width - 100, 30)];
     nameFiled.delegate = self;
-    [nameFiled setFont:[UIFont fontWithName:nil size:13]];
+    [nameFiled setFont:[UIFont fontWithName:@"Arial" size:13]];
     if (app.userName) {
         nameFiled.text =[NSString stringWithFormat:@"%@",app.userName];
     }
@@ -97,12 +97,12 @@
     
     UILabel *l2 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 60, 20)];
     l2.textAlignment =1;
-    l2.font =[UIFont fontWithName:nil size:13];
+    l2.font =[UIFont fontWithName:@"Arial" size:13];
     l2.text = @"身份证号";
     [view2 addSubview:l2];
     
     cardFiled =[[UITextField alloc]initWithFrame:CGRectMake(70, 5, self.view.frame.size.width - 100, 30)];
-    [cardFiled setFont:[UIFont fontWithName:nil size:13]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:13]];
     cardFiled.placeholder = @"请输入身份证号码";
     cardFiled.delegate = self;
     if (app.userCardNum) {
@@ -116,12 +116,12 @@
     
     UILabel *l3 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 60, 20)];
     l3.textAlignment =1;
-    l3.font =[UIFont fontWithName:nil size:13];
+    l3.font =[UIFont fontWithName:@"Arial" size:13];
     l3.text = @"邮箱";
     [view3 addSubview:l3];
     
     emailFiled =[[UITextField alloc]initWithFrame:CGRectMake(70, 5, self.view.frame.size.width - 100, 30)];
-    [emailFiled setFont:[UIFont fontWithName:nil size:13]];
+    [emailFiled setFont:[UIFont fontWithName:@"Arial" size:13]];
     emailFiled.placeholder = @"例如:admin@admin.com";
     emailFiled.delegate =self;
     if (app.userEmail) {
@@ -135,7 +135,7 @@
     
     UILabel *l4 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 60, 20)];
     l4.textAlignment =1;
-    l4.font =[UIFont fontWithName:nil size:13];
+    l4.font =[UIFont fontWithName:@"Arial" size:13];
     l4.text = @"性别";
     [view4 addSubview:l4];
     
@@ -147,7 +147,7 @@
     [self.sexMen addTarget:self action:@selector(sexButClick:) forControlEvents:UIControlEventTouchDown];
     UILabel * labelMen = [[UILabel alloc]initWithFrame:CGRectMake(100, 10, 50, 20)];
     labelMen.text = @"男";
-    labelMen.font =[UIFont fontWithName:nil size:13];
+    labelMen.font =[UIFont fontWithName:@"Arial" size:13];
     [view4 addSubview:labelMen];
     
     [view4 addSubview:self.sexMen];
@@ -160,7 +160,7 @@
     
     UILabel * labelWomen = [[UILabel alloc]initWithFrame:CGRectMake(185, 10, 50, 20)];
     labelWomen.text = @"女";
-    labelWomen.font =[UIFont fontWithName:nil size:13];
+    labelWomen.font =[UIFont fontWithName:@"Arial" size:13];
     [view4 addSubview:labelWomen];
 
     [view4 addSubview:self.sexWomen];

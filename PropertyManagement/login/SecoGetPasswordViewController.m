@@ -42,7 +42,7 @@
     UIImageView *iv1 =[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv1 setImage:[UIImage imageNamed:@"step_1.png"]];
     UILabel * label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label1 setFont:[UIFont fontWithName:nil size:14]];
+    [label1 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label1.text = @"1.手机验证";
     label1.textAlignment = 1;
     [iv1 addSubview:label1];
@@ -52,7 +52,7 @@
     [iv2 setImage:[UIImage imageNamed:@"step_now_1.png"]];
     
     UILabel * label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label2 setFont:[UIFont fontWithName:nil size:14]];
+    [label2 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label2.text = @"2.手机确认";
     label2.textAlignment = 1;
     [iv2 addSubview:label2];
@@ -61,7 +61,7 @@
     UIImageView *iv3 =[[UIImageView alloc]initWithFrame:CGRectMake(30+2*iv1.frame.size.width, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv3 setImage:[UIImage imageNamed:@"step_2.png"]];
     UILabel * label3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label3 setFont:[UIFont fontWithName:nil size:14]];
+    [label3 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label3.text = @"3.密码重置";
     label3.textAlignment = 1;
     [iv3 addSubview:label3];
@@ -72,17 +72,17 @@
     [self.view addSubview:lineview];
     
     UILabel * infoLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 30)];
-    [infoLabel setFont:[UIFont fontWithName:nil size:14]];
+    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     infoLabel.text = [NSString stringWithFormat:@"您的手机号码为%@验证成功",self.mobile];
     infoLabel.textAlignment = 1;
     [self.view addSubview:infoLabel];
-    
+//获取验证码；
     UIButton *getNumber = [UIButton buttonWithType:UIButtonTypeCustom];
     [getNumber setFrame:CGRectMake(self.view.frame.size.width/2-60, 95,120, 30)];
     [getNumber setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [getNumber addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     UILabel * NumLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 30)];
-    [NumLabel setFont:[UIFont fontWithName:nil size:14]];
+    [NumLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     NumLabel.text = @"获取验证码";
     NumLabel.textAlignment = 1;
     [getNumber addSubview:NumLabel];
@@ -90,7 +90,7 @@
     [self.view addSubview:getNumber];
 
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 150, 60, 30)];
-    [label setFont:[UIFont fontWithName:nil size:14]];
+    [label setFont:[UIFont fontWithName:@"Arial" size:14]];
     label.text = @"验证码";
     label.textAlignment = 1;
     [self.view addSubview:label];
@@ -104,7 +104,7 @@
     cardFiled.placeholder = @"请输入验证码";
     [cardFiled setBackgroundColor:[UIColor clearColor]];
     cardFiled.delegate = self;
-    [cardFiled setFont:[UIFont fontWithName:nil size:14]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [im addSubview:cardFiled];
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -141,6 +141,7 @@
 }
 
 -(void)getCode{
+    
     RequestUtil *requestUtil = [[RequestUtil alloc]init];
     //业务数据参数组织成JSON字符串
     NSString *biz = [NSString  stringWithFormat:@"{\"mobile\":\"%@\"}",self.mobile];

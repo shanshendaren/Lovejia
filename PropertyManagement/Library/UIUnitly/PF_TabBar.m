@@ -14,6 +14,7 @@
 
 //动态获取设备高度
 //#define iPhone_Height (([UIScreen mainScreen].bounds.size.height == 568) ? 568 : 480)
+
 #define COLOR(R, G, B, A)  [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
 
 @interface PF_TabBar ()
@@ -54,14 +55,14 @@
 //初始化TabBar，并传入TabBar的背景，未被选中的图片的Array，选中的图片的Array，文字Array
 - (id)tabBarWithBackgroundImage:(UIImage *)backgroundImage andNormalBackgroundArray:(NSArray *)normalBackgroundArray andSelectedBackgroundArray:(NSArray *)selectedBackgroundArray andTabBarLabelArray:(NSArray *)tabBarLabelArray
 {
-//    self.tabBar.backgroundColor = [UIColor redColor];
 
+//    self.tabBar.backgroundColor = [UIColor redColor];
     [self tabBarHidden:YES];
         [VersionAdapter setViewLayout:self];
     //TabBar的背景
     if (!_tabBarImageView)
         _tabBarImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    _tabBarImageView.frame = CGRectMake(0, self.view.bounds.size.height - 49,self.view.frame.size.width, 49);
+    _tabBarImageView.frame = CGRectMake(0, self.view.bounds.size.height - 40,self.view.frame.size.width, 40);
     _tabBarImageView.userInteractionEnabled = YES;
     [self.view addSubview:_tabBarImageView];
     
@@ -75,7 +76,7 @@
         NSString *normal = [[NSString alloc] initWithFormat:@"%@", [normalBackgroundArray objectAtIndex:i]];
         NSString *selected = [[NSString alloc] initWithFormat:@"%@", [selectedBackgroundArray objectAtIndex:i]];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake((i * self.view.frame.size.width/3), 0, self.view.frame.size.width/3, 49);
+        button.frame = CGRectMake((i * self.view.frame.size.width/3), 0, self.view.frame.size.width/3, 40);
         [button setImage:[UIImage imageNamed:normal] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:selected] forState:UIControlStateSelected];
         button.tag = i;
@@ -87,9 +88,9 @@
         [_tabBarImageView addSubview:button];
     
 //        自定义TabBar的文字
-        UILabel *tabBarLabel = [[UILabel alloc] initWithFrame:CGRectMake((i * self.view.frame.size.width/3), 35, self.view.frame.size.width/3, 11)];
+        UILabel *tabBarLabel = [[UILabel alloc] initWithFrame:CGRectMake((i * self.view.frame.size.width/3), 27, self.view.frame.size.width/3, 10)];
         tabBarLabel.text = tabBarLabelArray[i];
-        tabBarLabel.font = [UIFont systemFontOfSize:9.0f];
+        tabBarLabel.font = [UIFont systemFontOfSize:8.0f];
         tabBarLabel.textAlignment = 1;
         tabBarLabel.textColor = [UIColor grayColor];
         tabBarLabel.backgroundColor = [UIColor clearColor];
@@ -126,7 +127,7 @@
         UILabel *label = [tabBarlabelArray objectAtIndex:i];
         label.textColor = [UIColor grayColor];
     }
-    ((UILabel*)[tabBarlabelArray objectAtIndex:button.tag]).textColor = [UIColor greenColor];
+    ((UILabel*)[tabBarlabelArray objectAtIndex:button.tag]).textColor = [UIColor colorWithRed:0.090 green:0.688 blue:0.200 alpha:1.000];
     button.selected = YES;
 }
 

@@ -68,7 +68,7 @@
     cardFiled.tag =0;
     cardFiled.placeholder = @"请输入验证码";
     cardFiled.delegate = self;
-    [cardFiled setFont:[UIFont fontWithName:nil size:14]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view1 addSubview:cardFiled];
     
     UIButton *reBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -77,13 +77,13 @@
     
     UILabel *agreeL = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
     agreeL.text =@"重获验证码";
-    [agreeL setFont:[UIFont fontWithName:nil size:14]];
+    [agreeL setFont:[UIFont fontWithName:@"Arial" size:14]];
     [agreeL setTextColor:[UIColor redColor]];
     [reBtn addSubview:agreeL];
     [view1 addSubview:reBtn];
     
     countL = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,10, 45, 20)];
-    [countL setFont:[UIFont fontWithName:nil size:14]];
+    [countL setFont:[UIFont fontWithName:@"Arial" size:14]];
     [countL setTextColor:[UIColor grayColor]];
     [view1 addSubview:countL];
 

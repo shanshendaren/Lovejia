@@ -42,7 +42,7 @@
     UIImageView *iv1 =[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv1 setImage:[UIImage imageNamed:@"step_1.png"]];
     UILabel * label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];      
-    [label1 setFont:[UIFont fontWithName:nil size:14]];
+    [label1 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label1.text = @"1.手机验证";
     label1.textAlignment = 1;
     [iv1 addSubview:label1];
@@ -51,7 +51,7 @@
     UIImageView *iv2 =[[UIImageView alloc]initWithFrame:CGRectMake(20+iv1.frame.size.width,10 , (self.view.frame.size.width-40)/3, 30)];
     [iv2 setImage:[UIImage imageNamed:@"step_1.png"]];
     UILabel * label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label2 setFont:[UIFont fontWithName:nil size:14]];
+    [label2 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label2.text = @"2.手机确认";
     label2.textAlignment = 1;
     [iv2 addSubview:label2];
@@ -60,7 +60,7 @@
     UIImageView *iv3 =[[UIImageView alloc]initWithFrame:CGRectMake(30+2*iv1.frame.size.width, 10, (self.view.frame.size.width-40)/3, 30)];
     [iv3 setImage:[UIImage imageNamed:@"step_now_2.png"]];
     UILabel * label3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, iv1.frame.size.width, 30)];
-    [label3 setFont:[UIFont fontWithName:nil size:14]];
+    [label3 setFont:[UIFont fontWithName:@"Arial" size:14]];
     label3.text = @"3.密码重置";
     label3.textAlignment = 1;
     [iv3 addSubview:label3];
@@ -71,12 +71,12 @@
     [self.view addSubview:lineview];
     
     UILabel * infoL = [[UILabel alloc]initWithFrame:CGRectMake(10, 55, self.view.frame.size.width, 30)];
-    [infoL setFont:[UIFont fontWithName:nil size:14]];
+    [infoL setFont:[UIFont fontWithName:@"Arial" size:14]];
     infoL.text = @"您可以重新设置您的登录密码";
     [self.view addSubview:infoL];
     
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 95, 60, 30)];
-    [label setFont:[UIFont fontWithName:nil size:14]];
+    [label setFont:[UIFont fontWithName:@"Arial" size:14]];
     label.text = @"新密码";
     label.textAlignment = 1;
     [self.view addSubview:label];
@@ -96,7 +96,7 @@
     [im addSubview:passWordFiled];
     
     UILabel * newlabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 135, 60, 30)];
-    [newlabel setFont:[UIFont fontWithName:nil size:14]];
+    [newlabel setFont:[UIFont fontWithName:@"Arial" size:14]];
     newlabel.text = @"确认密码";
     newlabel.textAlignment = 1;
     [self.view addSubview:newlabel];
@@ -112,7 +112,7 @@
     rePassWordFiled.placeholder = @"6-16个字符，区分大小写";
     [rePassWordFiled setBackgroundColor:[UIColor clearColor]];
     rePassWordFiled.delegate = self;
-    [rePassWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [rePassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [newim addSubview:rePassWordFiled];
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -167,7 +167,7 @@
         return;
     }
     else if ([rePassWordFiled.text length] == 0){
-        [self doAlert:@"请输确认密码！"];
+        [self doAlert:@"请确认密码！"];
         [rePassWordFiled becomeFirstResponder];
         return;
     }

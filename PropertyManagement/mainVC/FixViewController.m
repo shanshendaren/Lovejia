@@ -103,7 +103,7 @@
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     titleLabel.text = @"报修标题";
-    [titleLabel setFont:[UIFont fontWithName:nil size:18]];
+    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
 //    [titleLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view1 addSubview:titleLabel];
     
@@ -123,7 +123,7 @@
     
     UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
     complainLabel.text = @"报修类型";
-    [complainLabel setFont:[UIFont fontWithName:nil size:18]];
+    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
 //    [complainLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view2 addSubview:complainLabel];
     
@@ -175,7 +175,7 @@
     
     UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 80, 80, 40)];
     infoLabel.text = @"报修内容";
-    [infoLabel setFont:[UIFont fontWithName:nil size:18]];
+    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
     //[infoLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
     [view3 addSubview:infoLabel];
     
@@ -377,7 +377,7 @@
             CGRect frame=_tb.frame;
             frame.size.height=120;
             [_tb setFrame:frame];
-            [_tb.layer setBorderColor:[UIColor grayColor].CGColor];
+            [_tb.layer setBorderColor:[UIColor redColor].CGColor];
         } completion:^(BOOL finished){
             //[self.tap setEnabled:YES];
             isOpened=YES;

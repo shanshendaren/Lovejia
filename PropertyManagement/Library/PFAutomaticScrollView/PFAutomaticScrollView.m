@@ -129,7 +129,7 @@ typedef void (^tapBlock)(PFAutomaticScrollView *, NSInteger);
         self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height - 30, self.bounds.size.width, 30)];
         self.textLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.300];
         self.textLabel.font = [UIFont systemFontOfSize:14];
-        self.textLabel.textColor = [UIColor redColor];
+        self.textLabel.textColor = [UIColor blueColor];
         self.textLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:self.textLabel];
 

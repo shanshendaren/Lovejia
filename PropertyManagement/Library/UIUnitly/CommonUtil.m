@@ -231,7 +231,7 @@
     BOOL isReachable = flags & kSCNetworkFlagsReachable;  
     BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;  
     BOOL nonWiFi = flags & kSCNetworkReachabilityFlagsTransientConnection;  
-    //NSURL *testURL = [NSURL URLWithString:@"http://www.apple.com.cn/"];  
+    //NSURL *testURL = [NSURL URLWithString:@"http://www.apple.com.cn/"];
     NSURL *testURL = [NSURL URLWithString:@"http://www.baidu.com"];
     NSURLRequest *testRequest = [NSURLRequest requestWithURL:testURL  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     //NSURLConnection *testConnection = [[[NSURLConnection alloc] initWithRequest:testRequest delegate:nil] autorelease];  

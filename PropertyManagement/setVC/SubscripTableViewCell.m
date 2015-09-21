@@ -25,7 +25,7 @@
         [self.contentView addSubview:nameLabel];
         
         infoLabel  = [[UILabel alloc]initWithFrame:CGRectMake(80,35,200,20)];
-        infoLabel.font = [UIFont fontWithName:nil size:14];
+        infoLabel.font = [UIFont fontWithName:@"Arial" size:14];
         [infoLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:infoLabel];
         

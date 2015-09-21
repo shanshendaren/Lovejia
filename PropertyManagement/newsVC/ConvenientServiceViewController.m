@@ -12,6 +12,7 @@
 
 #import "WebsViewController.h"
 #import"SFSafeCommunityViewController.h"
+#import "MapViewController.h"
 
 
 @interface ConvenientServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -33,7 +34,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.imageAry = @[@"zixun",@"sffw",@"sh_wei",@"ji_fen",@"ping_an",@"zheng_neng",@"wei_yuan",@"shang_quan"];
     self.labelAry = @[@"生活资讯",@"缴费服务",@"生活微超",@"积分商城",@"平安社区",@"社区正能量",@"业主委员会",@"社区商圈"];
     self.view.backgroundColor = [UIColor clearColor];
@@ -84,7 +84,7 @@
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(7, 55, 60, 20)];
     label.textAlignment = 1;
     label.text = [self.labelAry objectAtIndex:indexPath.row];
-    [label setFont:[UIFont fontWithName:nil size:11]];
+    [label setFont:[UIFont fontWithName:@"Arial" size:11]];
     [cell.contentView addSubview:label];
     UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(12, 5, 50, 50)];
     NSString * imageStr = [self.imageAry objectAtIndex:indexPath.row];
@@ -106,9 +106,10 @@
         [self.navigationController pushViewController:safeCommunityVc animated:NO];
     }
     else if(indexPath.row ==7){
-        WebsViewController *cv1 = [[WebsViewController alloc] init];
-        
-        [self.navigationController pushViewController:cv1 animated:NO];
+//        WebsViewController *cv1 = [[WebsViewController alloc] init];
+//        [self.navigationController pushViewController:cv1 animated:NO];
+        MapViewController *mv =[[MapViewController alloc]init];
+        [self.navigationController pushViewController:mv animated:YES];
     }else{
         
     }

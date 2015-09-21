@@ -12,9 +12,10 @@
 #import "ActivityView.h"
 #import "SVProgressHUD.h"
 #import "BZAppDelegate.h"
-#import "NextRegisterViewController.h"
+//#import "NextRegisterViewController.h"
 #import "VallegeViewController.h"
 #import "Vallage1ViewController.h"
+
 
 #import "Vallage.h"
 #import "TableViewWithBlock.h"
@@ -24,20 +25,24 @@
 #pragma mark---------------协议--------------------
 #import "BZProtocol.h"
 #import "JKAlertDialog.h"
+#import "LoginViewController.h"
 
 
 @interface RegisterViewController (){
-    UITextField *userLogin;
-    UITextField *passWordFiled;
-    UITextField *rePassWordFiled;
-    UITextField *cardFiled;
+    UITextField *userLogin;//手机号
+    UITextField *passWordFiled;//密码
+    UITextField *rePassWordFiled;//确认密码
+    UITextField *cardFiled;//用户名
     ActivityView *activity;
     Vallage *val;
-    UIButton *choose;
-    UIButton *choose1;
-    UITextField *dongFiled;
-    UITextField *danFiled;
-    UITextField *numFiled;
+    UIButton *choose;//区域选择
+    UIButton *choose1;//小区选择
+    UITextField *dongFiled;//楼栋号
+    UITextField *danFiled;//单元号
+    UITextField *numFiled;//房号
+    UITextField *yanFiled;//验证码
+    
+    NSString *codeNum;//发送的验证码
     
     BOOL isOpened;
     int fixType;
@@ -57,72 +62,84 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor colorWithRed:147.0/255.0 green:147.0/255.0  blue:147.0/255.0  alpha:1.0]];
-    [VersionAdapter setViewLayout:self];
-    self.navigationController.navigationBarHidden = NO;
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    
+    [VersionAdapter setViewLayout:self];
+    self.navigationController.navigationBarHidden = YES;
+
     fixType =1;
     [self createUI];
-    [self createBack];
+ //   [self createBack];
 }
 -(void)createUI{
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
+//    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blueColor],NSForegroundColorAttributeName,nil];
+//    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+//    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 115)];
+    [imageV setUserInteractionEnabled:YES];
+    [imageV setImage:[UIImage imageNamed:@"LogIn"]];
+    [self.view addSubview:imageV];
     
-    
-   UIScrollView* sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead])];
+   UIScrollView* sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 110, self.view.frame.size.width, 310)];
     sv.userInteractionEnabled = YES;
-    [sv setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:242.0/255.0  blue:242.0/255.0  alpha:1.0]];
-    [sv setScrollEnabled:YES];
+    sv.scrollEnabled = NO;
+
+ //   [sv setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:242.0/255.0  blue:242.0/255.0  alpha:1.0]];
+    [sv setBackgroundColor:RGBACOLOR(242.f, 242.f, 242.f, 1.f)];
     [self.view addSubview:sv];
 
     
-    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 40)];
+    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
     [view1 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view1];
     
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label1.text = @"姓名:";
+    label1.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label1.textAlignment =1;
-    [label1 setFont:[UIFont fontWithName:nil size:14]];
+    [label1 setFont:[UIFont fontWithName:@"Arial" size:13]];
     [view1 addSubview:label1];
 
-    cardFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-150, 30)];
+    cardFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 10, self.view.frame.size.width-150, 20)];
     cardFiled.tag =0;
     cardFiled.placeholder = @"请输入姓名";
     cardFiled.delegate = self;
-    [cardFiled setFont:[UIFont fontWithName:nil size:14]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:13]];
     [view1 addSubview:cardFiled];
     
     
     self.listTeams = [[NSArray alloc] initWithObjects:@"业主", @"租户", nil];
     self.biaoti_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [ self.biaoti_Btn  setFrame:CGRectMake(self.view.frame.size.width-70, 0,  60, 40)];
+    self.biaoti_Btn.titleLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    [ self.biaoti_Btn  setFrame:CGRectMake(self.view.frame.size.width-70, 0,  60, 30)];
     [ self.biaoti_Btn  addTarget:self action:@selector(changeOpenStatus:) forControlEvents:UIControlEventTouchUpInside];
     [view1 addSubview: self.biaoti_Btn ];
     
-    UIImageView *iv1 =[[UIImageView alloc]initWithFrame:CGRectMake(40, 10, 20, 20)];
+    UIImageView *iv1 =[[UIImageView alloc]initWithFrame:CGRectMake(40, 15, 10, 10)];
     [iv1 setImage:[UIImage imageNamed:@"select.png"]];
     [self.biaoti_Btn addSubview:iv1];
     
-    self.text_Biaoti = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 60, 40)];
+    self.text_Biaoti = [[UITextField alloc]initWithFrame:CGRectMake(10, 5, 50, 30)];
+    self.text_Biaoti.font = [UIFont fontWithName:@"Arial" size:12];
+    self.text_Biaoti.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     [self.text_Biaoti setEnabled:NO];
     self.text_Biaoti.text = [NSString stringWithFormat:@"%@",self.listTeams[0]];
     [self.biaoti_Btn addSubview:self.text_Biaoti];
     
-    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(self.view.frame.size.width-70, 60, 60, 1)];
-    [_tb initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
+    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50, 70, 40, 0.1)];
+        [_tb initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
         return 2;
     } setCellForIndexPathBlock:^(UITableView *tableView,NSIndexPath *indexPath){
         SelectionCell *cell=[tableView dequeueReusableCellWithIdentifier:@"SelectionCell"];
         if (!cell) {
-            cell=[[[NSBundle mainBundle]loadNibNamed:@"SelectionCell" owner:self options:nil]objectAtIndex:0];
+            cell=[[[NSBundle mainBundle]loadNibNamed:@"SelectionCell" owner:self  options:nil] objectAtIndex:0];
             [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
         }
         [cell.lb setText:[NSString stringWithFormat:@"%@",[self.listTeams objectAtIndex:indexPath.row]]];
+        //修改(业主)选择框设置
         cell.backgroundColor = [UIColor whiteColor];
+        cell.lb.font = [UIFont fontWithName:@"Arial" size:12];
         return cell;
     } setDidSelectRowBlock:^(UITableView *tableView,NSIndexPath *indexPath){
         SelectionCell *cell=(SelectionCell*)[tableView cellForRowAtIndexPath:indexPath];
@@ -134,14 +151,15 @@
     [_tb.layer setBorderColor:[UIColor clearColor].CGColor];
     [_tb.layer setBorderWidth:1];
     
-    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 62, self.view.frame.size.width, 40)];
+    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 31, self.view.frame.size.width, 30)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view2];
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label2.text = @"账号:";
+    label2.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label2.textAlignment =1;
-    [label2 setFont:[UIFont fontWithName:nil size:14]];
+    [label2 setFont:[UIFont fontWithName:@"Arial" size:13]];
     [view2 addSubview:label2];
 
 
@@ -149,18 +167,19 @@
     userLogin.tag = 1;
     userLogin.placeholder = @"请输入手机号";
     userLogin.delegate = self;
-    [userLogin setFont:[UIFont fontWithName:nil size:14]];
+    [userLogin setFont:[UIFont fontWithName:@"Arial" size:13]];
     [view2 addSubview:userLogin];
     
     
-    UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, 104, self.view.frame.size.width, 40)];
+    UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, 62, self.view.frame.size.width, 30)];
     [view3 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view3];
     
     UILabel *label3 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label3.text = @"密码:";
+    label3.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label3.textAlignment =1;
-    [label3 setFont:[UIFont fontWithName:nil size:14]];
+    [label3 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view3 addSubview:label3];
 
     passWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-80, 30)];
@@ -168,18 +187,19 @@
     passWordFiled.placeholder = @"请输入6-8位密码";
     passWordFiled.delegate = self;
     passWordFiled.secureTextEntry = YES;
-    [passWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [passWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view3 addSubview:passWordFiled];
     
     
-    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, 146, self.view.frame.size.width, 40)];
+    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, 93, self.view.frame.size.width, 30)];
     [view4 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view4];
     
     UILabel *label4 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label4.text = @"重复密码:";
+    label4.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label4.textAlignment =1;
-    [label4 setFont:[UIFont fontWithName:nil size:14]];
+    [label4 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view4 addSubview:label4];
     
     rePassWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-80, 30)];
@@ -187,46 +207,48 @@
     rePassWordFiled.placeholder = @"请确认密码";
     rePassWordFiled.delegate = self;
     rePassWordFiled.secureTextEntry = YES;
-    [rePassWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [rePassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view4 addSubview:rePassWordFiled];
     
     
-    UIView * view5 = [[UIView alloc]initWithFrame:CGRectMake(0, 188, self.view.frame.size.width, 40)];
+    UIView * view5 = [[UIView alloc]initWithFrame:CGRectMake(0, 124, self.view.frame.size.width, 30)];
     [view5 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view5];
     
     UILabel *label5 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label5.text = @"区域:";
+    label5.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label5.textAlignment =1;
-    [label5 setFont:[UIFont fontWithName:nil size:14]];
+    [label5 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view5 addSubview:label5];
     
     choose = [UIButton buttonWithType:UIButtonTypeCustom];
     choose.tag = 1;
-    [choose setFrame:CGRectMake(80, 5, self.view.frame.size.width-100, 30)];
+    [choose setFrame:CGRectMake(80, 5, self.view.frame.size.width-100, 25)];
     [choose setTitle:@"选择区域" forState:UIControlStateNormal];
     choose.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [choose addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
     [choose setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [choose setBackgroundColor:[UIColor whiteColor]];
-    choose.titleLabel.font=[UIFont fontWithName:nil size:14];
+    choose.titleLabel.font=[UIFont fontWithName:@"Arial" size:14];
 
     [view5 addSubview:choose];
 
-    UIView * view6 = [[UIView alloc]initWithFrame:CGRectMake(0, 230, self.view.frame.size.width, 40)];
+    UIView * view6 = [[UIView alloc]initWithFrame:CGRectMake(0, 155, self.view.frame.size.width, 30)];
     [view6 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view6];
     
     UILabel *label6 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label6.text = @"小区:";
+    label6.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label6.textAlignment =1;
-    [label6 setFont:[UIFont fontWithName:nil size:14]];
+    [label6 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view6 addSubview:label6];
 
     choose1 = [UIButton buttonWithType:UIButtonTypeCustom];
     choose1.tag = 2;
-    choose1.titleLabel.font=[UIFont fontWithName:nil size:14];
-    [choose1 setFrame:CGRectMake(80, 5, self.view.frame.size.width-100, 30)];
+    choose1.titleLabel.font=[UIFont fontWithName:@"Arial" size:14];
+    [choose1 setFrame:CGRectMake(80, 5, self.view.frame.size.width-100, 25)];
     [choose1 setTitle:@"选择小区" forState:UIControlStateNormal];
     [choose1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [choose1 setBackgroundColor:[UIColor whiteColor]];
@@ -234,85 +256,130 @@
     [choose1 addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
     [view6 addSubview:choose1];
     
-    UIView * view7 = [[UIView alloc]initWithFrame:CGRectMake(0, 272, self.view.frame.size.width, 40)];
+    UIView * view7 = [[UIView alloc]initWithFrame:CGRectMake(0, 186, self.view.frame.size.width, 30)];
     [view7 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view7];
     
     UILabel *label7 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label7.text = @"楼/栋:";
+    label7.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label7.textAlignment =1;
-    [label7 setFont:[UIFont fontWithName:nil size:14]];
+    [label7 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view7 addSubview:label7];
     
     dongFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-80, 30)];
     dongFiled.tag = 3;
     dongFiled.placeholder = @"请输入楼/栋号";
     dongFiled.delegate = self;
-    [dongFiled setFont:[UIFont fontWithName:nil size:14]];
+    [dongFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view7 addSubview:dongFiled];
     
     
-    UIView * view8 = [[UIView alloc]initWithFrame:CGRectMake(0, 314, self.view.frame.size.width, 40)];
+    UIView * view8 = [[UIView alloc]initWithFrame:CGRectMake(0, 217, self.view.frame.size.width, 30)];
     [view8 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view8];
     
     UILabel *label8 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label8.text = @"单元号:";
+    label8.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label8.textAlignment =1;
-    [label8 setFont:[UIFont fontWithName:nil size:14]];
+    [label8 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view8 addSubview:label8];
     
     danFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-80, 30)];
     danFiled.tag = 9;
     danFiled.placeholder = @"请输入单元号";
     danFiled.delegate = self;
-    [danFiled setFont:[UIFont fontWithName:nil size:14]];
+    [danFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view8 addSubview:danFiled];
     
-    UIView * view9 = [[UIView alloc]initWithFrame:CGRectMake(0, 356, self.view.frame.size.width, 40)];
+    UIView * view9 = [[UIView alloc]initWithFrame:CGRectMake(0, 248, self.view.frame.size.width, 30)];
     [view9 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view9];
     
     UILabel *label9 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
     label9.text = @"房号:";
+    label9.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
     label9.textAlignment =1;
-    [label9 setFont:[UIFont fontWithName:nil size:14]];
+    [label9 setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view9 addSubview:label9];
     
     numFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, self.view.frame.size.width-80, 30)];
     numFiled.tag = 9;
     numFiled.placeholder = @"请输入单元号";
     numFiled.delegate = self;
-    [numFiled setFont:[UIFont fontWithName:nil size:14]];
+    [numFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [view9 addSubview:numFiled];
-
+    
+    UIView * view10 = [[UIView alloc]initWithFrame:CGRectMake(0, 279, self.view.frame.size.width, 30)];
+    [view10 setBackgroundColor:[UIColor whiteColor]];
+    [sv addSubview:view10];
+    
+    UILabel *label10 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 60, 20)];
+    label10.text = @"验证码:";
+    label10.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1.f);
+    label10.textAlignment =1;
+    [label10 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [view10 addSubview:label10];
+    
+    yanFiled =[[UITextField alloc]initWithFrame:CGRectMake(80, 5, 140, 30)];
+    yanFiled.tag = 9;
+    yanFiled.placeholder = @"请输入验证码";
+    yanFiled.delegate = self;
+    [yanFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [view10 addSubview:yanFiled];
+  
+    UIButton *yanBtn = [[UIButton alloc] initWithFrame:CGRectMake(230, 0, 80, 30)];
+    [yanBtn setBackgroundColor:[UIColor grayColor]];
+    [yanBtn setTitle:@"获取验证码"  forState:UIControlStateNormal];
+    [yanBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [yanBtn addTarget:self action:@selector(getYanNum) forControlEvents:UIControlEventTouchUpInside];
+    yanBtn.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+    [view10 addSubview:yanBtn];
+//==============================页面下部==============
+    UIView *GuoDuV = [[UIView alloc] initWithFrame:CGRectMake(0, 433, self.view.frame.size.width, 90)];
+    GuoDuV.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:GuoDuV];
+    
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     nextBtn.tag = 1;
-    [nextBtn setFrame:CGRectMake(15, 400, self.view.frame.size.width-30, 40)];
-    [nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
+    [nextBtn setFrame:CGRectMake(15, 5, self.view.frame.size.width-30, 30)];
+    [nextBtn setTitle:@"注   册" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
     [nextBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
-    [sv addSubview:nextBtn];
+    [GuoDuV addSubview:nextBtn];
     
-    UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(15, 450, 20, 20)];
+    UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(45, 40, 13, 13)];
     [iv setImage:[UIImage imageNamed:@"agree.png"]];
-    [sv addSubview:iv];
+    [GuoDuV addSubview:iv];
     
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:CGRectMake(40, 450, 250, 20)];
+    [btn1 setFrame:CGRectMake(60, 40, 250, 20)];
     [btn1 addTarget:self action:@selector(agreeAction) forControlEvents:UIControlEventTouchUpInside];
-    [sv addSubview:btn1];
+    [GuoDuV addSubview:btn1];
     
     UILabel *agreeL = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 250, 20)];
     agreeL.text =@"我已阅读并同意使用条款和隐私政策";
-    [agreeL setFont:[UIFont fontWithName:nil size:14]];
-    [agreeL setTextColor:[UIColor redColor]];
+    [agreeL setFont:[UIFont fontWithName:@"Arial" size:13]];
+    [agreeL setTextColor: RGBACOLOR(147.f, 147.f, 147.f, 1.f)];
     agreeL.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cheekLable)];
     [agreeL addGestureRecognizer:tap];
     [btn1 addSubview:agreeL];
+   
+    //TODO: 登录（返回）按钮
+    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+     [loginBtn setFrame:CGRectMake(self.view.frame.size.width/2-100, 75, 200, 10)];
+    [loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    loginBtn.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+    [loginBtn setTitle:@"登录爱家账号" forState:UIControlStateNormal];
+    [loginBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:_tb];
+    [GuoDuV addSubview:loginBtn];
+    
+    //???: 什么?
+    [imageV addSubview:_tb];
+  
     UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
     [topView setBarStyle:UIBarStyleBlackTranslucent];
     
@@ -331,12 +398,31 @@
     [numFiled setInputAccessoryView:topView];
     [dongFiled setInputAccessoryView:topView];
     [danFiled setInputAccessoryView:topView];
-    
+    [yanFiled setInputAccessoryView:topView];
+    //KVO 监察区域小区信息
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrg:) name:@"updateOrg" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateVallege:) name:@"updateVallege" object:nil];
     [sv setContentSize:CGSizeMake(self.view.frame.size.width, 470)];
     
 }
+-(void)backAction{
+ 
+    LoginViewController *logV = [[LoginViewController alloc] init];
+    [self.navigationController pushViewController:logV animated:YES];
+}
+
+-(void)getYanNum{
+    if (![self validateMobile:userLogin.text]){
+        [self doAlert:@"请输入正确的手机号！"];
+    }else{
+    RequestUtil *requestUtil = [[RequestUtil alloc]init];
+    //业务数据参数组织成JSON字符串
+    NSString *biz = [NSString  stringWithFormat:@"{\"mobile\":\"%@\"}",userLogin.text];
+    NSString *sid = @"GetVerificationCode";
+    [requestUtil startRequest:sid biz:biz send:self];
+    }
+ }
+
 #pragma mark-   用户责任协议
 
 -(void)cheekLable{
@@ -394,26 +480,15 @@
     }
 }
 
--(void)createBack{
-    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 15, 15);
-    backButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
-}
-
--(void)backAction{
-    CATransition *transition = [CATransition animation];
-    transition.duration = 1.0f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = @"oglFlip";
-    transition.subtype = kCATransitionFromRight;
-    transition.delegate = self;
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//-(void)createBack{
+//    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
+//    backButton.frame = CGRectMake(0, 0, 15, 15);
+//    backButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
+//}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -453,6 +528,7 @@
     [dongFiled resignFirstResponder];
     [danFiled resignFirstResponder];
     [numFiled resignFirstResponder];
+    [yanFiled resignFirstResponder];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -460,6 +536,7 @@
     return YES;
 }
 
+//TODO: 注册协议确认按钮
 -(void)agreeAction{
     
 }
@@ -561,44 +638,23 @@
         [rePassWordFiled becomeFirstResponder];
         return;
     }
-
-
-    CATransition *transition = [CATransition animation];
-    transition.duration = 1.f;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = @"oglFlip";
-    transition.subtype = kCATransitionFromRight;
-    transition.delegate = self;
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    NextRegisterViewController *nrc = [[NextRegisterViewController alloc]init];
-    nrc.mobile = [NSString stringWithFormat:@"%@",userLogin.text];
-    nrc.passWord =[NSString stringWithFormat:@"%@",passWordFiled.text];
-    nrc.userName =[NSString stringWithFormat:@"%@",cardFiled.text];
-    nrc.vallegeId =[NSString stringWithFormat:@"%@",val.vallageId];
-    nrc.unit =[NSString stringWithFormat:@"%@",danFiled.text];
-    nrc.seat =[NSString stringWithFormat:@"%@",dongFiled.text];
-    nrc.house =[NSString stringWithFormat:@"%@",numFiled.text];
-    [self.navigationController pushViewController:nrc animated:YES];
+    else if([yanFiled.text length] ==0){
+        [self doAlert:@"请输入验证码！"];
+        [rePassWordFiled becomeFirstResponder];
+        return;
+    }else if(![yanFiled.text isEqualToString:codeNum])
+    {
+        [self doAlert:@"请输入正确的验证码！"];
+        [yanFiled becomeFirstResponder];
+        return;
+    }
     
-//        else if (![self validateIdentityCard:cardFiled.text]){
-//            [self doAlert:@"请输入正确的身份证！"];
-//            [cardFiled becomeFirstResponder];
-//            return;
-//        }
-//        else if ([emailFiled.text length] == 0){
-//            [self doAlert:@"请输入邮箱地址！"];
-//            [emailFiled becomeFirstResponder];
-//            return;
-//        }
-//        else if (![self validateEmail:emailFiled.text]){
-//            [self doAlert:@"请输入正确的邮箱地址！"];
-//            [cardFiled becomeFirstResponder];
-//            return;
-//        }
-//        else if (se == 0){
-//            [self doAlert:@"请选择性别！"];
-//            return;
-//        }
+    RequestUtil *requestUtil = [[RequestUtil alloc]init];
+    //业务数据参数组织成JSON字符串
+    NSString *biz = [NSString  stringWithFormat:@"{\"username\":\"%@\",\"tel\":\"%@\",\"password\":\"%@\",\"vallageId\":\"%@\",\"address\":\"\",\"seat\":\"%@\",\"unit\":\"%@\",\"house\":\"%@\"}",cardFiled.text,userLogin.text,passWordFiled.text,val.vallageId,dongFiled.text,danFiled.text,numFiled.text];
+    NSString *sid = @"RegistrationService";
+    [requestUtil startRequest:sid biz:biz send:self];
+    
 
 //    RequestUtil *requestUtil = [[RequestUtil alloc]init];
 //    //业务数据参数组织成JSON字符串
@@ -624,16 +680,49 @@
     }
     if ([json[@"status"]isEqualToString:@"success"]) {
         [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
-        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
-        [userDefault setObject:userLogin.text forKey:@"userName"];
-        [userDefault setObject:passWordFiled.text forKey:@"passWord"];
-        [userDefault synchronize];
-        BZAppDelegate *app = [UIApplication sharedApplication].delegate;
-        [app bootLoginViewController];
+//        NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+//        [userDefault setObject:userLogin.text forKey:@"userName"];
+//        [userDefault setObject:passWordFiled.text forKey:@"passWord"];
+//        [userDefault synchronize];
+//        BZAppDelegate *app = [UIApplication sharedApplication].delegate;
+//        [app bootLoginViewController];
+        
     }else{
         [SVProgressHUD showErrorWithStatus:json[@"message"]];
+    }   if ([json[@"SID"]isEqualToString:@"GetVerificationCode"]){
+        if ([json[@"status"]isEqualToString:@"success"]) {
+        codeNum =[NSString stringWithFormat:@"%@",json[@"code"]];
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"验证码已发送请稍等"]];
+        }else{
+            [SVProgressHUD showErrorWithStatus:json[@"message"]];
+        }
+    }
+    else if([json[@"SID"]isEqualToString:@"RegistrationService"]){
+        if ([json[@"status"]isEqualToString:@"success"]){
+            [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
+            NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
+            [userDefault setObject:userLogin.text forKey:@"userName"];
+            [userDefault setObject:passWordFiled.text forKey:@"passWord"];
+            [userDefault synchronize];
+//            BZAppDelegate *app = [UIApplication sharedApplication].delegate;
+//            [app bootLoginViewController];
+            [self backAction];
+        }else{
+            [SVProgressHUD showErrorWithStatus:json[@"message"]];
+        }
+    }
+    if ([json[@"status"]isEqualToString:@"yes"]) {
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"该用户已存在"]];
+    }
+    else if ([json[@"status"]isEqualToString:@"no"]) {
+        RequestUtil *requestUtil = [[RequestUtil alloc]init];
+        //业务数据参数组织成JSON字符串
+        NSString *biz = [NSString  stringWithFormat:@"{\"mobile\":\"%@\"}",userLogin.text];
+        NSString *sid = @"GetVerificationCode";
+        [requestUtil startRequest:sid biz:biz send:self];
     }
 }
+
 
 -(void)requestError:(ASIHTTPRequest *)request{
     NSError *error = [request error];

@@ -44,12 +44,12 @@
     
     UILabel *l1 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l1.textAlignment =1;
-    l1.font =[UIFont fontWithName:nil size:13];
+    l1.font =[UIFont fontWithName:@"Arial" size:13];
     l1.text = @"亲属号码1";
     [view1 addSubview:l1];
     
     affectionTel1 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel1 setFont:[UIFont fontWithName:nil size:13]];
+    [affectionTel1 setFont:[UIFont fontWithName:@"Arial" size:13]];
     if (app.affectionTel1) {
         affectionTel1.text =[NSString stringWithFormat:@"%@",app.affectionTel1];
     }
@@ -62,12 +62,12 @@
     
     UILabel *l2 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l2.textAlignment =1;
-    l2.font =[UIFont fontWithName:nil size:13];
+    l2.font =[UIFont fontWithName:@"Arial" size:13];
     l2.text = @"亲属号码2";
     [view2 addSubview:l2];
     
     affectionTel2 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel2 setFont:[UIFont fontWithName:nil size:13]];
+    [affectionTel2 setFont:[UIFont fontWithName:@"Arial" size:13]];
     if (app.affectionTel2) {
         affectionTel2.text =[NSString stringWithFormat:@"%@",app.affectionTel2];
     }
@@ -79,12 +79,12 @@
     
     UILabel *l3 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l3.textAlignment =1;
-    l3.font =[UIFont fontWithName:nil size:13];
+    l3.font =[UIFont fontWithName:@"Arial" size:13];
     l3.text = @"亲属号码3";
     [view3 addSubview:l3];
     
     affectionTel3 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel3 setFont:[UIFont fontWithName:nil size:13]];
+    [affectionTel3 setFont:[UIFont fontWithName:@"Arial" size:13]];
     if (app.affectionTel3) {
         affectionTel3.text =[NSString stringWithFormat:@"%@",app.affectionTel3];
     }
@@ -101,7 +101,7 @@
     UILabel *infLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 180, self.view.frame.size.width, 20)];
     infLabel.textAlignment =1;
     infLabel.textColor =[UIColor redColor];
-    infLabel.font =[UIFont fontWithName:nil size:15];
+    infLabel.font =[UIFont fontWithName:@"Arial" size:15];
     infLabel.text = @"设置亲情号码，方便一键求助时短信及时联系";
     [self.view addSubview:infLabel];
 
