@@ -20,11 +20,11 @@ NSString *const SIAlertViewDidDismissNotification = @"SIAlertViewDidDismissNotif
 #define MESSAGE_MAX_LINE_COUNT 5
 #define GAP 10
 #define CANCEL_BUTTON_PADDING_TOP 5
-#define CONTENT_PADDING_LEFT 10
+#define CONTENT_PADDING_LEFT 15
 #define CONTENT_PADDING_TOP 12
 #define CONTENT_PADDING_BOTTOM 10
-#define BUTTON_HEIGHT 44
-#define CONTAINER_WIDTH 300
+#define BUTTON_HEIGHT 30
+#define CONTAINER_WIDTH 200
 
 const UIWindowLevel UIWindowLevelSIAlert = 1999.0;  // don't overlap system's alert
 const UIWindowLevel UIWindowLevelSIAlertBackground = 1998.0; // below the alert window
@@ -178,9 +178,10 @@ static SIAlertView *__si_alert_current_view;
     appearance.viewBackgroundColor = [UIColor whiteColor];
     appearance.titleColor = [UIColor blackColor];
     appearance.messageColor = [UIColor darkGrayColor];
-    appearance.titleFont = [UIFont boldSystemFontOfSize:20];
-    appearance.messageFont = [UIFont systemFontOfSize:16];
-    appearance.buttonFont = [UIFont systemFontOfSize:[UIFont buttonFontSize]];
+    appearance.titleFont = [UIFont boldSystemFontOfSize:FONT_SIZE];
+    appearance.messageFont = [UIFont systemFontOfSize:FONT_SIZE];
+   // appearance.buttonFont = [UIFont systemFontOfSize:[UIFont buttonFontSize]];
+    appearance.buttonFont = [UIFont systemFontOfSize:FONT_SIZE];
     appearance.cornerRadius = 2;
     appearance.shadowRadius = 8;
 }

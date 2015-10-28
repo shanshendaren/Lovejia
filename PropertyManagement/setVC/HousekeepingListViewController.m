@@ -45,8 +45,8 @@
 }
 -(void)createUI{
     isHead = NO;
-    self.title =@"家政服务列表";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    self.title =@"我的家政";
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatehouseKeeping:) name:@"updatehouseKeeping" object:nil];

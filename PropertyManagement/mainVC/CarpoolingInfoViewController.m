@@ -31,6 +31,16 @@
 @end
 
 @implementation CarpoolingInfoViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -47,7 +57,6 @@
     self.navigationItem.title = @"拼车详情";
     
     UIScrollView *sv = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-44-[VersionAdapter getMoreVarHead] - 50)];
-    
     [sv setUserInteractionEnabled:YES];
     [self.view addSubview:sv];
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
@@ -62,10 +71,10 @@
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newBtn setFrame:CGRectMake(self.view.frame.size.width-50, 0, 30, 30)];
+    [newBtn setFrame:CGRectMake(self.view.frame.size.width-50, 5, 20, 20)];
     [newBtn addTarget:self action:@selector(pushAction:) forControlEvents:UIControlEventTouchUpInside];
     [newBtn setTintColor:[UIColor lightGrayColor]];
-    [newBtn setBackgroundImage:[UIImage imageNamed:@"top_more_.png"] forState:UIControlStateNormal];
+    [newBtn setBackgroundImage:[UIImage imageNamed:@"top_more_"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:newBtn];
     
     if ([self.selfType isEqualToString:@"22"]) {
@@ -96,73 +105,79 @@
         self.collectionView.delegate = self;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCell"];
         [sv addSubview:self.collectionView];
-        Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+ 5;
+        Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+ 1;
     }
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    [titleLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    //TODO: 栏目的背景视图（制作线条）
+    UIView *backGV = [[UIView alloc] initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, self.view.frame.size.height)];
+    backGV.backgroundColor = [UIColor  colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+    [sv addSubview:backGV];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, 40)];
+    [titleLabel setBackgroundColor:[UIColor whiteColor]];
     titleLabel.numberOfLines = 0;
-    titleLabel.text = self.car.neighborhordCarpoolInfoTitle;
-    titleLabel.font = [UIFont systemFontOfSize:16.f];
+    titleLabel.text = [NSString stringWithFormat:@"   %@",self.car.neighborhordCarpoolInfoTitle];
+    titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     titleLabel.textColor = [UIColor blackColor];
-    [sv addSubview:titleLabel];
-    Y = titleLabel.frame.size.height + titleLabel.frame.origin.y+5;
+    [backGV addSubview:titleLabel];
+   
+    Y = titleLabel.frame.size.height + titleLabel.frame.origin.y+1;
     
     UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    [typeLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    [typeLabel setBackgroundColor:[UIColor whiteColor]];
     typeLabel.numberOfLines = 0;
-    NSLog(@"%@",self.car.type);
+//    NSLog(@"%@",self.car.type);
     if ([self.car.type isEqualToString:@"1"]) {
-        typeLabel.text = [NSString stringWithFormat:@"拼车类型:有车"];
+        typeLabel.text = [NSString stringWithFormat:@"   拼车类型:有车"];
     }else if ([self.car.type isEqualToString:@"2"]){
-        typeLabel.text = [NSString stringWithFormat:@"拼车类型:拼车/无车"];
+        typeLabel.text = [NSString stringWithFormat:@"   拼车类型:拼车/无车"];
     }
-    typeLabel.font = [UIFont systemFontOfSize:14.f];
+    typeLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     typeLabel.textColor = [UIColor blackColor];
-    [sv addSubview:typeLabel];
+    [backGV addSubview:typeLabel];
     
-    Y = typeLabel.frame.size.height + typeLabel.frame.origin.y +5;
+    Y = typeLabel.frame.size.height + typeLabel.frame.origin.y +1;
     
     UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    [addLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    [addLabel setBackgroundColor:[UIColor whiteColor]];
     addLabel.numberOfLines = 0;
-    addLabel.text = [NSString stringWithFormat:@"拼车起点: %@",self.car.startPlace];
-    addLabel.font = [UIFont systemFontOfSize:14.f];
+    addLabel.text = [NSString stringWithFormat:@"   拼车起点: %@",self.car.startPlace];
+    addLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     addLabel.textColor = [UIColor blackColor];
-    [sv addSubview:addLabel];
+    [backGV addSubview:addLabel];
     
-    Y = addLabel.frame.size.height + addLabel.frame.origin.y +5;
+    Y = addLabel.frame.size.height + addLabel.frame.origin.y +1;
     
     UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    [priceLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    [priceLabel setBackgroundColor:[UIColor whiteColor]];
     priceLabel.numberOfLines = 0;
-    priceLabel.text = [NSString stringWithFormat:@"拼车终点: %@",self.car.endPlace];
-    priceLabel.font = [UIFont systemFontOfSize:14.f];
+    priceLabel.text = [NSString stringWithFormat:@"   拼车终点: %@",self.car.endPlace];
+    priceLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     priceLabel.textColor = [UIColor blackColor];
-    [sv addSubview:priceLabel];
+    [backGV addSubview:priceLabel];
     
-    Y = priceLabel.frame.size.height + priceLabel.frame.origin.y +5;
+    Y = priceLabel.frame.size.height + priceLabel.frame.origin.y +1;
     
     UILabel *luxianLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    luxianLabel.text = [NSString stringWithFormat:@"行驶路线: %@",self.car.line];
-    [luxianLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
-    luxianLabel.font = [UIFont systemFontOfSize:14.f];
-    [sv addSubview:luxianLabel];
-    Y = luxianLabel.frame.size.height + luxianLabel.frame.origin.y + 5;
+    luxianLabel.text = [NSString stringWithFormat:@"   行驶路线: %@",self.car.line];
+    [luxianLabel setBackgroundColor:[UIColor whiteColor]];
+    luxianLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [backGV addSubview:luxianLabel];
+    Y = luxianLabel.frame.size.height + luxianLabel.frame.origin.y + 1;
     
     UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    jianjieLabel.text = [NSString stringWithFormat:@"出发时间: %@",self.car.repaeaseDate];
-    [jianjieLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
-    jianjieLabel.font = [UIFont systemFontOfSize:14.f];
-    [sv addSubview:jianjieLabel];
-    Y = jianjieLabel.frame.size.height + jianjieLabel.frame.origin.y + 5;
+    jianjieLabel.text = [NSString stringWithFormat:@"   出发时间: %@",self.car.repaeaseDate];
+    [jianjieLabel setBackgroundColor:[UIColor whiteColor]];
+    jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [backGV addSubview:jianjieLabel];
+    Y = jianjieLabel.frame.size.height + jianjieLabel.frame.origin.y + 1;
     
     if([self.selfType isEqualToString:@"22"]){
         UITextView *contentLabel = [[UITextView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 150)];
         contentLabel.editable = NO;
-        contentLabel.text = [NSString stringWithFormat:@"%@",self.car.neighborhordCarpoolInfoContent];
+        contentLabel.text = [NSString stringWithFormat:@"  %@",self.car.neighborhordCarpoolInfoContent];
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:14.f];
-        [sv addSubview:contentLabel];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+        [backGV addSubview:contentLabel];
         
         Y = contentLabel.frame.size.height + contentLabel.frame.origin.y;
         
@@ -170,28 +185,28 @@
         label1.text = [NSString stringWithFormat:@"评论"];
         [label1 setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
         label1.textColor = [UIColor grayColor];
-        label1.font = [UIFont systemFontOfSize:12.f];
-        [sv addSubview:label1];
-        Y = label1.frame.size.height + label1.frame.origin.y;
+        label1.font = [UIFont systemFontOfSize:FONT_SIZE];
+        [backGV addSubview:label1];
         
+        Y = label1.frame.size.height + label1.frame.origin.y;
         UITextView *contentLabel1 = [[UITextView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 100)];
         contentLabel1.editable = NO;
         contentLabel1.text = [NSString stringWithFormat:@"%@",self.car.commentContent];
         contentLabel1.textColor = [UIColor grayColor];
-        contentLabel1.font = [UIFont systemFontOfSize:14.f];
-        [sv addSubview:contentLabel1];
-        Y =contentLabel1.frame.size.height + contentLabel1.frame.origin.y;
-        [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
+        contentLabel1.font = [UIFont systemFontOfSize:FONT_SIZE];
+        [backGV addSubview:contentLabel1];
         
+//        Y =contentLabel1.frame.size.height + contentLabel1.frame.origin.y;
+//        [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
     }else{
         UITextView *contentLabel = [[UITextView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead] - 50 - Y)];
         contentLabel.editable = NO;
         contentLabel.text = [NSString stringWithFormat:@"%@",self.car.neighborhordCarpoolInfoContent];
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:14.f];
-        [sv addSubview:contentLabel];
-        Y = contentLabel.frame.size.height + contentLabel.frame.origin.y;
-        [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+        [backGV addSubview:contentLabel];
+//        Y = contentLabel.frame.size.height + contentLabel.frame.origin.y;
+//        [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
     }
 
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead] - 50, self.view.frame.size.width, 50)];
@@ -199,32 +214,34 @@
     [self.view addSubview:backView];
     
     UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 120, 15)];
+    nameLabel.font = [UIFont systemFontOfSize:13];
     nameLabel.text = self.car.repaeaseName;
     nameLabel.textColor = [UIColor blackColor];
     [backView addSubview:nameLabel];
     
     UILabel *telLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 25, 120, 15)];
     telLabel.text = self.car.repaeaseTel;
-    telLabel.font = [UIFont systemFontOfSize:12.f];
+    telLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     telLabel.textColor = [UIColor grayColor];
     [backView addSubview:telLabel];
     
-    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 5, 180, 40)];
-//    [callBtn setBackgroundImage:[UIImage imageNamed:@"next_button_bg.png"] forState:UIControlStateNormal];
+    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 7, 180, 35)];
+    callBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [callBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [callBtn setTitle:@"联系发布人" forState:UIControlStateNormal];
     [callBtn addTarget:self action:@selector(callTo:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:callBtn];
-    if (![self.car.isOpen isEqualToString:@"1"]) {
+    if (![self.car.isOpen isEqualToString:@"1"] &&![self.car.isAgree isEqualToString:@"1"]) {
         telLabel.text =@"该用户隐藏了号码";
     }
     
     if ([self.selfType isEqualToString:@"12"]) {
         [backView setHidden:YES];
     }
-    
-    if ([self.car.isAgree isEqualToString:@"1"]&&[self.selfType isEqualToString:@"22"]) {
-         telLabel.text = self.car.repaeaseTel;
-    }
+//    
+//    if ([self.car.isAgree isEqualToString:@"1"]&&[self.selfType isEqualToString:@"22"]) {
+//         telLabel.text = self.car.repaeaseTel;
+//    }
 }
 
 -(void)callTo:(UIButton *)sender
@@ -265,10 +282,10 @@
         }
         else{
             NSMutableArray *menuItems =[[NSMutableArray alloc] initWithArray:
-                                        @[[KxMenuItem menuItem:@"跟帖" image:[UIImage imageNamed:nil] target:self action:@selector(pushDisAction)],[KxMenuItem menuItem:@"封帖" image:[UIImage imageNamed:nil] target:self action:@selector(turnOffDis)]
+                                        @[[KxMenuItem menuItem:@"跟帖" image:[UIImage imageNamed:@"2"] target:self action:@selector(pushDisAction)],[KxMenuItem menuItem:@"封帖" image:[UIImage imageNamed:@"2"] target:self action:@selector(turnOffDis)]
                                           ]];
             CGRect rect = CGRectMake(sender.frame.origin.x, sender.frame.origin.y/2+sender.frame.origin.y-55, sender.frame.size.width, sender.frame.size.height/2+sender.frame.size.height);
-            [KxMenu showMenuInView:self.view fromRect:rect menuItems:menuItems];
+        [KxMenu showMenuInView:self.view fromRect:rect menuItems:menuItems];
         }
     }else{
         if([KxMenu isMenuShow])
@@ -278,7 +295,7 @@
         }
         else{
             NSMutableArray *menuItems =[[NSMutableArray alloc] initWithArray:
-                                        @[[KxMenuItem menuItem:@"回复消息" image:[UIImage imageNamed:nil] target:self action:@selector(sendMessage)],[KxMenuItem menuItem:@"在线举报" image:[UIImage imageNamed:nil] target:self action:@selector(addPolice)]
+                                        @[[KxMenuItem menuItem:@"回复消息" image:[UIImage imageNamed:@"18"] target:self action:@selector(sendMessage)],[KxMenuItem menuItem:@"在线举报" image:[UIImage imageNamed:@"19"] target:self action:@selector(addPolice)]
                                           ]];
             CGRect rect = CGRectMake(sender.frame.origin.x, sender.frame.origin.y/2+sender.frame.origin.y-55, sender.frame.size.width, sender.frame.size.height/2+sender.frame.size.height);
             [KxMenu showMenuInView:self.view fromRect:rect menuItems:menuItems];
@@ -443,9 +460,6 @@
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

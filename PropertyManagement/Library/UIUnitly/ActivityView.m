@@ -36,8 +36,8 @@
         
         loadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height / 2 + 15, self.frame.size.width, 30)];
         loadLabel.textAlignment = NSTextAlignmentCenter;
-        loadLabel.font = [UIFont systemFontOfSize:15.0];
-        loadLabel.textColor = [UIColor whiteColor];
+        loadLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+        loadLabel.textColor = [UIColor blackColor];
         loadLabel.backgroundColor = [UIColor clearColor];
         loadLabel.text = loadStr;
         [self addSubview:loadLabel];

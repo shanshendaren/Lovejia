@@ -49,7 +49,7 @@
     
     ruleView= [[UITextView  alloc] initWithFrame:CGRectMake(10, 15, self.view.frame.size.width-20, 40)] ; //初始化大小
     ruleView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
-    ruleView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
+    ruleView.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     ruleView.delegate = self;//设置它的委托方法
     ruleView.backgroundColor = [UIColor clearColor];//设置它的背景颜色
     ruleView.text = [NSString stringWithFormat:@"我们已给你的手机号码%@发送了一条验证短信!",self.mobile];//设置它显示的内容
@@ -68,7 +68,7 @@
     cardFiled.tag =0;
     cardFiled.placeholder = @"请输入验证码";
     cardFiled.delegate = self;
-    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [cardFiled setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view1 addSubview:cardFiled];
     
     UIButton *reBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -77,13 +77,13 @@
     
     UILabel *agreeL = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
     agreeL.text =@"重获验证码";
-    [agreeL setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [agreeL setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [agreeL setTextColor:[UIColor redColor]];
     [reBtn addSubview:agreeL];
     [view1 addSubview:reBtn];
     
     countL = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-50,10, 45, 20)];
-    [countL setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [countL setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [countL setTextColor:[UIColor grayColor]];
     [view1 addSubview:countL];
 
@@ -157,6 +157,7 @@
         }
     }
     else if([json[@"SID"]isEqualToString:@"RegistrationService"]){
+        
         if ([json[@"status"]isEqualToString:@"success"]){
             [SVProgressHUD showSuccessWithStatus:json[@"msg"]];
             NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];

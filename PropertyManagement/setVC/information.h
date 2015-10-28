@@ -12,7 +12,7 @@
 
 @property(strong,nonatomic)NSString *informationTypeId;//资讯类型
 @property(strong,nonatomic)NSString *typeName;//类型资讯的标题
-@property(strong,nonatomic)NSString *typePic;//类型资讯的图片
+@property(strong,nonatomic)NSURL *typePic;//类型资讯的图片路径
 @property(strong,nonatomic)NSString *typeInfo;//类型资讯的简介
 @property(strong,nonatomic)NSString *information_id;//一个类型中一条资讯的id
 @property(strong,nonatomic)NSString *information_title;//一个类型中一条资讯的标题

@@ -69,7 +69,7 @@
     }
     // 添加PageControl
     UIPageControl *pageControl = [[UIPageControl alloc] init];
-    pageControl.center = CGPointMake(320 * 0.5, 480 - 20);
+    pageControl.center = CGPointMake(320 * 0.5, 480 - 10);
     pageControl.bounds = CGRectMake(0, 0, 150, 50);
     pageControl.numberOfPages = self.photoArray.count; // 一共显示多少个圆点（多少页）
     // 设置非选中页的圆点颜色

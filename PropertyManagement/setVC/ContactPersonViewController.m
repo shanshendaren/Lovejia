@@ -28,63 +28,64 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"亲情号码";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     [VersionAdapter setViewLayout:self];
     
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
 
+    [self.view setBackgroundColor:[UIColor colorWithWhite:0.98f alpha:1.0f]];
     
-    [self.view setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     BZAppDelegate *app =[UIApplication sharedApplication].delegate;
-    UIView * view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 40)];
+    UIView * view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 35)];
     [view1 setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview: view1];
-    
+    [self.view addSubview:view1];
+
     UILabel *l1 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l1.textAlignment =1;
-    l1.font =[UIFont fontWithName:@"Arial" size:13];
-    l1.text = @"亲属号码1";
+    l1.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
+    l1.text = @"亲属号码1：";
     [view1 addSubview:l1];
     
     affectionTel1 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel1 setFont:[UIFont fontWithName:@"Arial" size:13]];
+
+    [affectionTel1 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     if (app.affectionTel1) {
         affectionTel1.text =[NSString stringWithFormat:@"%@",app.affectionTel1];
     }
     [view1 addSubview:affectionTel1];
     
     
-    UIView * view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 70, self.view.frame.size.width, 40)];
+    UIView * view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 56, self.view.frame.size.width, 35)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview: view2];
     
     UILabel *l2 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l2.textAlignment =1;
-    l2.font =[UIFont fontWithName:@"Arial" size:13];
-    l2.text = @"亲属号码2";
+    l2.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
+    l2.text = @"亲属号码2：";
     [view2 addSubview:l2];
     
     affectionTel2 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel2 setFont:[UIFont fontWithName:@"Arial" size:13]];
+    [affectionTel2 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     if (app.affectionTel2) {
         affectionTel2.text =[NSString stringWithFormat:@"%@",app.affectionTel2];
     }
     [view2 addSubview:affectionTel2];
     
-    UIView * view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 120, self.view.frame.size.width, 40)];
+    UIView * view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 92, self.view.frame.size.width, 35)];
     [view3 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview: view3];
     
     UILabel *l3 =[[UILabel alloc]initWithFrame:CGRectMake(0, 10, 80, 20)];
     l3.textAlignment =1;
-    l3.font =[UIFont fontWithName:@"Arial" size:13];
-    l3.text = @"亲属号码3";
+    l3.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
+    l3.text = @"亲属号码3：";
     [view3 addSubview:l3];
     
     affectionTel3 =[[UITextField alloc]initWithFrame:CGRectMake(90, 5, self.view.frame.size.width - 100, 30)];
-    [affectionTel3 setFont:[UIFont fontWithName:@"Arial" size:13]];
+    [affectionTel3 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     if (app.affectionTel3) {
         affectionTel3.text =[NSString stringWithFormat:@"%@",app.affectionTel3];
     }
@@ -92,43 +93,20 @@
     
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     nextBtn.tag = 1;
-    [nextBtn setFrame:CGRectMake(15, 250, self.view.frame.size.width-30, 40)];
+    [nextBtn setFrame:CGRectMake(20, 250, self.view.frame.size.width-40, 35)];
+    nextBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [nextBtn setTitle:@"保存" forState:UIControlStateNormal];
     [nextBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
-    [nextBtn setBackgroundImage:[UIImage imageNamed:@"next_button_bg.png"] forState:UIControlStateNormal];
+    [nextBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [self.view addSubview:nextBtn];
     
     UILabel *infLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 180, self.view.frame.size.width, 20)];
     infLabel.textAlignment =1;
     infLabel.textColor =[UIColor redColor];
-    infLabel.font =[UIFont fontWithName:@"Arial" size:15];
+    infLabel.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
     infLabel.text = @"设置亲情号码，方便一键求助时短信及时联系";
     [self.view addSubview:infLabel];
-
     [self createBack];
-    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    [topView setBarStyle:UIBarStyleBlackTranslucent];
-    
-    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(2, 5, 50, 25);
-    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
-    [topView setItems:buttonsArray];
-    [affectionTel1 setInputAccessoryView:topView];
-    [affectionTel2 setInputAccessoryView:topView];
-    [affectionTel3 setInputAccessoryView:topView];
-
-}
-
-
--(void)dismissKeyBoard
-{
-    [affectionTel1 resignFirstResponder];
-    [affectionTel2 resignFirstResponder];
-    [affectionTel3 resignFirstResponder];
 }
 
 -(void)nextAction{

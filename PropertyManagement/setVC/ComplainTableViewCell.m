@@ -19,12 +19,12 @@
     if (self) {
         // Initialization code
         nameLabel  = [[UILabel alloc]initWithFrame:CGRectMake(10,10,200,20)];
-        nameLabel.font = [UIFont fontWithName:@"Arial" size:16];
+        nameLabel.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
         [nameLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:nameLabel];
         
         infoLabel  = [[UILabel alloc]initWithFrame:CGRectMake(10,30,200,20)];
-        infoLabel.font = [UIFont fontWithName:@"Arial" size:14];
+        infoLabel.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
         [infoLabel setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:infoLabel];
     }

@@ -35,14 +35,15 @@
 
 -(void)createUI{
     self.title = [NSString stringWithFormat:@"选择地区"];
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44)];
+    [setTable setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     setTable.delegate = self;
     setTable.dataSource = self;
     [self.view addSubview:setTable];
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
-    [self setExtraCellLineHidden:setTable];
+//    [self setExtraCellLineHidden:setTable];
     cityArr = [[NSMutableArray alloc]init];
     if([self.type isEqualToString:@"1"] ){
         RequestUtil *requestUtil = [[RequestUtil alloc]init];
@@ -59,10 +60,8 @@
 {
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:view];
+    [tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }
-
-
 
 -(void)requestStarted:(ASIHTTPRequest *)request{
     if ([activity isVisible] == NO) {
@@ -137,7 +136,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 35;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

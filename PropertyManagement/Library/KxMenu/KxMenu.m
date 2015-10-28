@@ -428,7 +428,7 @@ typedef enum {
     
     
     UIFont *titleFont = [KxMenu titleFont];
-    if (!titleFont) titleFont = [UIFont boldSystemFontOfSize:16];
+    if (!titleFont) titleFont = [UIFont boldSystemFontOfSize:FONT_SIZE];
     
     CGFloat maxImageWidth = 0;
     CGFloat maxItemHeight = 0;

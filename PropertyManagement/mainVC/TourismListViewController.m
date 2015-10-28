@@ -35,6 +35,7 @@
     [super viewWillAppear:animated];
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     [app.tabBar customTabBarHidden:YES];
+   
 }
 
 - (void)viewDidLoad {
@@ -44,11 +45,12 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     self.title = @"社区拼车";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, -40, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44)style:UITableViewStyleGrouped];
+    setTable.backgroundColor = [UIColor whiteColor];
     setTable.delegate = self;
     setTable.dataSource = self;
     [self.view addSubview:setTable];
@@ -104,7 +106,7 @@
     RequestUtil *requestUtil = [[RequestUtil alloc]init];
     if (car) {
         //业务数据参数组织成JSON字符串
-        NSString *biz = [NSString  stringWithFormat:@"{\"vallageId\":\"%@\",\"lastNum\":\"%@\",\"queryType\":\"0\"}",app.vallageID,car.neighborhordCarpoolInfoId];
+        NSString *biz = [NSString  stringWithFormat:@"{\"vallageId\":\"%@\",\"lastNum\":\"%@\",\"queryType\":\"1\"}",app.vallageID,car.neighborhordCarpoolInfoId];
         NSString *sid = @"QueryNeighborhordCarpoolInfoList";
         [requestUtil startRequest:sid biz:biz send:self];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -121,16 +123,16 @@
     NSString *returnData = [request responseString];
     NSData *jsonData = [returnData dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-//    NSLog(@"数据：%@ ,返回数据 %@",json,returnData);
+ //   NSLog(@"数据：%@ ,返回数据 %@",json,returnData);
     NSArray *arr = [json objectForKey:@"neighborhordCarpoolInfo"];
     if (isHead) {
         CarpoolingArr = [[NSMutableArray alloc]init];
     }
     if ([json[@"status"]isEqualToString:@"success"]) {
-        if ([json[@"isComplete"]isEqualToString:@"yes"]) {
-            [SVProgressHUD showSuccessWithStatus:@"数据加载完毕"];
-        }
-        else{
+//        if ([json[@"isComplete"]isEqualToString:@"yes"]) {
+//            [SVProgressHUD showSuccessWithStatus:@"数据加载完毕"];
+//        }
+//        else{
             for (int i = 0; i <arr.count ; i++) {
                 NSDictionary * rdic =[arr objectAtIndex:i];
                 Carpooling *car =[[Carpooling alloc]init];
@@ -152,8 +154,6 @@
                 [CarpoolingArr addObject:car];
             }
             [setTable reloadData];
-    
-        }
     }else{
         [SVProgressHUD showErrorWithStatus:json[@"message"]];
     }
@@ -193,33 +193,19 @@
     UITableViewCell  *newcell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!newcell) {
         newcell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        UIImageView *backView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ip5_03.png"]];
-//        [newcell setBackgroundView:backView];
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 7, 180, 30)];
         titleLabel.tag = 101;
-        titleLabel.font= [UIFont systemFontOfSize:16.f];
+        titleLabel.font= [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:titleLabel];
-        
-        
-//        UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 30, 200, 20)];
-//        contentLabel.tag = 102;
-//        contentLabel.textColor = [UIColor grayColor];
-//        contentLabel.font = [UIFont systemFontOfSize:12.f];
-//        [newcell.contentView addSubview:contentLabel];
         
         UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(190, 7 ,self.view.frame.size.width-220, 30)];
         jianjieLabel.tag = 103;
         jianjieLabel.textColor = [UIColor grayColor];
-        jianjieLabel.font = [UIFont systemFontOfSize:12.f];
+        jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:jianjieLabel];
-        
-//        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(240, 10, 70, 50)];
-//        image.tag = 104;
-//        [newcell.contentView addSubview:image];
-        
-        
     }
+    
 //    [newcell setSelectionStyle:UITableViewCellSelectionStyleNone];
     Carpooling *car = [CarpoolingArr objectAtIndex:indexPath.row];
     //NSArray *aa = barter.photos[0];
@@ -267,7 +253,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [setTable deselectRowAtIndexPath:indexPath animated:YES];
-    Carpooling *car = [CarpoolingArr objectAtIndex:indexPath.section];
+    Carpooling *car = [CarpoolingArr objectAtIndex:indexPath.row];
     CarpoolingInfoViewController *view = [[CarpoolingInfoViewController alloc]init];
     view.car = car;
     view.selfType = @"1001";
@@ -294,11 +280,12 @@
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [newBtn setFrame:CGRectMake(self.view.frame.size.width-60, 0, 60, 30)];
-    [newBtn setTitle:@"新建" forState:UIControlStateNormal];
-    [newBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
+    UILabel *lable1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    lable1.textAlignment = NSTextAlignmentRight;
+    lable1.text = @"新建";
+    lable1.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [newBtn addSubview:lable1];
     [newBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
-//    [newBtn setTintColor:[UIColor lightGrayColor]];
-//    [newBtn setBackgroundImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:newBtn];
     
 }

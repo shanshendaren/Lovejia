@@ -10,7 +10,7 @@
 #import "Complain.h"
 
 
-@interface ComplainInfoViewController : UIViewController<UITextViewDelegate>
+@interface ComplainInfoViewController : UIViewController
 @property(nonatomic,strong)NSString *comId;
 @property(nonatomic ,strong)Complain *complain;
 @end

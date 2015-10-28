@@ -15,6 +15,7 @@
 #import "SVProgressHUD.h"
 #import "information.h"
 
+#import "UIImageView+WebCache.h"
 
 @interface SubscriptionViewController (){
     UITableView *setTable;
@@ -32,14 +33,14 @@
     [super viewWillAppear:animated];
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     [app.tabBar customTabBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
 }
-
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [VersionAdapter setViewLayout:self];
-    // Do any additional setup after loading the view.
+    
     [self createUI];
     [self setExtraCellLineHidden:setTable];
 }
@@ -53,11 +54,12 @@
 }
 -(void)createUI{
     self.title = @"订阅管理";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
 
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44)];
-    setTable.delegate = self; setTable.dataSource = self;
+    setTable.delegate = self;
+    setTable.dataSource = self;
     [self.view addSubview:setTable];
     
     [self createBack];
@@ -109,7 +111,7 @@
                 ifm.informationTypeId = [rdic objectForKey:@"typeId"];
                 ifm.typeName = [rdic objectForKey:@"typeName"];
                 ifm.isSubscribe = [[rdic objectForKey:@"isSubscribe"] boolValue];
-                ifm.typePic = [rdic objectForKey:@"type_img"];
+                ifm.typePic = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[rdic objectForKey:@"type_img"]]];
                 ifm.typeInfo = [rdic objectForKey:@"type_introduction"];
                 [newsArr addObject:ifm];
             }
@@ -172,7 +174,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,15 +188,16 @@
     [newcell.setBTN addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     newcell.setBTN.tag = indexPath.row;
     information * inf = [newsArr objectAtIndex:indexPath.row];
-    newcell.infoLabel.text = [NSString stringWithFormat:@"%@",inf.typeInfo];
     newcell.nameLabel.text = [NSString stringWithFormat:@"%@",inf.typeName];
-    newcell.imview.image =[UIImage imageNamed:@"minion"];
+    [newcell.imview sd_setImageWithURL:inf.typePic placeholderImage:[UIImage imageNamed:@"minion"]];
     if (inf.isSubscribe) {
         [newcell.setBTN setTitle:@"退订" forState:UIControlStateNormal];
-        [newcell.setBTN setBackgroundImage:[UIImage imageNamed:@"unsubscribe_1.png"] forState:UIControlStateNormal];
+        newcell.setBTN.titleLabel.tintColor = [UIColor whiteColor];
+         [newcell.setBTN setBackgroundColor:[UIColor colorWithRed:0.8481 green:0.8481 blue:0.8481 alpha:1.0]];
     }else{
         [newcell.setBTN setTitle:@"订阅" forState:UIControlStateNormal];
-        [newcell.setBTN setBackgroundImage:[UIImage imageNamed:@"subscribe_btn.png"] forState:UIControlStateNormal];
+        newcell.setBTN.titleLabel.tintColor = [UIColor whiteColor];
+       [newcell.setBTN setBackgroundColor:[UIColor colorWithRed:0.6963 green:0.6963 blue:0.6963 alpha:1.0]];
     }
     [newcell.setBTN setTintColor:[UIColor whiteColor]];
     return newcell;

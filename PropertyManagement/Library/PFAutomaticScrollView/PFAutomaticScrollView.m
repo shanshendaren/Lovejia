@@ -126,10 +126,10 @@ typedef void (^tapBlock)(PFAutomaticScrollView *, NSInteger);
         [self addSubview:self.scrollView];
 
         //文本
-        self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height - 30, self.bounds.size.width, 30)];
-        self.textLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.300];
-        self.textLabel.font = [UIFont systemFontOfSize:14];
-        self.textLabel.textColor = [UIColor blueColor];
+        self.textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.size.height - 25, self.bounds.size.width, 30)];
+        self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+        self.textLabel.textColor = [UIColor grayColor];
         self.textLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:self.textLabel];
 
@@ -313,7 +313,7 @@ typedef void (^tapBlock)(PFAutomaticScrollView *, NSInteger);
     if (block) {
         block(self, self.pageControl, currentPageIndex);
         self.pageControlBlock = block;
-        block = nil;
+    //    block = nil;
     }
 }
 

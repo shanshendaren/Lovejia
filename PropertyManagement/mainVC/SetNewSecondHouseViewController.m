@@ -14,7 +14,7 @@
 #import "SVProgressHUD.h"
 #import "ActivityView.h"
 
-@interface SetNewSecondHouseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITextFieldDelegate,UITextViewDelegate>
+@interface SetNewSecondHouseViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     UIImageView *iv;
     NSString *picPath;
@@ -49,14 +49,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [VersionAdapter setViewLayout:self];
-    [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
+    [self.view setBackgroundColor:[UIColor colorWithWhite:0.97f alpha:1.0f]];
     
     self.title = @"卖房信息";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     
-    UIScrollView * sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 60-44-[VersionAdapter getMoreVarHead])];
+    UIScrollView * sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 -[VersionAdapter getMoreVarHead])];
     [sv setUserInteractionEnabled:YES];
     [self.view addSubview:sv];
     
@@ -81,182 +81,132 @@
     [sv addSubview:self.collectionView];
     
     Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y;
-    UIView *back_one = [[UIView alloc]initWithFrame:CGRectMake(0, Y+10, self.view.frame.size.width, 44)];
+    UIView *back_one = [[UIView alloc]initWithFrame:CGRectMake(0, Y+1, self.view.frame.size.width, 35)];
     [back_one setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_one];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     titleLabel.text = @"标题";
     titleLabel.textAlignment = 1;
     titleLabel.backgroundColor = [UIColor whiteColor];
     [back_one addSubview:titleLabel];
     
-    UIImageView *lineView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [lineView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    lineView.backgroundColor = LINECOLOR;
     [back_one addSubview:lineView];
     
-    self.titleTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 44)];
+    self.titleTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 35)];
+    self.titleTextField.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.titleTextField setBackgroundColor:[UIColor whiteColor]];
     self.titleTextField.placeholder = @"请输入";
     [back_one addSubview:self.titleTextField];
-    Y = back_one.frame.size.height + back_one.frame.origin.y + 10;
+    Y = back_one.frame.size.height + back_one.frame.origin.y + 1;
     
     //类型
-    UIView *back_two = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 44)];
+    UIView *back_two = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [back_two setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_two];
     
-    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    typeLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     typeLabel.text = @"房型";
     typeLabel.textAlignment = 1;
     typeLabel.backgroundColor = [UIColor whiteColor];
     [back_two addSubview:typeLabel];
     
-    UIImageView *lView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [lView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *lView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    lView.backgroundColor = LINECOLOR;
     [back_two addSubview:lView];
     
-    self.typeTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 44)];
+    self.typeTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 35)];
+    self.typeTextField.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.typeTextField setBackgroundColor:[UIColor whiteColor]];
     self.typeTextField.placeholder = @"请输入";
     [back_two addSubview:self.typeTextField];
 
     
-    Y = back_two.frame.size.height + back_two.frame.origin.y + 10;
-    
-    
+    Y = back_two.frame.size.height + back_two.frame.origin.y + 1;
     //地址
-    UIView *back_three = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 44)];
+    UIView *back_three = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [back_three setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_three];
     
-    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    addLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     addLabel.text = @"地址";
     addLabel.textAlignment = 1;
     addLabel.backgroundColor = [UIColor whiteColor];
     [back_three addSubview:addLabel];
     
-    UIImageView *addView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [addView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *addView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    addView.backgroundColor = LINECOLOR;
     [back_three addSubview:addView];
     
-    self.addTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 44)];
+    self.addTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 35)];
+    self.addTextField.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.addTextField setBackgroundColor:[UIColor whiteColor]];
     self.addTextField.placeholder = @"请输入";
     self.addTextField.delegate = self;
     self.addTextField.tag = 4;
     [back_three addSubview:self.addTextField];
 
-    Y = back_three.frame.size.height + back_three.frame.origin.y + 10;
-
-    
+    Y = back_three.frame.size.height + back_three.frame.origin.y + 1;
     //价格
-    UIView *back_four = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 44)];
+    UIView *back_four = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [back_four setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_four];
     
-    UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    priceLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     priceLabel.text = @"价格";
     priceLabel.textAlignment = 1;
     priceLabel.backgroundColor = [UIColor whiteColor];
     [back_four addSubview:priceLabel];
     
-    UIImageView *priceView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [priceView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *priceView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    priceView.backgroundColor = LINECOLOR;
     [back_four addSubview:priceView];
     
-    self.priceTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 44)];
+    self.priceTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 35)];
+    self.priceTextField.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.priceTextField setBackgroundColor:[UIColor whiteColor]];
     self.priceTextField.placeholder = @"请输入";
     self.priceTextField.tag = 3;
     self.priceTextField.delegate = self;
     [back_four addSubview:self.priceTextField];
 
-    Y = back_four.frame.size.height + back_four.frame.origin.y + 10;
-
+    Y = back_four.frame.size.height + back_four.frame.origin.y + 1;
     //描述
     UIView *back_five = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 160)];
     [back_five setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_five];
     UILabel *label_two = [[UILabel alloc]initWithFrame:CGRectMake(0,0, 40, 160)];
-    label_two.text = @"描述:";
+    label_two.font = [UIFont systemFontOfSize:FONT_SIZE];
+    label_two.text = @"描述";
     label_two.textAlignment = 1;
     [back_five addSubview:label_two];
-    UIImageView *llView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 152)];
-    [llView setImage:[UIImage imageNamed:@"line.png"]];
+    
+    UIView *llView = [[UIView alloc]initWithFrame:CGRectMake(40, 4, 1, 152)];
+    llView.backgroundColor = LINECOLOR;
     [back_five addSubview:llView];
+    
     self.text_neirong = [[UITextView alloc]initWithFrame:CGRectMake(44, 0,self.view.frame.size.width- 44 ,160)];
+    self.text_neirong.font = [UIFont systemFontOfSize:FONT_SIZE];
     self.text_neirong.delegate = self;
     [back_five addSubview:self.text_neirong ];
     
     [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y +165)];
-    //发布
-    UIImageView *backView = [[UIImageView alloc]init];
-    backView.userInteractionEnabled = YES;
-    backView.backgroundColor = [UIColor whiteColor];
-    backView.frame = CGRectMake(0, self.view.frame.size.height - 60-44-[VersionAdapter getMoreVarHead]+10, self.view.frame.size.width, 60);
-    [self.view addSubview:backView];
     
+    //发布
     UIButton * btn1 =[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:CGRectMake(60, 15, 200, 30)];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [btn1 setFrame: CGRectMake(30, self.view.frame.size.height-140, self.view.frame.size.width-60, 35)];
     [btn1 setTitle:@"发布" forState:UIControlStateNormal];
     [btn1 setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(cilckAction) forControlEvents:UIControlEventTouchUpInside];
-    [backView addSubview:btn1];
-    
-    //定义键盘
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-    [view setBackgroundColor:[UIColor grayColor]];
-    UIButton *downBtn = [[UIButton alloc]initWithFrame:CGRectMake(280, 0, 40, 30)];
-    [downBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [downBtn addTarget:self action:@selector(downKb:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:downBtn];
-    [self.titleTextField setInputAccessoryView:view];
-    [self.typeTextField setInputAccessoryView:view];
-    [self.text_neirong setInputAccessoryView:view];
-    [self.addTextField setInputAccessoryView:view];
-    [self.priceTextField setInputAccessoryView:view];
+    [self.view addSubview:btn1];
 
-}
-
-
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: YES];
-    
-}
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: NO];
-}
-
-- (void) animateTextField: (UITextField*) textField up:(BOOL) up
-{
-    if (textField.tag >2) {
-        int movementDistance = 120;
-        const float movementDuration = 0.3f;
-        int movement = (up ? -movementDistance : movementDistance);
-        [UIView beginAnimations: @"anim" context: nil];
-        [UIView setAnimationBeginsFromCurrentState: YES];
-        [UIView setAnimationDuration: movementDuration];
-        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-        [UIView commitAnimations];
-    }
-}
-
-
--(void)downKb:(UIButton *)sender
-{
-    [self.text_neirong resignFirstResponder];
-    [self.titleTextField resignFirstResponder];
-    [self.typeTextField resignFirstResponder];
-    [self.priceTextField resignFirstResponder];
-    [self.addTextField resignFirstResponder];
-    CGRect curFrame = self.view.frame;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.view.frame=CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [VersionAdapter getMoreVarHead], curFrame.size.width, curFrame.size.height);
-    }];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -315,22 +265,8 @@
     }
 }
 
--(void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self.tap setEnabled:YES];
-    CGRect curFrame = self.view.frame;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.view.frame=CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [VersionAdapter getMoreVarHead] - self.text_neirong.frame.size.height - 60, curFrame.size.width, curFrame.size.height);
-    }];
-}
-
 
 -(void)cilckAction{
-//    if ([self.photoArray count] == 1 ) {
-//        UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请添加照片" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//        [view show];
-//        return;
-//    }
     if ([self.titleTextField.text isEqualToString:@""]) {
         UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请输入标题" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [view show];
@@ -353,7 +289,7 @@
         return;
     }
     if ([self.photoArray count] >6) {
-        UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"最多只能上传五张图片" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"最多只能上传三张图片" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [view show];
         return;
     }

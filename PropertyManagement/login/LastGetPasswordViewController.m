@@ -35,7 +35,7 @@
 }
 
 -(void)createUI{
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
 
@@ -66,7 +66,7 @@
     [iv3 addSubview:label3];
     [self.view addSubview:iv3];
     
-    UIView *lineview = [[UIView alloc]initWithFrame:CGRectMake(10, 45, self.view.frame.size.width-20, 1)];
+    UIView *lineview = [[UIView alloc]initWithFrame:CGRectMake(10, 45, self.view.frame.size.width-20, 0.5)];
     [lineview setBackgroundColor:[UIColor lightGrayColor]];
     [self.view addSubview:lineview];
     
@@ -92,7 +92,7 @@
     passWordFiled.secureTextEntry = YES;
     [passWordFiled setBackgroundColor:[UIColor clearColor]];
     passWordFiled.delegate = self;
-    [passWordFiled setFont:[UIFont fontWithName:nil size:14]];
+    [passWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
     [im addSubview:passWordFiled];
     
     UILabel * newlabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 135, 60, 30)];
@@ -123,27 +123,6 @@
     [nextBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [self.view addSubview:nextBtn];
     [self createBack];
-    
-    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    [topView setBarStyle:UIBarStyleBlackTranslucent];
-    
-    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(2, 5, 50, 25);
-    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
-    [topView setItems:buttonsArray];
-    [passWordFiled setInputAccessoryView:topView];
-    [rePassWordFiled setInputAccessoryView:topView];
-}
-
-
--(void)dismissKeyBoard
-{
-    [passWordFiled resignFirstResponder];
-    [rePassWordFiled resignFirstResponder];
 }
 
 -(void)createBack{

@@ -13,7 +13,7 @@
 #import "SVProgressHUD.h"
 
 
-@interface HousekeepingInfoViewController ()<UITextViewDelegate>{
+@interface HousekeepingInfoViewController (){
     ActivityView *activity;
     UILabel *titleLabelInfo;
     UILabel * timeLabel;
@@ -43,8 +43,8 @@
     [self createBack];
     isFeedback = 0;
     [self.view setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
-    self.title = @"家政服务详情";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    self.title = @"家政详情";
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     UIScrollView * sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height -44-[VersionAdapter getMoreVarHead])];
@@ -54,68 +54,65 @@
     
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     
-    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [view1 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view1];
     
-    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
+    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 25)];
     [line1 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view1 addSubview:line1];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
-    titleLabel.text = @"   标题";
-    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [titleLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 35)];
+    titleLabel.text = @"标题";
+    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view1 addSubview:titleLabel];
     
-    titleLabelInfo = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, self.view.frame.size.width-120, 30)];
-    titleLabelInfo.font = [UIFont fontWithName:@"Arial" size:14];
+    titleLabelInfo = [[UILabel alloc]initWithFrame:CGRectMake(85, 3, self.view.frame.size.width-120, 30)];
+    titleLabelInfo.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
     
     titleLabelInfo.text = [NSString stringWithFormat:@"%@",self.houseK.hsName];
     [view1 addSubview:titleLabelInfo];
     
-    Y = view1.frame.size.height + view1.frame.origin.y+ 10;
+    Y = view1.frame.size.height + view1.frame.origin.y+ 1;
     
-    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view2];
     
-    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
+    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 25)];
     [line2 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view2 addSubview:line2];
     
-    UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
+    UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 40)];
     complainLabel.text = @"创建时间";
-    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [complainLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view2 addSubview:complainLabel];
     
-    timeLabel =  [[UILabel alloc]initWithFrame:CGRectMake(120, 5,self.view.frame.size.width-120,30)];
-    timeLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    timeLabel =  [[UILabel alloc]initWithFrame:CGRectMake(85, 3,self.view.frame.size.width-120,30)];
+    timeLabel.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
     timeLabel.text = [NSString stringWithFormat:@"%@",self.houseK.hsTime];
 
     [view2 addSubview:timeLabel];
     
-    Y = view2.frame.size.height + view2.frame.origin.y+ 10;
+    Y = view2.frame.size.height + view2.frame.origin.y+ 1;
     
     UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0,Y, self.view.frame.size.width, 170)];
     [view3 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view3];
     
-    UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 65, 80, 40)];
+    UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 65, 60, 40)];
     infoLabel.text = @"服务内容";
-    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [infoLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view3 addSubview:infoLabel];
     
-    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 150)];
+    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 160)];
     [line3 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view3 addSubview:line3];
     
-    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(110, 0, self.view.frame.size.width-110, 170)] ; //初始化大小
+    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(75, 0, self.view.frame.size.width-110, 170)] ; //初始化大小
     contentView.tag = 2;
     [contentView setBackgroundColor:[UIColor clearColor]];
-    contentView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
+    contentView.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     contentView.delegate = self;//设置它的委托方法
     contentView.returnKeyType = UIReturnKeyDefault;//返回键的类型
     contentView.keyboardType = UIKeyboardTypeDefault;//键盘类型
@@ -126,24 +123,23 @@
     contentView.text = [NSString stringWithFormat:@"%@",self.houseK.hsDetail];
     [view3 addSubview: contentView];
     
-    Y = view3.frame.size.height + view3.frame.origin.y+ 10;
+    Y = view3.frame.size.height + view3.frame.origin.y+ 1;
     
-    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [view4 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view4];
     
-    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
+    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 25)];
     [line4 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view4 addSubview:line4];
     
-    UILabel *doLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
+    UILabel *doLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 35)];
     doLabel.text = @"受理时间";
-    [doLabel setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [doLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [doLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view4 addSubview:doLabel];
     
-    isdone = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, self.view.frame.size.width-120, 30)];
-    isdone.font = [UIFont fontWithName:@"Arial" size:14];
+    isdone = [[UILabel alloc]initWithFrame:CGRectMake(85, 3, self.view.frame.size.width-120, 30)];
+    isdone.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
     if (self.houseK.acceptTime.length >0) {
         isdone.text =[NSString stringWithFormat:@"%@",self.houseK.acceptTime];
     }else{
@@ -151,26 +147,25 @@
     }
     [view4 addSubview:isdone];
     
-    Y = view4.frame.size.height + view4.frame.origin.y+ 10;
+    Y = view4.frame.size.height + view4.frame.origin.y+ 1;
     
     
     UIView * view6 = [[UIView alloc]initWithFrame:CGRectMake(0,Y, self.view.frame.size.width, 80)];
     [view6 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view6];
     
-    UILabel *infoLabel6 = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 80, 40)];
+    UILabel *infoLabel6 = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 60, 40)];
     infoLabel6.text = @"受理方案";
-    [infoLabel6 setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [infoLabel6 setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [infoLabel6 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view6 addSubview:infoLabel6];
     
-    UIView * line6 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 60)];
+    UIView * line6 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 70)];
     [line6 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view6 addSubview:line6];
     
-    contentView1= [[UITextView  alloc] initWithFrame:CGRectMake(110, 0, self.view.frame.size.width-110, 80)] ; //初始化大小
+    contentView1= [[UITextView  alloc] initWithFrame:CGRectMake(85, 0, self.view.frame.size.width-85, 80)] ; //初始化大小
     [contentView1 setBackgroundColor:[UIColor clearColor]];
-    contentView1.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
+    contentView1.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     contentView1.delegate = self;//设置它的委托方法
     contentView1.returnKeyType = UIReturnKeyDefault;//返回键的类型
     contentView1.keyboardType = UIKeyboardTypeDefault;//键盘类型
@@ -184,7 +179,8 @@
         contentView1.text = @"您的需求还未被任何商家受理";
     }
     [view6 addSubview: contentView1];
-    Y = view6.frame.size.height + view6.frame.origin.y+ 10;
+    Y = view6.frame.size.height + view6.frame.origin.y+ 1;
+    
     if ([self.houseK.acceptStatus isEqualToString:@"1"]) {
         UIView * view7 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 81)];
         [view7 setBackgroundColor:[UIColor whiteColor]];
@@ -192,11 +188,11 @@
         
         UILabel *ll1 =[[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.view.frame.size.width-60, 20)];
         ll1.text = @"商家信息";
-        [ll1 setFont:[UIFont fontWithName:@"Arial" size:15]];
+        [ll1 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
         [ll1 setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
         [view7 addSubview:ll1];
         
-        UIView *llview =[[UIView alloc]initWithFrame:CGRectMake(10, 21, self.view.frame.size.width-10, 1)];
+        UIView *llview =[[UIView alloc]initWithFrame:CGRectMake(10, 21, self.view.frame.size.width-10, 0.5)];
         [llview setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
         [view7 addSubview:llview];
         
@@ -206,13 +202,13 @@
         
         UILabel *ll3 =[[UILabel alloc]initWithFrame:CGRectMake(10, 41, self.view.frame.size.width-60, 20)];
         ll3.text = [NSString stringWithFormat:@"联系人:%@",self.houseK.acceptBusinner];
-        ll3.font = [UIFont fontWithName:@"Arial" size:14.0];
+        ll3.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
         ll3.textColor = [UIColor lightGrayColor];
         [view7 addSubview:ll3];
         
         UILabel *ll4 =[[UILabel alloc]initWithFrame:CGRectMake(10, 61, self.view.frame.size.width-60, 20)];
         ll4.text = [NSString stringWithFormat:@"联系电话:%@",self.houseK.acceptBusinnerMobile];
-        ll4.font = [UIFont fontWithName:@"Arial" size:14.0];
+        ll4.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
         ll4.textColor = [UIColor lightGrayColor];
         [view7 addSubview:ll4];
         
@@ -222,31 +218,31 @@
         [telBTN addTarget:self action:@selector(telAction:) forControlEvents:UIControlEventTouchUpInside];
         [view7 addSubview:telBTN];
         
-        Y = view7.frame.size.height + view7.frame.origin.y+ 10;
+        Y = view7.frame.size.height + view7.frame.origin.y+ 1;
     }
+    
     UIView * view5 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
     [view5 setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:view5];
     
-    UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
+    UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(75, 5, 1, 30)];
     [line5 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [view5 addSubview:line5];
     
-    UILabel *doLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
-    doLabel1.text = @"   评价";
-    [doLabel1 setFont:[UIFont fontWithName:@"Arial" size:15]];
-    [doLabel1 setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    UILabel *doLabel1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 60, 40)];
+    doLabel1.text = @"评价";
+    [doLabel1 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view5 addSubview:doLabel1];
     
     wBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [wBtn1 setFrame:CGRectMake(120, 5, 50, 30)];
+    [wBtn1 setFrame:CGRectMake(100, 5, 50, 30)];
     wBtn1.tag = 3;
     [wBtn1 setBackgroundImage:[UIImage imageNamed:@"evolution_07.png"] forState:UIControlStateNormal];
     [wBtn1 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     [view5 addSubview:wBtn1];
     
     wBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [wBtn2 setFrame:CGRectMake(185, 5, 50, 30)];
+    [wBtn2 setFrame:CGRectMake(175, 5, 50, 30)];
     wBtn2.tag = 2;
     [wBtn2 addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
     [wBtn2 setBackgroundImage:[UIImage imageNamed:@"evolution_09.png"] forState:UIControlStateNormal];

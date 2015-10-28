@@ -201,20 +201,20 @@
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 30)];
         titleLabel.tag = 101;
-        titleLabel.font= [UIFont systemFontOfSize:16.f];
+        titleLabel.font= [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:titleLabel];
         
         
         UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 30, 200, 20)];
         contentLabel.tag = 102;
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:12.f];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:contentLabel];
         
         UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, 200, 20)];
         jianjieLabel.tag = 103;
         jianjieLabel.textColor = [UIColor grayColor];
-        jianjieLabel.font = [UIFont systemFontOfSize:12.f];
+        jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:jianjieLabel];
         
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(240, 10, 70, 50)];

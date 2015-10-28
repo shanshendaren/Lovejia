@@ -17,7 +17,7 @@
 #import "SubscripTableViewCell.h"
 #import "NewsListViewController.h"
 #import "iToast.h"
-
+#import "UIImageView+WebCache.h"
 
 @interface NewsMainViewController ()
 
@@ -42,6 +42,7 @@
     [super viewWillAppear:animated];
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     [app.tabBar customTabBarHidden:YES];
+    [self.navigationController.navigationBar setHidden:NO];
     [setTable reloadData];
 }
 
@@ -50,7 +51,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [VersionAdapter setViewLayout:self];
-    
   
     [self createUI];
     [self createBack];
@@ -73,7 +73,7 @@
 
 -(void)createUI{
     self.title = @"生活资讯";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNewsList:) name:@"updateNewsList" object:nil];
@@ -139,7 +139,7 @@
                 ifm.informationTypeId = [rdic objectForKey:@"typeId"];
                 ifm.typeName = [rdic objectForKey:@"typeName"];
                 ifm.isSubscribe = [[rdic objectForKey:@"isSubscribe"] boolValue];
-                ifm.typePic = [rdic objectForKey:@"type_img"];
+                ifm.typePic = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[rdic objectForKey:@"type_img"]]];
                 ifm.typeInfo = [rdic objectForKey:@"type_introduction"];
                 [newsArr addObject:ifm];
             }
@@ -197,7 +197,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -210,15 +210,15 @@
         newcell = [[SubscripTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 
     }
-    newcell.accessoryType = UITableViewCellAccessoryDisclosureIndicator ;
+    newcell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     information * inf = [isArr objectAtIndex:indexPath.row];
-    newcell.infoLabel.text = [NSString stringWithFormat:@"%@",inf.typeInfo];
+//    newcell.infoLabel.text = [NSString stringWithFormat:@"%@",inf.typeInfo];
     newcell.nameLabel.text = [NSString stringWithFormat:@"%@",inf.typeName];
-    newcell.imview.image =[UIImage imageNamed:@"minion"];
+    [newcell.imview sd_setImageWithURL:inf.typePic placeholderImage:[UIImage imageNamed:@"minion"]];
     [newcell.setBTN setHidden:YES];
     
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 59, self.view.frame.size.width, 1)];
-    view.backgroundColor = [UIColor grayColor];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(40, 39, self.view.frame.size.width, 0.5)];
+    view.backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
     [newcell.contentView addSubview:view];
     return newcell;
 }
@@ -230,9 +230,7 @@
 //    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:nlc];
     nlc.newsType = inf.informationTypeId;
     nlc.newsName = inf.typeName;
-//    [self presentViewController:nlc animated:NO completion:^{
-//        }];
-   [self.navigationController pushViewController:nlc animated:NO];
+    [self.navigationController pushViewController:nlc animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

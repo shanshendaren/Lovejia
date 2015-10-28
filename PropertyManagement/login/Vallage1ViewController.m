@@ -12,7 +12,6 @@
 #import "RequestUtil.h"
 #import "SVProgressHUD.h"
 #import "Vallage.h"
-#import "BZProtocol.h"
 
 @interface Vallage1ViewController ()
 {
@@ -30,7 +29,6 @@
     //设置索引
     setTable.sectionIndexBackgroundColor = [UIColor clearColor];
     setTable.sectionIndexTrackingBackgroundColor = [UIColor clearColor];
-    
     setTable.sectionIndexMinimumDisplayRowCount = 1;
     
     [VersionAdapter setViewLayout:self];
@@ -39,16 +37,15 @@
     [self createSearchView];
     [self setVallage];
     [self createBack];
-    
-    // Do any additional setup after loading the view.
 }
 
 -(void)createUI{
     self.title = [NSString stringWithFormat:@"选择小区"];
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44)];
+    [setTable setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     //设置数据源
     setTable.delegate = self;
     setTable.dataSource = self;
@@ -57,13 +54,7 @@
 
 -(void)setVallage{
 //    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
-        RequestUtil *requestUtil = [[RequestUtil alloc]init];
-        //业务数据参数组织成JSON字符串
-        NSString *biz = [NSString  stringWithFormat:@"Protocol"];
-        NSString *sid = @"Protocol";
-        NSLog(@"biawqwdasOrg-->%@",biz);
-        [requestUtil startRequest:sid biz:biz send:self];
-    }
+}
 
 
 -(void)setJsonView {
@@ -109,12 +100,6 @@
         [activity stopAcimate];
     }
     if ([json[@"status"]isEqualToString:@"success"]) {
-        if([json objectForKey:@"protocol"]){
-            NSString *str = [json objectForKey:@"protocol"];
-            BZProtocol *pro = [BZProtocol sharedManager];
-            pro.protocol2 = str;
-            NSLog(@"protocol1->%@  str->%@",pro,str);
-        }
         if ([json objectForKey:@"vallageInfo"]) {
             NSArray *arr = [json objectForKey:@"vallageInfo"];
             for ( int i = 0;i< arr.count;i++ ) {
@@ -122,7 +107,6 @@
                 Vallage* val =[[Vallage alloc]init];
                 val.vallageId = dic[@"vallageId"];
                 val.vallageName = dic[@"vallageName"];
-                NSLog(@"%@",val);
                 [cityArr addObject:val];
             }
             [setTable reloadData];
@@ -194,7 +178,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 35;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -224,10 +208,9 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView;{
     
     NSMutableArray *toBeReturned = [[NSMutableArray alloc]init];
-    for(char c = 'A'; c<='Z' ;c++)
-        
+    for(char c = 'A'; c<='Z' ;c++){
         [toBeReturned addObject:[NSString stringWithFormat:@"%c",c]];
-    
+}
     return toBeReturned;
 }
 

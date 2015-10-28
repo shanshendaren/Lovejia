@@ -44,7 +44,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [VersionAdapter setViewLayout:self];
     self.title = @"小区概况";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     [self createBack];
@@ -65,92 +65,92 @@
     
     
     UIButton *btn =[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(20,  self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]-35, (self.view.frame.size.width-40)/2-10, 30)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [btn setFrame:CGRectMake(20,  self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]-40, (self.view.frame.size.width-40)/2-10, 25)];
     [btn setTitle:@"地图" forState:UIControlStateNormal];
     [btn setBackgroundImage:[UIImage imageNamed: @"17"]forState:UIControlStateNormal];
-//    [btn setBackgroundColor:[UIColor redColor]];
     [btn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
     UIButton *btn1 =[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:CGRectMake((self.view.frame.size.width-40)/2+20,  self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]-35, (self.view.frame.size.width-20)/2-10, 30)];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [btn1 setFrame:CGRectMake((self.view.frame.size.width-40)/2+20,  self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]-40, (self.view.frame.size.width-20)/2-10, 25)];
     [btn1 setTitle:@"呼叫物业" forState:UIControlStateNormal];
     [btn1 setBackgroundImage:[UIImage imageNamed: @"17"]forState:UIControlStateNormal];
-//    [btn1 setBackgroundColor:[UIColor redColor]];
     [btn1 addTarget:self action:@selector(phoneAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
     
-    iv =[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-20, 190)];
+    iv =[[UIImageView alloc]initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-20, 199)];
     [sv addSubview:iv];
     
-    UIView *view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 201, self.view.frame.size.width, 13)];
-    [view1 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView *view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 210, self.view.frame.size.width, 3)];
+    [view1 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:view1];
     
     UILabel * l1 =[[UILabel alloc]initWithFrame:CGRectMake(10, 215, 60, 30)];
-    [l1 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l1 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     l1.text = @"小区名:";
     [sv addSubview:l1];
     
     l2 =[[UILabel alloc]initWithFrame:CGRectMake(70, 215, self.view.frame.size.width-80, 30)];
-    [l2 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l2 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l2];
     
-    UIView *line1 =[[UIView alloc]initWithFrame:CGRectMake(0, 245, self.view.frame.size.width, 1)];
-    [line1 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView *line1 =[[UIView alloc]initWithFrame:CGRectMake(0, 245, self.view.frame.size.width, 0.5)];
+    [line1 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:line1];
     
     UILabel * l3 =[[UILabel alloc]initWithFrame:CGRectMake(10, 246, 60, 30)];
     l3.text = [NSString stringWithFormat:@"%@",@"地    址:" ];
-    [l3 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l3 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l3];
     
     l4 =[[UILabel alloc]initWithFrame:CGRectMake(70, 246, self.view.frame.size.width-80, 30)];
-    [l4 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l4 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l4];
     
     
-    UIView *view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 276, self.view.frame.size.width, 13)];
-    [view2 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView *view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 276, self.view.frame.size.width, 10)];
+    [view2 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:view2];
     
     
     UILabel * l5 =[[UILabel alloc]initWithFrame:CGRectMake(10, 290, 60, 30)];
     l5.text = [NSString stringWithFormat:@"%@",@"物    管:" ];
-    [l5 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l5 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l5];
     
     l6 =[[UILabel alloc]initWithFrame:CGRectMake(70, 290, self.view.frame.size.width-80, 30)];
-    [l6 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l6 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l6];
     
-    UIView *line2 =[[UIView alloc]initWithFrame:CGRectMake(0, 320, self.view.frame.size.width, 1)];
-    [line2 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView *line2 =[[UIView alloc]initWithFrame:CGRectMake(0, 320, self.view.frame.size.width, 0.5)];
+    [line2 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:line2];
     
     
     UILabel * l7 =[[UILabel alloc]initWithFrame:CGRectMake(10, 320, 60, 30)];
     l7.text = @"居委会:";
-    [l7 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l7 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l7];
     
     l8 =[[UILabel alloc]initWithFrame:CGRectMake(70, 320, self.view.frame.size.width-80, 30)];
-    [l8 setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [l8 setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [sv addSubview:l8];
     
     UIView *view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 351, self.view.frame.size.width, 13)];
-    [view3 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    [view3 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:view3];
     
     
     UILabel * l9 =[[UILabel alloc]initWithFrame:CGRectMake(10, 370, 80, 30)];
     l9.text = @"小区详情";
-    [l9 setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:14]];
+    [l9 setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:FONT_SIZE]];
     [sv addSubview:l9];
     
-    UIView *line3 =[[UIView alloc]initWithFrame:CGRectMake(0, 400, self.view.frame.size.width, 1)];
-    [line3 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView *line3 =[[UIView alloc]initWithFrame:CGRectMake(0, 400, self.view.frame.size.width, 0.5)];
+    [line3 setBackgroundColor:[UIColor colorWithWhite:0.96 alpha:1]];
     [sv addSubview:line3];
     
     
@@ -187,10 +187,10 @@
         contentView.text = [NSString stringWithFormat:@"%@",[biz objectForKey:@"vallageDetail"]];
         contentView.lineBreakMode = NSLineBreakByWordWrapping;
         contentView.numberOfLines = 0;
-        UIFont* font = [UIFont fontWithName:@"Arial" size:14];
+        UIFont* font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
         CGSize titleSize = [ contentView.text sizeWithFont:font constrainedToSize:CGSizeMake(self.view.frame.size.width-20, 2000) lineBreakMode:NSLineBreakByWordWrapping];
         [contentView setFrame:CGRectMake(10, 410, titleSize.width, titleSize.height)];
-        contentView.font =[UIFont fontWithName:@"Arial" size:14];
+        contentView.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
         [sv setContentSize:CGSizeMake(self.view.frame.size.width, 410+contentView.frame.size.height)];
     }
     else{
@@ -236,8 +236,8 @@
     backButton1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     countLabel =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 110, 20)];
     countLabel.textAlignment = NSTextAlignmentRight;
-    countLabel.font =[UIFont fontWithName:@"Arial" size:13];
-    countLabel.textColor =[UIColor whiteColor];
+    countLabel.font =[UIFont fontWithName:@"Arial" size:FONT_SIZE];
+    countLabel.textColor =[UIColor blackColor];
     [backButton1 addSubview:countLabel];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton1];
     

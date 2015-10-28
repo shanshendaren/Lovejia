@@ -26,15 +26,12 @@
     BOOL isHead;
 }
 
-
-
 @end
 
 @implementation SaleListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [VersionAdapter setViewLayout:self];
     [self createUI];
     // Do any additional setup after loading the view.
@@ -44,7 +41,8 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     isHead = NO;
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44-40)];
-    setTable.delegate = self; setTable.dataSource = self;
+    setTable.delegate = self;
+    setTable.dataSource = self;
     [self.view addSubview:setTable];
     
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
@@ -58,7 +56,6 @@
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
 }
-
 
 - (void)setupRefresh
 {

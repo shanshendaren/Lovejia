@@ -17,28 +17,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
-    [super viewDidLoad];
     self.view.backgroundColor=[UIColor colorWithRed:250.0/255.0 green:250.0/255 blue:250.0/255 alpha:1.0];
-    
-
-//    UIImage * image  = [UIImage imageNamed:@"navigation_bar_bg1"];
-//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    
     [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_bg1"] forBarMetrics:UIBarMetricsDefault];
-//        self.navigationBar.shadowImage =[[UIImage alloc]init];
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    
-    
-//    self.navigationBar.alpha = 0.2;
-       self.navigationController.navigationBar.backgroundColor =[UIColor clearColor];
-    
-    
+    self.navigationController.navigationBar.backgroundColor =[UIColor clearColor];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

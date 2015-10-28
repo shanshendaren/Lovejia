@@ -90,7 +90,7 @@
 //        自定义TabBar的文字
         UILabel *tabBarLabel = [[UILabel alloc] initWithFrame:CGRectMake((i * self.view.frame.size.width/3), 27, self.view.frame.size.width/3, 10)];
         tabBarLabel.text = tabBarLabelArray[i];
-        tabBarLabel.font = [UIFont systemFontOfSize:8.0f];
+        tabBarLabel.font = [UIFont systemFontOfSize:8.f];
         tabBarLabel.textAlignment = 1;
         tabBarLabel.textColor = [UIColor grayColor];
         tabBarLabel.backgroundColor = [UIColor clearColor];
@@ -99,7 +99,7 @@
     }
     ((UIButton *)[tabBarButtonArray objectAtIndex:0]).selected = YES;
     ((UILabel *)[tabBarlabelArray objectAtIndex:0]).textColor = COLOR(73, 172, 53, 1.0);
-    recView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-75, 10, 50, 1)];
+    recView = [[UIView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-75, 10, 50, 0.5)];
     badgeView = [[JSBadgeView alloc] initWithParentView:recView alignment:JSBadgeViewAlignmentTopRight];
     badgeView.badgeText = [NSString stringWithFormat:@"%d",self.newCount];
     if (self.newCount == 0) {

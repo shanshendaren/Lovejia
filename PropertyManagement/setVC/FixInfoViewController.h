@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Fix.h"
 
-@interface FixInfoViewController : UIViewController<UITextViewDelegate>
+@interface FixInfoViewController : UIViewController
 @property(nonatomic,strong)NSString *fixId;
 @property(nonatomic,strong)Fix *fix;
 

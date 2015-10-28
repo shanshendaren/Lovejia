@@ -55,7 +55,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [VersionAdapter setViewLayout:self];
     self.navigationItem.title = @"交换详情";
-    //[self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
+
     UIScrollView *sv = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-44-[VersionAdapter getMoreVarHead] - 50)];
     [sv setUserInteractionEnabled:YES];
     [self.view addSubview:sv];
@@ -71,10 +71,10 @@
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newBtn setFrame:CGRectMake(self.view.frame.size.width-50, 0, 30, 30)];
+    [newBtn setFrame:CGRectMake(self.view.frame.size.width-50, 5, 20, 20)];
     [newBtn addTarget:self action:@selector(pushAction:) forControlEvents:UIControlEventTouchUpInside];
     [newBtn setTintColor:[UIColor lightGrayColor]];
-    [newBtn setBackgroundImage:[UIImage imageNamed:@"top_more_.png"] forState:UIControlStateNormal];
+    [newBtn setBackgroundImage:[UIImage imageNamed:@"top_more_"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:newBtn];
     
     if ([self.selfType isEqualToString:@"22"]) {
@@ -104,33 +104,32 @@
         self.collectionView.delegate = self;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCell"];
         [sv addSubview:self.collectionView];
-        
-        Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+ 5;
+        Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+ 1;
     }
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
-    [titleLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    [titleLabel setBackgroundColor:[UIColor whiteColor]];
     titleLabel.numberOfLines = 0;
-    titleLabel.text = self.valuablesInfo.barterInfoTitle;
-    titleLabel.font = [UIFont systemFontOfSize:20.f];
+    titleLabel.text = [NSString stringWithFormat:@"   %@",self.valuablesInfo.barterInfoTitle];
+    titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     titleLabel.textColor = [UIColor blackColor];
     [sv addSubview:titleLabel];
-    Y = titleLabel.frame.size.height + titleLabel.frame.origin.y;
+    
+    Y = titleLabel.frame.size.height + titleLabel.frame.origin.y+1;
     
     UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 20)];
-    jianjieLabel.text = [NSString stringWithFormat:@"发布时间 %@",self.valuablesInfo.repaeaseDate];
-    [jianjieLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
-    jianjieLabel.textColor = [UIColor grayColor];
-    jianjieLabel.font = [UIFont systemFontOfSize:12.f];
+    jianjieLabel.text = [NSString stringWithFormat:@"   发布时间 %@",self.valuablesInfo.repaeaseDate];
+    [jianjieLabel setBackgroundColor:[UIColor whiteColor]];
+    jianjieLabel.textColor = [UIColor blackColor];
+    jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [sv addSubview:jianjieLabel];
-    Y = jianjieLabel.frame.size.height + jianjieLabel.frame.origin.y + 5;
-    
+    Y = jianjieLabel.frame.size.height + jianjieLabel.frame.origin.y + 1;
     
     if([self.selfType isEqualToString:@"22"]){
         UITextView *contentLabel = [[UITextView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 150)];
         contentLabel.editable = NO;
-        contentLabel.text = [NSString stringWithFormat:@"%@",self.valuablesInfo.barterInfoContent];
+        contentLabel.text = [NSString stringWithFormat:@"   %@",self.valuablesInfo.barterInfoContent];
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:14.f];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [sv addSubview:contentLabel];
         
         Y = contentLabel.frame.size.height + contentLabel.frame.origin.y;
@@ -139,15 +138,15 @@
         label1.text = [NSString stringWithFormat:@"评论"];
         [label1 setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
         label1.textColor = [UIColor grayColor];
-        label1.font = [UIFont systemFontOfSize:12.f];
+        label1.font = [UIFont systemFontOfSize:FONT_SIZE];
         [sv addSubview:label1];
+     
         Y = label1.frame.size.height + label1.frame.origin.y;
-        
         UITextView *contentLabel1 = [[UITextView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 60)];
         contentLabel1.editable = NO;
         contentLabel1.text = [NSString stringWithFormat:@"%@",self.valuablesInfo.barterCommentContent];
         contentLabel1.textColor = [UIColor grayColor];
-        contentLabel1.font = [UIFont systemFontOfSize:14.f];
+        contentLabel1.font = [UIFont systemFontOfSize:FONT_SIZE];
         [sv addSubview:contentLabel1];
         Y =contentLabel1.frame.size.height + contentLabel1.frame.origin.y;
         [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
@@ -157,7 +156,7 @@
         contentLabel.editable = NO;
         contentLabel.text = [NSString stringWithFormat:@"%@",self.valuablesInfo.barterInfoContent];
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:14.f];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [sv addSubview:contentLabel];
         Y = contentLabel.frame.size.height + contentLabel.frame.origin.y;
         [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y)];
@@ -168,22 +167,23 @@
     [self.view addSubview:backView];
     
     UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 120, 15)];
+    nameLabel.font = [UIFont systemFontOfSize:13];
     nameLabel.text = self.valuablesInfo.repaeaseName;
     nameLabel.textColor = [UIColor blackColor];
     [backView addSubview:nameLabel];
     
     UILabel *telLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 25, 120, 15)];
     telLabel.text = self.valuablesInfo.repaeaseTel;
-    telLabel.font = [UIFont systemFontOfSize:12.f];
+    telLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     telLabel.textColor = [UIColor grayColor];
     [backView addSubview:telLabel];
     
-    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 5, 180, 40)];
+    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 7, 180, 35)];
+    callBtn.titleLabel.font =  [UIFont systemFontOfSize:FONT_SIZE];
     [callBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [callBtn setTitle:@"联系发布人" forState:UIControlStateNormal];
     [callBtn addTarget:self action:@selector(callTo:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:callBtn];
-    
     if (![self.valuablesInfo.isOpen isEqualToString:@"1"] && ![self.valuablesInfo.isAgree isEqualToString:@"1"]) {
         telLabel.text =@"该用户隐藏了号码";
     }
@@ -196,14 +196,13 @@
     
     if ([self.selfType isEqualToString:@"12"]) {
         
-        if([KxMenu isMenuShow])
-        {
+        if([KxMenu isMenuShow]){
             [KxMenu dismissMenu];
             [KxMenu setMenuShow:NO];
         }
         else{
             NSMutableArray *menuItems =[[NSMutableArray alloc] initWithArray:
-                                        @[[KxMenuItem menuItem:@"跟帖" image:[UIImage imageNamed:nil] target:self action:@selector(pushDisAction)],[KxMenuItem menuItem:@"封帖" image:[UIImage imageNamed:nil] target:self action:@selector(turnOffDis)]
+                                        @[[KxMenuItem menuItem:@"跟帖" image:[UIImage imageNamed:@"2"] target:self action:@selector(pushDisAction)],[KxMenuItem menuItem:@"封帖" image:[UIImage imageNamed:@"2"] target:self action:@selector(turnOffDis)]
                                           ]];
             CGRect rect = CGRectMake(sender.frame.origin.x, sender.frame.origin.y/2+sender.frame.origin.y-55, sender.frame.size.width, sender.frame.size.height/2+sender.frame.size.height);
             [KxMenu showMenuInView:self.view fromRect:rect menuItems:menuItems];
@@ -216,12 +215,11 @@
         }
         else{
             NSMutableArray *menuItems =[[NSMutableArray alloc] initWithArray:
-                                        @[[KxMenuItem menuItem:@"回复消息" image:[UIImage imageNamed:nil] target:self action:@selector(sendMessage)],[KxMenuItem menuItem:@"在线举报" image:[UIImage imageNamed:nil] target:self action:@selector(addPolice)]
+                                        @[[KxMenuItem menuItem:@"回复消息" image:[UIImage imageNamed:@"18"] target:self action:@selector(sendMessage)],[KxMenuItem menuItem:@"在线举报" image:[UIImage imageNamed:@"19"] target:self action:@selector(addPolice)]
                                           ]];
             CGRect rect = CGRectMake(sender.frame.origin.x, sender.frame.origin.y/2+sender.frame.origin.y-55, sender.frame.size.width, sender.frame.size.height/2+sender.frame.size.height);
             [KxMenu showMenuInView:self.view fromRect:rect menuItems:menuItems];
         }
- 
     }
 }
 -(void)pushDisAction{
@@ -229,7 +227,9 @@
     dvc.valuablesInfo = self.valuablesInfo;
     [self.navigationController pushViewController:dvc animated:YES];
     
-}-(void)turnOffDis{
+}
+
+-(void)turnOffDis{
     RequestUtil *requestUtil = [[RequestUtil alloc]init];
     //业务数据参数组织成JSON字符串
     NSString *biz = [NSString  stringWithFormat:@"{\"status\":\"2\",\"barterInfoId\":\"%@\"}",self.valuablesInfo.barterInfoId];
@@ -251,6 +251,7 @@
 
 -(void)addPolice{
     SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"举报" andMessage:nil];
+
     [alertView addButtonWithTitle:@"虚假信息"
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *alertView) {

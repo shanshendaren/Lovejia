@@ -43,11 +43,14 @@
     page1.titleImage = [UIImage imageNamed:@""];
     
     EAIntroPage *page2 = [EAIntroPage page];
-  
     page2.bgImage = [UIImage imageNamed:@"guide_02.jpg"];
     page2.titleImage = [UIImage imageNamed:@""];
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2]];
+    EAIntroPage *page3 = [EAIntroPage page];
+    page3.bgImage = [UIImage imageNamed:@"guide_03.jpg"];
+    page3.titleImage = [UIImage imageNamed:@""];
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
     
     [intro setDelegate:self];
     [intro showInView:self.view animateDuration:0.0 button:self.buttonTitle];

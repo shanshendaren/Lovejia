@@ -46,7 +46,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     self.title = @"物品交换";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     // Do any additional setup after loading the view.
@@ -137,6 +137,7 @@
     NSData *jsonData = [returnData dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     NSArray *arr = [json objectForKey:@"barterInfo"];
+    NSLog(@"------arr----%@",arr);
     if (isHead) {
         barterArr = [[NSMutableArray alloc]init];
     }
@@ -191,11 +192,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 5;
+    return 0.1f;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 1;
+    return 0.1f;
 }
 
 
@@ -205,25 +206,23 @@
     UITableViewCell  *newcell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!newcell) {
         newcell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        UIImageView *backView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ip5_03.png"]];
-        [newcell setBackgroundView:backView];
         
         UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 200, 30)];
         titleLabel.tag = 101;
-        titleLabel.font= [UIFont systemFontOfSize:16.f];
+        titleLabel.font= [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:titleLabel];
         
         
         UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 30, 200, 20)];
         contentLabel.tag = 102;
         contentLabel.textColor = [UIColor grayColor];
-        contentLabel.font = [UIFont systemFontOfSize:12.f];
+        contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:contentLabel];
         
         UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, 200, 20)];
         jianjieLabel.tag = 103;
         jianjieLabel.textColor = [UIColor grayColor];
-        jianjieLabel.font = [UIFont systemFontOfSize:12.f];
+        jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [newcell.contentView addSubview:jianjieLabel];
         
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(240, 10, 70, 50)];
@@ -240,10 +239,8 @@
     if (barter.photos.count == 0) {
         paths = nil;
     }
-    
     else
     {
-        
         NSDictionary *dic = [[NSDictionary alloc]initWithDictionary:barter.photos[0]];
         paths = [NSString stringWithFormat:@"%@",dic[@"paths"]];
     }
@@ -310,8 +307,11 @@
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [newBtn setFrame:CGRectMake(self.view.frame.size.width-60, 0, 60, 30)];
-    [newBtn setTitle:@"新建" forState:UIControlStateNormal];
-    [newBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
+    UILabel *lable1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    lable1.textAlignment = NSTextAlignmentRight;
+    lable1.text = @"新建";
+    lable1.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [newBtn addSubview:lable1];
     [newBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
     [newBtn setTintColor:[UIColor lightGrayColor]];
 //    [newBtn setBackgroundImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];

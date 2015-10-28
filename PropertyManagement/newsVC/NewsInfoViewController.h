@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsInfoViewController : UIViewController<UITextViewDelegate>
+@interface NewsInfoViewController : UIViewController
 
 
 @property(nonatomic,strong)NSString *newsId;

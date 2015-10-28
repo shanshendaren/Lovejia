@@ -38,7 +38,7 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.title =@"二手房";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     [VersionAdapter setViewLayout:self];
@@ -76,7 +76,6 @@
          [cell addSubview:lable1];
 
     }
-
     return cell;
 }
 
@@ -87,7 +86,7 @@
     currentType = 1;
     segmentedControl.tintColor = [UIColor colorWithRed:61/255.0 green:160/255.0 blue:40/255.0 alpha:1.0];
 //    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    segmentedControl.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
+    segmentedControl.frame = CGRectMake(0, 0, self.view.frame.size.width, 30);
     segmentedControl.selectedSegmentIndex = 0;//设置默认选择项索引
     [ segmentedControl addTarget: self action: @selector(segmentChanged:)forControlEvents: UIControlEventValueChanged];
     [self.view addSubview:segmentedControl];
@@ -153,14 +152,15 @@
     self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newBtn setFrame:CGRectMake(self.view.frame.size.width-60, 0, 60, 30)];
-    [newBtn setTitle:@"新建" forState:UIControlStateNormal];
-    [newBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
+    newBtn.frame = CGRectMake(self.view.frame.size.width-60, 0, 60, 30);
+    UILabel *lable1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    lable1.textAlignment = NSTextAlignmentRight;
+    lable1.text = @"新建";
+    lable1.font = [UIFont systemFontOfSize:FONT_SIZE];
+    lable1.tintColor = [UIColor blackColor];
+    [newBtn addSubview:lable1];
     [newBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
-//    [newBtn setTintColor:[UIColor lightGrayColor]];
-//    [newBtn setBackgroundImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:newBtn];
-
 }
 
 -(void)backAction{

@@ -20,35 +20,36 @@
 #import "ConvenientServiceViewController.h"
 #import "ASIFormDataRequest.h"
 
+#import "IQKeyboardManager.h"
+#import "IQSegmentedNextPrevious.h"
+
 @implementation BZAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //全局键盘设置
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [[IQKeyboardManager sharedManager] setShouldPlayInputClicks:YES];
+    [[IQKeyboardManager sharedManager] setCanAdjustTextView:YES];
+    [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
+    
     application.statusBarHidden = NO;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor blackColor];
-//    
-//   [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault];
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navigation_bar_bg1"] forBarMetrics:UIBarMetricsDefault];
-
-    
-
+    self.window.backgroundColor = [UIColor whiteColor];
     [HYBJPushHelper setupWithOptions:launchOptions];
-    
     [self adview];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 -(void)adview{
-    ADViewController *startViewController = [[ADViewController alloc]init];
+   ADViewController *startViewController = [[ADViewController alloc]init];
     self.adView = startViewController;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:startViewController];
     navigationController.navigationBarHidden = YES;
     [_window setRootViewController:navigationController];
     timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector: @selector(logo) userInfo: nil repeats: YES];
-    
 }
 
 -(void)logo{
@@ -79,6 +80,7 @@
     navigationController.navigationBarHidden = YES;
     [_window setRootViewController:navigationController];
 }
+
 #pragma mark-   创建视图控制器
 -(void)bootMainViewController{
     BZAppDelegate *app =[UIApplication sharedApplication].delegate;
@@ -89,25 +91,20 @@
     //视图控制器的数组
     NSArray *array = [[NSArray alloc] initWithObjects:first, third, fourth, nil];
 
-    
     //创建自定义TabBar
     PF_TabBar *tabBar = [[PF_TabBar alloc] initWithViewControl:array];
     //设置一个属性获取TabBar
     tabBar.newCount = app.unReadBarterNum + app.unReadNeigNum;
     _tabBar = tabBar;
-    //未被选中的图片的数组
     
+    //未被选中的图片的数组
     NSArray *normalBackgroundArray = [[NSArray alloc] initWithObjects:@"tabbar", @"tabbar2", @"tabbar1", nil];
 
     //被选中的图片的数组
     NSArray *selectedBackgroundArray = [[NSArray alloc] initWithObjects:@"tabbarSel", @"tabbarSel2", @"tabbarSel1", nil];
-
-    
     
     //TabBar的文字的数组
-//    NSArray *l = [[NSArray alloc] initWithObjects:@"物业服务", @"物业代购", @"生活服务", @"个人中心",  nil];
     NSArray *l = [[NSArray alloc] initWithObjects:@"首页", @"便民服务", @"我的",  nil];
-
     
     //调用自定义的方法设置TabBar上的视图
     [tabBar tabBarWithBackgroundImage:[UIImage imageNamed:@"menu_bg_02"] andNormalBackgroundArray:normalBackgroundArray andSelectedBackgroundArray:selectedBackgroundArray andTabBarLabelArray:l];
@@ -115,76 +112,6 @@
     //设置自定义的TabBar为主控制器
     self.window.rootViewController = tabBar;
 }
-
-#pragma mark- 版本更新
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [HYBJPushHelper registerDeviceToken:deviceToken];
-    self.registrationID = [APService registrationID];
-   // [self onCheckVersion];
-    return;
-}
-
--(void)onCheckVersion
-{
-    //获取当前版本号
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-    //CFShow((__bridge CFTypeRef)(infoDic));
-   //获取网络上的最新版本号
-    NSString *URL = APP_URL;
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:URL]];
-    [request setHTTPMethod:@"POST"];
-    
-    //解析数据放到字典并比对
-    NSError *error = nil;
-    NSData *recervedData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-  //   NSString *results = [[NSString alloc] initWithBytes:[recervedData bytes] length:[recervedData length]encoding:NSUTF8StringEncoding];
-
-    NSDictionary *dic=[NSJSONSerialization JSONObjectWithData:recervedData  options:kNilOptions error:&error];
-    
-    NSArray *infoArray = [dic objectForKey:@"results"];
-
-    if ([infoArray count]) {
-        
-        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
-        NSString *lastVersion = [releaseInfo objectForKey:@"version"];
-        
-        if (![lastVersion isEqualToString:currentVersion]) {
-            
-            //trackViewURL = [releaseInfo objectForKey:@trackVireUrl];
-            
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"更新" message:@"有新的版本更新，是否前往更新？" delegate:self cancelButtonTitle:@"关闭" otherButtonTitles:@"更新", nil];
-//            
-//            alert.tag = 10000;
-//            
-//            [alert show];
-            
-        }
-        else{
-
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"更新" message:@"此版本为最新版本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            
-            alert.tag = 10001;
-            
-            [alert show];
-        }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-
-{
-    
-    if (alertView.tag==10000)
-    {
-        if (buttonIndex==1) {
-            NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com"];
-            [[UIApplication sharedApplication]openURL:url];
-       }
-    }
-}
-                          
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
@@ -238,7 +165,6 @@
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
-
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {

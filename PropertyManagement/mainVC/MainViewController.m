@@ -33,6 +33,10 @@
 #import "BuyListViewController.h"
 #import "ysButton.h"
 #import "PhoneNCViewController.h"
+#import "BZGuangGaoUrl.h"
+#import "BZSheQuListViewController.h"
+#import "BZFaLvListViewController.h"
+
 
 @interface MainViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
@@ -42,6 +46,10 @@
     int newCount;
     UILabel *countLabel;
     NSString *countStr;
+    NSTimer *timer;
+    UIView *dengluV;
+    
+    UIImageView *imageViw;
 }
 
 @property (nonatomic,strong)NSArray *listArray;
@@ -52,6 +60,8 @@
 @property (nonatomic,strong)UIButton *but2;
 @property (nonatomic,strong)UIScrollView * ScrollV;
 @property (nonatomic,strong)NSArray *advertisementAry;
+@property(nonatomic,strong)UIImageView *imageV;
+
 @end
 
 @implementation MainViewController
@@ -61,32 +71,30 @@
     [super viewWillAppear:animated];
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     [app.tabBar customTabBarHidden:NO];
-
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar_bg1"] forBarMetrics:UIBarMetricsDefault];
-//    self.navigationController.navigationBar.shadowImage =[[UIImage alloc]init];
-//
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-//    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-//    self.extendedLayoutIncludesOpaqueBars = YES;
- 
-//    self.navigationController.navigationBar.alpha = 1.0;
+    BZGuangGaoUrl *GGUrl = [BZGuangGaoUrl sharedInstance];
     
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        imageViw = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        [imageViw sd_setImageWithURL:GGUrl.GGurl];
+        NSLog(@">>>>>%@",GGUrl.GGurl);
+        [app.window addSubview:imageViw];
+        timer = [NSTimer scheduledTimerWithTimeInterval:5.f target:self selector:@selector(remover) userInfo:nil repeats:NO];
+    });
 }
 
+-(void)remover{
+    [imageViw removeFromSuperview];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
     [self.navigationController setNavigationBarHidden:YES];
-    
     [self createUI];
     newCount = 0;
     BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
-//    RequestUtil *request4 =[[RequestUtil alloc]init];
-//    NSString *biz4 = [NSString  stringWithFormat:@"{\"type\":\"3\"}"];
-//    NSString *sid4 = @"QueryPic";
-//    [request4 startRequest:sid4 biz:biz4 send:self];
-//    
+    
     RequestUtil *request2 =[[RequestUtil alloc]init];
     NSString *biz2 = [NSString  stringWithFormat:@"{\"type\":\"0\"}"];
     NSString *sid2 = @"QueryRegistorNum";
@@ -101,49 +109,41 @@
     NSString *biz1 = [NSString  stringWithFormat:@"{\"type\":\"0\"}"];
     NSString *sid1 = @"QueryPic";
     [request1 startRequest:sid1 biz:biz1 send:self];
-//    NSLog(@"%@，%@",sid1,biz1);
-    
+
     RequestUtil *request3 =[[RequestUtil alloc]init];
     NSString *biz3 = [NSString  stringWithFormat:@"{\"type\":\"1\"}"];
     NSString *sid3 = @"QueryPic";
     [request3 startRequest:sid3 biz:biz3 send:self];
-
 }
 
 -(void)createUI{
-//    [VersionAdapter setViewLayout:self];
-//    activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
-//    self.title =@"爱家";
+     [VersionAdapter setViewLayout:self];
+
+    //TODO: 标题栏
+    UILabel *biaoTiLable1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    [biaoTiLable1 setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:biaoTiLable1];
     
-//    UIButton * item = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 25)];
-//    [item setBackgroundImage:[UIImage imageNamed:@"15"] forState:UIControlStateNormal];
-//    UIBarButtonItem * rightbut = [[UIBarButtonItem alloc]initWithCustomView:item];
-//    self.navigationItem.rightBarButtonItem = rightbut;
-    
-    //主页的武汉设置
- //   ysButton * leftbtn = [[ysButton alloc]initWithFrame:CGRectMake(0, 0, 50, 25)];
- //   [leftbtn setImage:[UIImage imageNamed:@"16"] forState:UIControlStateNormal];
-//    [leftbtn setTitle:@"武汉" forState:(UIControlStateNormal)];
-//    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftbtn];
-//    self.navigationItem.leftBarButtonItem = leftItem;
-//    
-//    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
-//    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    UILabel *biaoTiLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 20)];
+    [biaoTiLable setBackgroundColor:[UIColor whiteColor]];
+    biaoTiLable.textColor = [UIColor grayColor];
+    biaoTiLable.text = @"武汉爱家";
+    [biaoTiLable setFont:[UIFont systemFontOfSize:12]];
+    biaoTiLable.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:biaoTiLable];
     
     self.flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [self.flowLayout setItemSize:CGSizeMake((self.view.frame.size.width-3)/4.0, 75)];
     [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    self.flowLayout.minimumInteritemSpacing = 1.0;
-    self.flowLayout.minimumLineSpacing = 1.0;
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 150, 320, self.view.frame.size.height-150) collectionViewLayout:self.flowLayout];
-//    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"hxwHeader"];
-//    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"hxwHeader"];
+    self.flowLayout.minimumInteritemSpacing = 0.2;
+    self.flowLayout.minimumLineSpacing = 0.5;
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 190, 320, self.view.frame.size.height-150) collectionViewLayout:self.flowLayout];
+
     UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, self.collectionView.frame.size.height)];
-    [vi setBackgroundColor:[UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0]];
+    [vi setBackgroundColor:[UIColor colorWithRed:204.0f/255.f green:204.0f/255.f blue:204.0f/255.f alpha:1.0]];
     
     [self.collectionView setBackgroundView:vi];
-//    self.collectionView.backgroundColor = [UIColor grayColor];
-    
+    self.collectionView.maximumZoomScale = 1.f;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.contentInset = UIEdgeInsetsZero;
@@ -180,7 +180,7 @@
     NSString *returnData = [request responseString];
     NSData *jsonData = [returnData dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    NSLog(@"%@",json);
+//    NSLog(@"json>>%@",json);
     if ([activity isVisible]) {
         [activity stopAcimate];
     }
@@ -191,31 +191,32 @@
         }
         if (((NSArray *)[json objectForKey:@"picInfo"]).count >0){
             
-            if([[json objectForKey:@"type"]  isEqual: @1]){
+            if([[json objectForKey:@"type"]  isEqual: @1])
+            {
                 self.advertisementAry = [json objectForKey:@"picInfo"];
-            }else{
+            }
+            else if([[json objectForKey:@"type"]  isEqual: @0])
+            {
             //视图数组
-            NSArray * arr =[NSArray array];
-            arr =[json objectForKey:@"picInfo"];
+            NSArray * arr =[json objectForKey:@"picInfo"];
             viewsArray = [@[] mutableCopy];
             //遍历视图
             for (int i = 0; i < arr.count; ++i) {
                 NSDictionary *dic =[arr objectAtIndex:i];
                 NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"picPath"]]];
-                UIImageView *bgIV= [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 120)];
+                UIImageView *bgIV= [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 125)];
                 [bgIV sd_setImageWithURL:url placeholderImage:nil];
                 [viewsArray addObject:bgIV];
             }
-            }
             //创建一个自动滚动的ScrollView
-            PFAutomaticScrollView *scrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 20, 320, 150) animationDuration:5.5 delegate:self];
+            PFAutomaticScrollView *scrollView = [[PFAutomaticScrollView alloc] initWithFrame:CGRectMake(0, 41, 320, 150) animationDuration:5.5 delegate:self];
             //ScrollView的背景
-                scrollView.backgroundColor = [[UIColor purpleColor]colorWithAlphaComponent:0.1];
+            scrollView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
             [self.view addSubview:scrollView];
             }
-        }
-        if([json objectForKey:@"registorNum"]){
-            countStr =[NSString stringWithFormat:@"在线人数:%@",[json objectForKey:@"registorNum"]];
+        }}
+    if([json objectForKey:@"registorNum"]){
+            countStr =[NSString stringWithFormat:@"  在线人数:%@",[json objectForKey:@"registorNum"]];
     }else{
         [SVProgressHUD showErrorWithStatus:json[@"message"]];
     }
@@ -239,7 +240,7 @@
 //设置视图
 - (UIView *)automaticScrollView:(PFAutomaticScrollView *)automaticScrollView contentViewAtIndex:(NSInteger)index
 {
-    return viewsArray[index];
+    return [viewsArray objectAtIndex:index];
 }
 
 //设置文本
@@ -253,14 +254,14 @@
 //设置点击事件
 - (void)automaticScrollView:(PFAutomaticScrollView *)automaticScrollView didSelectItemAtIndex:(NSInteger)index
 {
- //   NSLog(@"点击了第%ld个", (long)index);
+    NSLog(@"点击了第%ld个", (long)index);
 }
 
 #pragma mark - CollectionViewDelegate
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
     if (section ==0 ||section ==1) {
-        return CGSizeMake(self.view.frame.size.width, 20);
+        return CGSizeMake(self.view.frame.size.width, 1);
     }
     else if (section ==2){
    return CGSizeMake(self.view.frame.size.width, 1);
@@ -284,15 +285,11 @@
 //每组的cell的size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 || indexPath.section == 3) {
-        return CGSizeMake((self.view.frame.size.width-3)/4.0, 80);
-    }
-    else if(indexPath.section == 2){
-        return CGSizeMake(self.view.frame.size.width, 10);
+        return CGSizeMake((self.view.frame.size.width-2.0)/4.0, 80);
     }
     else{
         return CGSizeMake(self.view.frame.size.width, 100) ;
     }
-
 }
 
 //返回多少组
@@ -326,8 +323,9 @@
     }
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(7, 45, 60, 20)];
     label.textAlignment = 1;
-    [label setFont:[UIFont fontWithName:@"Arial" size:8]];
-      label.textColor = RGBACOLOR(147.f, 147.f, 147.f, 1);
+    [label setFont:[UIFont fontWithName:@"Arial" size:9]];
+    label.textColor = RGBACOLOR(102.f, 102.f, 102.f, 1);
+ //   label.textColor = [UIColor colorWithRed:102.0f/255.f green:102.0f/255.f blue:102.0f/255.f alpha:1.0];
     [cell.contentView addSubview:label];
     
     UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(25, 18, 25, 25)];
@@ -350,10 +348,6 @@
         label.text = [NSString stringWithFormat:@"小区通知"];
         [iv setImage:[UIImage imageNamed:@"2"]];
     }
-    else if (indexPath.row == 6) {
-        label.text = [NSString stringWithFormat:@"在线维护"];
-        [iv setImage:[UIImage imageNamed:@"7"]];
-    }
     else if (indexPath.row == 2) {
         label.text = [NSString stringWithFormat:@"网上投诉"];
         [iv setImage:[UIImage imageNamed:@"3"]];
@@ -370,34 +364,40 @@
         label.text = [NSString stringWithFormat:@"以物换物"];
         [iv setImage:[UIImage imageNamed:@"6"]];
     }
-    else if (indexPath.row == 8) {
-        label.text = [NSString stringWithFormat:@"紧急呼救"];
-        [iv setImage:[UIImage imageNamed:@"9"]];
-    }
-
-    else if (indexPath.row == 9) {
-//        label.text = [NSString stringWithFormat:@"缴费服务"];
-//        [iv setImage:[UIImage imageNamed:@"sffw"]];
+    else if (indexPath.row == 6) {
+        label.text = [NSString stringWithFormat:@"在线维护"];
+        [iv setImage:[UIImage imageNamed:@"7"]];
     }
     else if (indexPath.row == 7) {
         label.text = [NSString stringWithFormat:@"二手房"];
         [iv setImage:[UIImage imageNamed:@"8"]];
     }
+    else if (indexPath.row == 8) {
+        label.text = [NSString stringWithFormat:@"紧急呼救"];
+        [iv setImage:[UIImage imageNamed:@"9"]];
+    }
+    else if (indexPath.row == 9) {
+                label.text = [NSString stringWithFormat:@"社区资源"];
+                [iv setImage:[UIImage imageNamed:@"shequziyuan"]];
+    }else if(indexPath.row ==10){
+        label.text = [NSString stringWithFormat:@"法律援助"];
+        [iv setImage:[UIImage imageNamed:@"jiufentiaojie"]];
+    }
+
     else{
         
     }
 }
-#pragma mark- 首页上边广告展示
+#pragma mark- 首页下边广告展示 -
   else if (indexPath.section ==1){
       UIScrollView * scrollview = [[UIScrollView alloc]init];
       scrollview.frame = cell.bounds;
       scrollview.delegate = self;
       [cell.contentView addSubview:scrollview];
       
-      
       CGFloat imageW = scrollview.frame.size.width;
       CGFloat imageH = scrollview.frame.size.height;
-      
+
       for (int index = 0; index < self.advertisementAry.count; index++) {
           UIImageView * imageView = [[UIImageView alloc]init];
           //设置图片
@@ -411,14 +411,13 @@
           [scrollview addSubview:imageView];
           
      }
-          scrollview.contentSize = CGSizeMake(imageW * 2, 0);
+         scrollview.contentSize = CGSizeMake(imageW * 2, 0);
          scrollview.bounces = NO;
          scrollview.showsHorizontalScrollIndicator = NO;
 //      scrollview.userInteractionEnabled = NO;
       scrollview.scrollEnabled = NO;
       self.ScrollV = scrollview;
       
-#pragma mark- 首页下边广告展示
       UIButton * button1 =[[UIButton alloc]initWithFrame:CGRectMake(5, 38, 15, 30)];
       [button1 setImage:[UIImage imageNamed:@"14"] forState:UIControlStateNormal];
       [button1 addTarget:self action:@selector(onScrollview) forControlEvents:UIControlEventTouchUpInside];
@@ -463,27 +462,9 @@
 //      [button4 setBackgroundImage:[UIImage imageNamed:@"12"]  forState:UIControlStateNormal];
 //      [cell.contentView addSubview:button4];
 //  
-      
-      
 
   }
-    
-  else if (indexPath.section ==2){
-      
-      UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(20, 2, 50, 16)];
-      label.text = @"订阅服务";
-      label.font = [UIFont systemFontOfSize:10];
-      [cell.contentView addSubview:label];
-  }
-  else{
-      
-      label.text = [NSString stringWithFormat:@"我的订阅"];
-      
-      
-  }
-
     cell.backgroundColor = [UIColor whiteColor];
-
     return cell;
 }
 
@@ -558,6 +539,7 @@
         
         
         SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"提示" andMessage:@"请选择投诉类型"];
+        
         [alertView addButtonWithTitle:@"物业类"
                                  type:SIAlertViewButtonTypeDefault
                               handler:^(SIAlertView *alertView) {
@@ -631,21 +613,27 @@
         [self presentViewController:navigationController animated:NO completion:^{
         }];
 //        [self.navigationController pushViewController:cv animated:NO];
-        
     }
-    else if (indexPath.row == 9)//更多服务
+    else if (indexPath.row == 9)//社区资源
     {
+        BZSheQuListViewController *cv = [[BZSheQuListViewController alloc]init];
+        PhoneNCViewController *navigationController = [[PhoneNCViewController alloc] initWithRootViewController:cv];
+        [self presentViewController:navigationController animated:NO completion:^{
+        }];
     }
-
+     else if(indexPath.row == 10)//法律援助
+     {
+         BZFaLvListViewController *fv = [[BZFaLvListViewController alloc] init];
+         PhoneNCViewController *navigationController = [[PhoneNCViewController alloc] initWithRootViewController:fv];
+         [self presentViewController:navigationController animated:NO completion:^{
+         }];
+     }
  }
+    //更多服务
     else if(indexPath.section == 1)
     {
-        
-        
-        
     }
     else{
-        
     }
 }
 - (void)didReceiveMemoryWarning {

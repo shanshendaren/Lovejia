@@ -4,8 +4,8 @@
 //  Created by kaiyitech on 14-8-4.
 //  Copyright (c) 2014年 kaiyitech. All rights reserved.
 #import "RequestUtil.h"
-@implementation  RequestUtil:NSObject
 
+@implementation  RequestUtil:NSObject
 //#define SP_SERVER_ROOT @"http://www.whwyt.com.cn/PropertyManagement/"
 //#define SP_SERVER_ROOT @"http://192.168.100.108:8080/PropertyManagement/"
 #define SP_SERVER_ROOT @"http://www.whaijia.cn/PropertyManagement/"
@@ -88,6 +88,5 @@
     [request setTimeOutSeconds:45];
     [request startAsynchronous];
 }
-
 
 @end

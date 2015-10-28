@@ -16,10 +16,20 @@
 
 @implementation SFSafeCommunityViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-  //  self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"平安社区";
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+
+    [self createBack];
     webView = [[UIWebView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    webView.backgroundColor = [UIColor whiteColor];
     [webView setUserInteractionEnabled:YES];//是否支持交互
     //[webView setDelegate:self];
     webView.delegate=self;
@@ -40,7 +50,6 @@
     [opaqueView setAlpha:0.6];
     [self.view addSubview:opaqueView];
     [opaqueView addSubview:activityIndicatorView];
-
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{
@@ -55,7 +64,7 @@
 
 //UIWebView如何判断 HTTP 404 等错误
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.104:8080/lovehome/move/sc-insert2.jsp"];
+    NSURL *url = [NSURL URLWithString:@"http://www.whaijia.cn/lovehome/move/sc-insert2.jsp"];
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
     if ((([httpResponse statusCode]/100) == 2)) {
         // self.earthquakeData = [NSMutableData data];
@@ -75,6 +84,20 @@
             webView.hidden = YES;
         }
     }
+}
+
+-(void)createBack{
+    UIButton *backButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 15, 15);
+    backButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:backButton];
+}
+
+-(void)backAction{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

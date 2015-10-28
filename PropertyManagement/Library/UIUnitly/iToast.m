@@ -62,7 +62,7 @@ static iToastSettings *sharedSettings = nil;
 	
 	UIImage *image = [theSettings.images valueForKey:[NSString stringWithFormat:@"%i", type]];
 	
-	UIFont *font = [UIFont systemFontOfSize:16];
+	UIFont *font = [UIFont systemFontOfSize:FONT_SIZE];
 	CGSize textSize = [text sizeWithFont:font constrainedToSize:CGSizeMake(280, 60)];
 	
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 5, textSize.height + 5)];

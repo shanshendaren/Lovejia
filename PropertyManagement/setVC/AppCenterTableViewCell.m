@@ -19,10 +19,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 15, 200, 25)];
+        titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 2, 200, 30)];
+        titleLabel.textColor = [UIColor grayColor];
         [self.contentView addSubview:titleLabel];
         
-        newsIV = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 35, 35)];
+        newsIV = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 20, 20)];
         [self.contentView  addSubview:newsIV];
 //        sepLineView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height-1, self.bounds.size.width, 1)];
 //        sepLineView.backgroundColor = [UIColor grayColor];

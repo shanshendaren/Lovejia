@@ -21,7 +21,6 @@
     UITextField *passWordFiled;
     ActivityView *activity;
 }
-
 @end
 
 @implementation LoginViewController
@@ -57,34 +56,34 @@
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     NSUserDefaults *userDefault=[NSUserDefaults standardUserDefaults];
     
-    UIImageView *userIV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 145, self.view.frame.size.width-40, 40)];
-    [userIV setUserInteractionEnabled:YES];
-    [userIV setImage:[UIImage imageNamed:@"user_inputbox.png"]];
-    [bgIV addSubview:userIV];
+    UIView *userV = [[UIView alloc] initWithFrame:CGRectMake(30, 175, self.view.frame.size.width-60, 0.5)];
+    userV.backgroundColor = [UIColor lightGrayColor];
+    [bgIV addSubview:userV];
     
-    userLogin =[[UITextField alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-110, 40)];
+    userLogin =[[UITextField alloc]initWithFrame:CGRectMake(40, 145, self.view.frame.size.width-110, 30)];
     userLogin.font = [UIFont fontWithName:@"Arial" size:14];
+    userLogin.textColor = [UIColor blackColor];
     userLogin.tag = 0;
     userLogin.delegate = self;
     userLogin.placeholder = @"账号";
-    [userIV addSubview:userLogin];
+    [bgIV addSubview:userLogin];
     
     if ([userDefault objectForKey:@"userName"]) {
         userLogin.text = [NSString stringWithFormat:@"%@",[userDefault objectForKey:@"userName"]];
     }
-    UIImageView *passWordIV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 185, self.view.frame.size.width-40, 40)];
-    passWordIV.backgroundColor = [UIColor whiteColor];
-    [passWordIV setUserInteractionEnabled:YES];
-    [passWordIV setImage:[UIImage imageNamed:@"password_inputbox.png"]];
-    [bgIV addSubview:passWordIV];
     
-    passWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(20, 0, self.view.frame.size.width-110, 40)];
+    UIView *passV = [[UIView alloc] initWithFrame:CGRectMake(30, 216, self.view.frame.size.width-60, 0.5)];
+    passV.backgroundColor = [UIColor lightGrayColor];
+    [bgIV addSubview:passV];
+    
+    passWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(40, 186, self.view.frame.size.width-110, 30)];
     passWordFiled.font = [UIFont fontWithName:@"Arial" size:14];
+    passWordFiled.textColor = [UIColor blackColor];
     passWordFiled.placeholder = @"密码";
     userLogin.tag = 1;
     passWordFiled.delegate = self;
     passWordFiled.secureTextEntry = YES;
-    [passWordIV addSubview:passWordFiled];
+    [bgIV addSubview:passWordFiled];
     if ([userDefault objectForKey:@"passWord"]) {
         passWordFiled.text = [NSString stringWithFormat:@"%@",[userDefault objectForKey:@"passWord"]];
     }
@@ -196,6 +195,7 @@
     NSString *returnData = [request responseString];
     NSData *jsonData = [returnData dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    
     NSDictionary *biz = json[@"userinfo"];
     if (biz ) {
         app.userName = [biz[@"ownerName"]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NextRegisterViewController : UIViewController<UITextViewDelegate,UITextFieldDelegate>
+@interface NextRegisterViewController : UIViewController
 
 @property(strong,nonatomic)NSString * mobile;//用户手机号
 @property(strong,nonatomic)NSString *userNum;

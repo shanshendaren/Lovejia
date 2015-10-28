@@ -38,9 +38,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
     self.title =@"通知列表";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     [VersionAdapter setViewLayout:self];
@@ -53,39 +53,42 @@
         NSString *sid = @"CleanUnReadMessage";
         [requestUtil startRequest:sid biz:biz send:self];
     }
-    
-//    UIImageView * iamgeV =[[UIImageView alloc]initWithFrame:CGRectMake(50, 100, self.view.frame.size.width-100, 200)];
-//    iamgeV.backgroundColor = [UIColor redColor];
-//    iamgeV.image = [UIImage imageNamed:@"小区通知-1.jpg"];
-//    [self.view addSubview:iamgeV];
 }
 
 -(void)createUI{
 
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
 
-    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, self.view.frame.size.width/3, 40)];
+    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0 , 0, self.view.frame.size.width/3, 30)];
+    btn1.backgroundColor = [UIColor whiteColor];
     btn1.tag = 1;
-    btn1.titleLabel.font = [UIFont systemFontOfSize:15.f];
-    [btn1 setBackgroundImage:[UIImage imageNamed:@"tz_hover_02.png"] forState:UIControlStateNormal];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+//    [btn1 setBackgroundImage:[UIImage imageNamed:@"tz_hover_02.png"] forState:UIControlStateNormal];
+    [btn1 setTitle:@"社区通知" forState:UIControlStateNormal];
+    [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
     [btn1 addTarget:self action:@selector(cliked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
-    btn2 = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3 , 0, self.view.frame.size.width/3, 40)];
-    btn2.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    btn2 = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width/3 , 0, self.view.frame.size.width/3, 30)];
+    btn2.backgroundColor = [UIColor whiteColor];
+    btn2.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     btn2.tag =2;
+    [btn2 setTitle:@"政府通知" forState:UIControlStateNormal];
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn2 setBackgroundImage:[UIImage imageNamed:@"tz_03.png"] forState:UIControlStateNormal];
+    //    [btn2 setBackgroundImage:[UIImage imageNamed:@"tz_03.png"] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(cliked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
-    btn3 = [[UIButton alloc]initWithFrame:CGRectMake(2*self.view.frame.size.width/3 , 0, self.view.frame.size.width/3, 40)];
-    btn3.titleLabel.font = [UIFont systemFontOfSize:15.f];
+    btn3 = [[UIButton alloc]initWithFrame:CGRectMake(2*self.view.frame.size.width/3 , 0, self.view.frame.size.width/3, 30)];
+    btn3.backgroundColor = [UIColor whiteColor];
+    btn3.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     btn3.tag =3;
+    [btn3 setTitle:@"系统通知" forState:UIControlStateNormal];
     [btn3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn3 setBackgroundImage:[UIImage imageNamed:@"tz_04.png"] forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(cliked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
+    
     
     
     NoticeListViewController * nlc = [[NoticeListViewController alloc]init];
@@ -97,7 +100,7 @@
     NoticeThirdTypeViewController * ntc = [[NoticeThirdTypeViewController alloc]init];
     [self addChildViewController:ntc];
 
-    nlc.view.frame = CGRectMake(0,40, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
+    nlc.view.frame = CGRectMake(0,31, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
     [self.view addSubview:nlc.view];
     UIViewController *stationVC = [self.childViewControllers objectAtIndex:0];
     self.currentViewController = stationVC;
@@ -142,12 +145,12 @@
                     [threeVC.view removeFromSuperview];
                 }
                 self.currentViewController = stationVC;
-                stationVC.view.frame = CGRectMake(0,40, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
+                stationVC.view.frame = CGRectMake(0,31, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
                 [self.view addSubview:stationVC.view];
             }
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"tz_hover_02.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"tz_03.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"tz_04.png"] forState:UIControlStateNormal];
+            [btn1 setTitleColor:[UIColor colorWithRed:0.2863 green:0.6745 blue:0.2078 alpha:1.0] forState:UIControlStateNormal];
+            [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
             break;
         case 2:{
@@ -163,12 +166,12 @@
                     [threeVC.view removeFromSuperview];
                 }
                 self.currentViewController = classifyVC;
-                classifyVC.view.frame = CGRectMake(0,40, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
+                classifyVC.view.frame = CGRectMake(0,31, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
                 [self.view addSubview:classifyVC.view];
             }
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"tz_02.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"tz_hover_03.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"tz_04.png"] forState:UIControlStateNormal];
+            [btn2 setTitleColor:[UIColor colorWithRed:0.2863 green:0.6745 blue:0.2078 alpha:1.0] forState:UIControlStateNormal];
+            [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
             break;
         case 3:{
@@ -182,12 +185,12 @@
                     [classifyVC.view removeFromSuperview];
                 }
                 self.currentViewController = threeVC;
-                threeVC.view.frame = CGRectMake(0,40, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
+                threeVC.view.frame = CGRectMake(0,31, self.view.frame.size.width, self.view.frame.size.height-44-[VersionAdapter getMoreVarHead]);
                 [self.view addSubview:threeVC.view];
             }
-            [btn1 setBackgroundImage:[UIImage imageNamed:@"tz_02.png"] forState:UIControlStateNormal];
-            [btn2 setBackgroundImage:[UIImage imageNamed:@"tz_03.png"] forState:UIControlStateNormal];
-            [btn3 setBackgroundImage:[UIImage imageNamed:@"tz_hover_04.png"] forState:UIControlStateNormal];
+            [btn3 setTitleColor:[UIColor colorWithRed:0.2863 green:0.6745 blue:0.2078 alpha:1.0] forState:UIControlStateNormal];
+            [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
             break;
         default:

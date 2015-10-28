@@ -52,39 +52,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     RequestUtil *request =[[RequestUtil alloc]init];
-//    BZAppDelegate* app = (BZAppDelegate *)[UIApplication sharedApplication].delegate;
     NSString * str =nil;
     if (self.selfType ==1){
         str = @"MMTL";
     }else{
         str = @"TSLB";
     }
-    
     NSString *biz = [NSString  stringWithFormat:@"{\"type\":\"%@\"}",str];
     NSString *sid = @"Sysdiclist";
     [request startRequest:sid biz:biz send:self];
     [self createUI];
-    // Do any additional setup after loading the view.
 }
 
 
 -(void)createUI{
     [VersionAdapter setViewLayout:self];
-//    UIView * viewY = [[UIView alloc]initWithFrame:self.view.frame];
-//    viewY.backgroundColor =  [UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0];
-//    [self.view addSubview:viewY];
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     self.title = @"投诉信息";
-//    if (self.selfType ==1) {
-//        complainType =1;
-//        self.listTeams = [[NSArray alloc] initWithObjects:@"服务质量", @"乱收费", @"配套设施", @"安全隐患", @"卫生环境",@"小区绿化",@"小区装修噪音",@"其他",nil];
-//    }else{
-//        complainType =9;
-//        self.listTeams = [[NSArray alloc] initWithObjects:@"周边生活设施", @"周边道路", @"周边环境卫生污染", @"周边网络信号", @"周边胶囊房及违建",@"其他",nil];
-//    }
+
     self.photoArray = [[NSMutableArray alloc]initWithObjects:@"null", nil];
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -92,8 +80,8 @@
     flowLayout.minimumLineSpacing = 5.0;
     [flowLayout setSectionInset:UIEdgeInsetsMake(10, 10, 10, 10)];
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80) collectionViewLayout:flowLayout];
+   
     UIView *vi = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.collectionView.frame.size.height)];
-    
     [vi setBackgroundColor:[UIColor whiteColor]];
     [self.collectionView setBackgroundView:vi];
     self.collectionView.dataSource = self;
@@ -102,56 +90,51 @@
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionCell"];
     [self.view addSubview:self.collectionView];
     
-    Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+5;
+    Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+1;
     
-    
-    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [view1 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:view1];
     
-    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
-    [line1 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(95, 5, 1, 20)];
+    [line1 setBackgroundColor:LINECOLOR];
     [view1 addSubview:line1];
     
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, 35)];
     titleLabel.text = @"投诉标题";
-    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
-//    [titleLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [titleLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view1 addSubview:titleLabel];
     
-    complainTitle =[[UITextField alloc]initWithFrame:CGRectMake(110, 0, self.view.frame.size.width-110, 40)];
+    complainTitle =[[UITextField alloc]initWithFrame:CGRectMake(110, 0, self.view.frame.size.width-120, 35)];
+    complainTitle.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
+    complainTitle.placeholder = @"请输入标题";
     [view1 addSubview:complainTitle];
     
-    Y = view1.frame.origin.y +view1.frame.size.height+5;
+    Y = view1.frame.origin.y +view1.frame.size.height+1;
     
-    
-    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [view2 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:view2];
     
-    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 20)];
-    [line2 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(95, 5, 1, 20)];
+    [line2 setBackgroundColor:LINECOLOR];
     [view2 addSubview:line2];
     
-    UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 80, 40)];
+    UILabel *complainLabel =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, 35)];
     complainLabel.text = @"投诉类型";
-    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
-//    [complainLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [complainLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view2 addSubview:complainLabel];
     
     
     self.biaoti_Btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [ self.biaoti_Btn  setFrame:CGRectMake(110, 0,  self.view.frame.size.width-110, 40)];
+    [ self.biaoti_Btn  setFrame:CGRectMake(110, 0,  self.view.frame.size.width-110, 35)];
     [ self.biaoti_Btn  addTarget:self action:@selector(changeOpenStatus:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.biaoti_Btn setTitle:@"请选择类型" forState:UIControlStateNormal];
     [view2 addSubview: self.biaoti_Btn ];
     
-    Y = view2.frame.origin.y +view2.frame.size.height+5;
+    Y = view2.frame.origin.y +view2.frame.size.height+1;
     
-    
-    
-    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(110, Y, self.view.frame.size.width-140, 1)];
+    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(110, Y, self.view.frame.size.width-140, 0.5)];
     [_tb initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
 //        int a ;
 //        if (self.selfType == 1) {
@@ -172,10 +155,8 @@
         return cell;
     } setDidSelectRowBlock:^(UITableView *tableView,NSIndexPath *indexPath){
         SelectionCell *cell=(SelectionCell*)[tableView cellForRowAtIndexPath:indexPath];
-      
             self.text_Biaoti.text=cell.lb.text;
             [_biaoti_Btn sendActionsForControlEvents:UIControlEventTouchUpInside];
-        
         if (self.selfType ==1) {
             complainType = (int)indexPath.row+1;
         }else{
@@ -189,68 +170,47 @@
     [view3 setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:view3];
     
-    UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 80, 80, 40)];
+    UILabel *infoLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 80, 80, 35)];
     infoLabel.text = @"投诉内容";
-    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:18]];
-//    [infoLabel setTextColor:[UIColor colorWithRed:158.0/255.0 green:219.0/255.0 blue:0.0/255.0 alpha:1]];
+    [infoLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
+//    [infoLabel setTextColor:[UIColor colorWithRed:158/255 green:219/255 blue:0/255 alpha:1]];
     [view3 addSubview:infoLabel];
     
-    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(105, 10, 1, 180)];
-    [line3 setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
+    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(95, 10, 1, 180)];
+    [line3 setBackgroundColor:LINECOLOR];
     [view3 addSubview:line3];
     
-    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(110, 0, self.view.frame.size.width-110, 200)] ; //初始化大小
+    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(100, 0, self.view.frame.size.width-110, 200)] ; //初始化大小
     contentView.tag = 2;
     [contentView setBackgroundColor:[UIColor clearColor]];
-    contentView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
-    contentView.delegate = self;//设置它的委托方法
-    contentView.returnKeyType = UIReturnKeyDefault;//返回键的类型
-    contentView.keyboardType = UIKeyboardTypeDefault;//键盘类型
+    contentView.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     [contentView setEditable:YES];
     contentView.scrollEnabled = YES;//是否可以拖动
     contentView.textColor = [UIColor blackColor];
     [view3 addSubview: contentView];
     
-    
-    Y = view3.frame.origin.y +view3.frame.size.height+5;
-    
+    Y = view3.frame.origin.y +view3.frame.size.height+1;
     [self.view addSubview:_tb];
     
-    UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-130, 20, 20, 20)];
+    UIImageView *iv =[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-120, 25, 10, 10)];
     [iv setImage:[UIImage imageNamed:@"select.png"]];
     [self.biaoti_Btn addSubview:iv];
     
     self.text_Biaoti = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-110, 40)];
+    self.text_Biaoti.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.text_Biaoti setEnabled:NO];
-//    self.text_Biaoti.text = [NSString stringWithFormat:@"%@",self.listTeams[0]];
     [self.biaoti_Btn addSubview:self.text_Biaoti];
-    
     
     [self.view bringSubviewToFront:_tb];
     
-    
     UIButton *comBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    comBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     comBtn.tag = 1;
-    [comBtn setFrame:CGRectMake(10, self.view.frame.size.height-140, self.view.frame.size.width-20, 40)];
+    [comBtn setFrame:CGRectMake(30, self.view.frame.size.height-140, self.view.frame.size.width-60, 35)];
     [comBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [comBtn setTitle:@"提交" forState:UIControlStateNormal];
     [comBtn addTarget:self action:@selector(cilick) forControlEvents:UIControlEventTouchUpInside];
-//    [comBtn setBackgroundColor:[UIColor yellowColor]];
     [self.view addSubview:comBtn];
-    
-    
-    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    [topView setBarStyle:UIBarStyleDefault];
-    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(2, 5, 50, 25);
-    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
-    [topView setItems:buttonsArray];
-    [contentView setInputAccessoryView:topView];
-    [complainTitle setInputAccessoryView:topView];
     
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     [self createBack];
@@ -358,34 +318,6 @@
     }
     [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
 }
-
--(void)textViewDidBeginEditing:(UITextView *)textView{
-    [self animateTextField: textView up: YES];
-}
-
--(void)textViewDidEndEditing:(UITextView *)textView{
-    [self animateTextField: textView up: NO];
-}
-
-- (void) animateTextField: (UITextView*)textView up:(BOOL) up
-{
-    const int movementDistance = 100; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
-    int movement = (up ? -movementDistance : movementDistance);
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
-}
-
-
--(void)dismissKeyBoard
-{
-    [contentView resignFirstResponder];
-    [complainTitle resignFirstResponder];
-}
-
 
 
 - (void)changeOpenStatus:(id)sender {

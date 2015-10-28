@@ -62,7 +62,7 @@
         
         [ self.biaoti_Btn  addTarget:self action:@selector(changeOpenStatus:) forControlEvents:UIControlEventTouchUpInside];
         
-        _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-30, 24, 60, 1)];
+        _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-30, 24, 60, 0.5)];
         [_tb initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
             return 2;
         } setCellForIndexPathBlock:^(UITableView *tableView,NSIndexPath *indexPath){
@@ -98,18 +98,6 @@
     else if (self.secNum ==3){
         self.title = @"请选择性别";
     }
-    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    [topView setBarStyle:UIBarStyleDefault];
-    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(2, 5, 50, 25);
-    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
-    [topView setItems:buttonsArray];
-    [tf setInputAccessoryView:topView];
-    
     [self createBack];
 }
 
@@ -125,14 +113,14 @@
     
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setFrame:CGRectMake(self.view.frame.size.width-60, 0, 60, 30)];
+    [registerBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    registerBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [registerBtn setTitle:@"保存" forState:UIControlStateNormal];
     [registerBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
     [registerBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
     [registerBtn setTintColor:[UIColor lightGrayColor]];
     [registerBtn setBackgroundImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:registerBtn];
-
-
 }
 
 
@@ -233,14 +221,6 @@
     UIAlertView *alertDialog = [[UIAlertView alloc] initWithTitle:@"提示信息" message:inMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertDialog show];
 }
-
-
-
--(void)dismissKeyBoard
-{
-    [tf resignFirstResponder];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

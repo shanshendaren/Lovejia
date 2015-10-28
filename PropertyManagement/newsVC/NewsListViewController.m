@@ -13,7 +13,7 @@
 #import "ActivityView.h"
 #import "SVProgressHUD.h"
 #import "information.h"
-#import "SubscripTableViewCell.h"
+#import "SubTableViewCell.h"
 #import "MJRefresh.h"
 #import "NewsInfoViewController.h"
 
@@ -46,7 +46,7 @@
 -(void)createUI{
     isHead = NO;
     self.title = [NSString stringWithFormat:@"%@",self.newsName];
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
 
     setTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height-[VersionAdapter getMoreVarHead]-44)];
@@ -81,9 +81,7 @@
 }
 
 -(void)backAction{
-//    [self dismissViewControllerAnimated:NO completion:^{
-//        
-//    }];
+
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -122,7 +120,6 @@
         // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
         [setTable headerEndRefreshing];
         [setTable reloadData];
-
     });
 }
 
@@ -207,21 +204,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"SubscripTableViewCell";
-    SubscripTableViewCell  *newcell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"SubTableViewCell";
+    SubTableViewCell  *newcell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!newcell) {
-        newcell = [[SubscripTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        newcell = [[SubTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     [newcell setSelectionStyle:UITableViewCellSelectionStyleNone];
     information * inf = [newsArr objectAtIndex:indexPath.row];
     newcell.infoLabel.text = [NSString stringWithFormat:@"%@",inf.information_content];
     newcell.nameLabel.text = [NSString stringWithFormat:@"%@",inf.information_title];
-    newcell.imview.image =[UIImage imageNamed:@"minion"];
+ //   newcell.imview.image =[UIImage imageNamed:@"minion"];
     [newcell.setBTN setHidden:YES];
     return newcell;
 }

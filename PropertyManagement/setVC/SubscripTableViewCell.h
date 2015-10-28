@@ -11,7 +11,7 @@
 @interface SubscripTableViewCell : UITableViewCell
 
 @property(strong ,nonatomic)UILabel *nameLabel;
-@property(strong ,nonatomic)UILabel *infoLabel;
+//@property(strong ,nonatomic)UILabel *infoLabel;
 @property(strong ,nonatomic)UIButton *setBTN;
 @property(strong ,nonatomic)UIImageView *imview;
 

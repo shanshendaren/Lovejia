@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComplainViewController : UIViewController<UITextViewDelegate>
+@interface ComplainViewController : UIViewController
 
 @property(assign)int selfType;
+
 @end

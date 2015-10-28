@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VallageViewController : UIViewController<UITextViewDelegate>
+@interface VallageViewController : UIViewController
 
 @end

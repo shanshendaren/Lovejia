@@ -228,11 +228,12 @@
     self.pageControl.numberOfPages = _pages.count;
     [self addSubview:self.pageControl];
     
-    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.scrollView.frame.size.width - 120, self.pageControl.frame.origin.y, 120, self.pageControl.frame.size.height)];
+    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.scrollView.frame.size.width - 90, self.scrollView.frame.size.height-25, 90, 20)];
     
     [self.skipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
-    [self.skipButton setTitle:NSLocalizedString(@"立即体验", nil) forState:UIControlStateNormal];
-    [self.skipButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.skipButton setTitle:NSLocalizedString(@"跳过引导页", nil) forState:UIControlStateNormal];
+    [self.skipButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.skipButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:11];;
     [self.skipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.skipButton];
 }

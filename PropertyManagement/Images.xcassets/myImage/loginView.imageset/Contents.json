@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "loginView.png"
+      "filename" : "loginView.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

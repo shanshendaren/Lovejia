@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ADViewController : UIViewController
-
+@property(nonatomic,strong)NSURL *url;
 @end

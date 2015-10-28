@@ -42,7 +42,7 @@
     contentView= [[UITextView  alloc] initWithFrame:CGRectMake(5, 10, self.view.frame.size.width-10, 200)] ; //初始化大小
     contentView.tag = 2;
     [contentView setBackgroundColor:[UIColor whiteColor]];
-    contentView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
+    contentView.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     contentView.delegate = self;//设置它的委托方法
     contentView.returnKeyType = UIReturnKeyDefault;//返回键的类型
     contentView.keyboardType = UIKeyboardTypeDefault;//键盘类型
@@ -53,6 +53,8 @@
 
     
     UIButton *newBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    newBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [newBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [newBtn setFrame:CGRectMake(self.view.frame.size.width-60, 0, 50, 30)];
     [newBtn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     [newBtn setTintColor:[UIColor lightGrayColor]];

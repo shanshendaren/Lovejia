@@ -102,7 +102,7 @@ typedef enum {
         [tempHintsLabel release];
         [self.hintsLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.hintsLabel];
-        [self.hintsLabel setFont:[UIFont systemFontOfSize:24.0f]];
+        [self.hintsLabel setFont:[UIFont systemFontOfSize:FONT_SIZE]];
         [self.hintsLabel setTextColor:[UIColor whiteColor]];
         
         
@@ -254,7 +254,7 @@ typedef enum {
         [self.dayPicker reloadAllComponents];
     }
     
-    NSString* str = [NSString stringWithFormat:@"%04d%02d%02d%02d%02d",self.yearValue, self.monthValue, self.dayValue, self.hourValue, self.minuteValue];
+    NSString* str = [NSString stringWithFormat:@"%04lu%02lu%02lu%02lu%02lu",(unsigned long)self.yearValue, (unsigned long)self.monthValue, (unsigned long)self.dayValue, (unsigned long)self.hourValue, (unsigned long)self.minuteValue];
     [self setDate:[NSDate dateFromString:str withFormat:@"yyyyMMddHHmm"]];
 }
 #pragma mark - 年月日闰年＝情况分析

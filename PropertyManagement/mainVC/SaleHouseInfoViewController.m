@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithWhite:0.97f alpha:1.0f]];
     [VersionAdapter setViewLayout:self];
     self.navigationItem.title = @"卖房详情";
     UIScrollView *sv = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height-44-[VersionAdapter getMoreVarHead] - 50)];
@@ -109,50 +109,50 @@
 //    
 //    Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y+ 5;
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [titleLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     titleLabel.numberOfLines = 0;
-    titleLabel.text = self.house.secondarysaleInfoTitle;
-    titleLabel.font = [UIFont systemFontOfSize:16.f];
+    titleLabel.text = [NSString stringWithFormat:@"   %@",self.house.secondarysaleInfoTitle];
+    titleLabel.font = [UIFont systemFontOfSize:14];
     titleLabel.textColor = [UIColor blackColor];
     [sv addSubview:titleLabel];
     Y = titleLabel.frame.size.height + titleLabel.frame.origin.y+5;
     
-    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [typeLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     typeLabel.numberOfLines = 0;
-    typeLabel.text = [NSString stringWithFormat:@"发布房型: %@",self.house.houseType];
-    typeLabel.font = [UIFont systemFontOfSize:14.f];
+    typeLabel.text = [NSString stringWithFormat:@"   发布房型: %@",self.house.houseType];
+    typeLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     typeLabel.textColor = [UIColor blackColor];
     [sv addSubview:typeLabel];
 
     Y = typeLabel.frame.size.height + typeLabel.frame.origin.y +5;
     
-    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UILabel *addLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [addLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     addLabel.numberOfLines = 0;
-    addLabel.text = [NSString stringWithFormat:@"房屋地址: %@",self.house.houseAddress];
-    addLabel.font = [UIFont systemFontOfSize:14.f];
+    addLabel.text = [NSString stringWithFormat:@"   房屋地址: %@",self.house.houseAddress];
+    addLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     addLabel.textColor = [UIColor blackColor];
     [sv addSubview:addLabel];
     
     Y = addLabel.frame.size.height + addLabel.frame.origin.y +5;
 
-    UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UILabel *priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [priceLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     priceLabel.numberOfLines = 0;
-    priceLabel.text = [NSString stringWithFormat:@"房屋价格: %@",self.house.housePrice];
-    priceLabel.font = [UIFont systemFontOfSize:14.f];
+    priceLabel.text = [NSString stringWithFormat:@"   房屋价格: %@",self.house.housePrice];
+    priceLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     priceLabel.textColor = [UIColor blackColor];
     [sv addSubview:priceLabel];
     
     Y = priceLabel.frame.size.height + priceLabel.frame.origin.y +5;
 
     UILabel *jianjieLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 30)];
-    jianjieLabel.text = [NSString stringWithFormat:@"发布时间 %@",self.house.repaeaseDate];
+    jianjieLabel.text = [NSString stringWithFormat:@"   发布时间 %@",self.house.repaeaseDate];
     [jianjieLabel setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     jianjieLabel.textColor = [UIColor grayColor];
-    jianjieLabel.font = [UIFont systemFontOfSize:14.f];
+    jianjieLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [sv addSubview:jianjieLabel];
     Y = jianjieLabel.frame.size.height + jianjieLabel.frame.origin.y + 5;
     
@@ -160,7 +160,7 @@
     contentLabel.editable = NO;
     contentLabel.text = [NSString stringWithFormat:@"%@",self.house.secondarysaleContent];
     contentLabel.textColor = [UIColor grayColor];
-    contentLabel.font = [UIFont systemFontOfSize:14.f];
+    contentLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [sv addSubview:contentLabel];
     [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y+85)];
     
@@ -170,17 +170,19 @@
     
     UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 5, 120, 15)];
     nameLabel.text = self.house.repaeaseName;
+    nameLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     nameLabel.textColor = [UIColor blackColor];
     [backView addSubview:nameLabel];
     
     UILabel *telLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 25, 120, 15)];
     telLabel.text = self.house.repaeaseTel;
-    telLabel.font = [UIFont systemFontOfSize:12.f];
+    telLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     telLabel.textColor = [UIColor grayColor];
     [backView addSubview:telLabel];
     
-    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 5, 180, 40)];
-    [callBtn setBackgroundImage:[UIImage imageNamed:@"next_button_bg.png"] forState:UIControlStateNormal];
+    UIButton *callBtn = [[UIButton alloc]initWithFrame:CGRectMake(124, 7, 180, 35)];
+    callBtn.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
+    [callBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [callBtn setTitle:@"联系发布人" forState:UIControlStateNormal];
     [callBtn addTarget:self action:@selector(callTo:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:callBtn];

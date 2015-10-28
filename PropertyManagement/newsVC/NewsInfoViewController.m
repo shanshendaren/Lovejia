@@ -31,10 +31,11 @@
     [self createUI];
     // Do any additional setup after loading the view.
 }
+
 -(void)createUI{
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.title = @"资讯信息";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
 
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
@@ -49,12 +50,12 @@
     [self.view addSubview:titleLabel];
     
     timeLabel =  [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-120, 40,120,20)];
-    timeLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    timeLabel.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];
     [self.view addSubview:timeLabel];
     
-    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(20, 60, self.view.frame.size.width-40, self.view.frame.size.height-60-[VersionAdapter getMoreVarHead])] ; //初始化大小
+    contentView= [[UITextView  alloc] initWithFrame:CGRectMake(20, 60, self.view.frame.size.width-40, self.view.frame.size.height-[VersionAdapter getMoreVarHead])] ; //初始化大小
     contentView.textColor = [UIColor blackColor];//设置textview里面的字体颜色
-    contentView.font = [UIFont fontWithName:@"Arial" size:14.0];//设置字体名字和字体大小
+    contentView.font = [UIFont fontWithName:@"Arial" size:FONT_SIZE];//设置字体名字和字体大小
     contentView.delegate = self;//设置它的委托方法
     contentView.backgroundColor = [UIColor whiteColor];//设置它的背景颜色
     contentView.returnKeyType = UIReturnKeyDefault;//返回键的类型
@@ -109,10 +110,10 @@
             titleLabel.text = [NSString stringWithFormat:@"%@",inf.information_title];
             titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             titleLabel.numberOfLines = 0;
-            UIFont* font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:16];
+            UIFont* font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:FONT_SIZE];
             CGSize titleSize = [ titleLabel.text sizeWithFont:font constrainedToSize:CGSizeMake(self.view.frame.size.width-20, 40) lineBreakMode:NSLineBreakByWordWrapping];
             [titleLabel setFrame:CGRectMake(10, 10, titleSize.width, titleSize.height)];
-            titleLabel.font =[UIFont fontWithName:@"TrebuchetMS-Bold" size:16];
+            titleLabel.font =[UIFont fontWithName:@"TrebuchetMS-Bold" size:FONT_SIZE];
             
             timeLabel.text = [NSString stringWithFormat:@"%@",inf.createTime];
             [timeLabel setFrame:CGRectMake(self.view.frame.size.width-120, 15+titleLabel.frame.size.height,120,20)];

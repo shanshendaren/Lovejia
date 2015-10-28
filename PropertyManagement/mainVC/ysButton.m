@@ -34,7 +34,7 @@
 //初始化
 -(void)setUp{
     
-    self.titleFont =[UIFont systemFontOfSize:14];
+    self.titleFont =[UIFont systemFontOfSize:FONT_SIZE];
     self.titleLabel.font = self.titleFont;
     
     //图标居中

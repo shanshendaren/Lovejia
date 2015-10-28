@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NoticeInfoViewController : UIViewController<UITextViewDelegate>
+@interface NoticeInfoViewController : UIViewController
 @property(nonatomic,strong)NSString *noticeId;
 
 

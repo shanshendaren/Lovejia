@@ -37,7 +37,7 @@
     [VersionAdapter setViewLayout:self];
     [self.view setBackgroundColor:[UIColor colorWithRed:242.0/255.0 green:242.0/255.0  blue:242.0/255.0  alpha:1.0]];
     self.title = @"修改密码";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createUI];
 }
@@ -47,7 +47,7 @@
     
     UILabel *oldLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 15, 200, 20)];
     oldLabel.text = @"原始密码";
-    [oldLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [oldLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [self.view addSubview:oldLabel];
     
     UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, 40)];
@@ -59,13 +59,13 @@
     OldpassWordFiled.placeholder = @"6-16个字符，区分大小写";
     OldpassWordFiled.delegate = self;
     OldpassWordFiled.secureTextEntry = YES;
-    [OldpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [OldpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [view1 addSubview:OldpassWordFiled];
     
     
     UILabel *newLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 95, 200, 20)];
     newLabel.text = @"新密码";
-    [newLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [newLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
 
     [self.view addSubview:newLabel];
     
@@ -77,13 +77,13 @@
     newpassWordFiled.tag =1;
     newpassWordFiled.placeholder = @"6-16个字符，区分大小写";
     newpassWordFiled.delegate = self;
-    [newpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [newpassWordFiled setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     newpassWordFiled.secureTextEntry = YES;
     [view2 addSubview:newpassWordFiled];
     
     UILabel *renewLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 175, 200, 20)];
     renewLabel.text = @"确认新密码";
-    [renewLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [renewLabel setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     [self.view addSubview:renewLabel];
     
     UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 40)];
@@ -92,7 +92,7 @@
     
     rePassWordFiled =[[UITextField alloc]initWithFrame:CGRectMake(20, 5, self.view.frame.size.width-40, 30)];
     rePassWordFiled.tag = 2;
-    [rePassWordFiled setFont:[UIFont fontWithName:@"Arial" size:14]];
+    [rePassWordFiled setFont:[UIFont fontWithName:@"Arial" size:FONT_SIZE]];
     rePassWordFiled.placeholder = @"6-16个字符，区分大小写";
     rePassWordFiled.delegate = self;
     rePassWordFiled.secureTextEntry = YES;
@@ -101,24 +101,10 @@
     UIButton *changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [changeBtn setFrame:CGRectMake(10, 260, self.view.frame.size.width-20, 40)];
     [changeBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [changeBtn setBackgroundImage:[UIImage imageNamed:@"next_button_bg.png"] forState:UIControlStateNormal];
+    [changeBtn setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [changeBtn addTarget:self action:@selector(changeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:changeBtn];
     [self createBack];
-    
-    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    [topView setBarStyle:UIBarStyleDefault];
-    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(2, 5, 50, 25);
-    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
-    [btn setTitle:@"退出" forState:UIControlStateNormal];
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
-    [topView setItems:buttonsArray];
-    [rePassWordFiled setInputAccessoryView:topView];
-    [OldpassWordFiled setInputAccessoryView:topView];
-    [newpassWordFiled setInputAccessoryView:topView];
 }
 
 -(void)createBack{

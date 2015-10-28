@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FixViewController : UIViewController<UITextViewDelegate>
+@interface FixViewController : UIViewController
 
 @end

@@ -208,7 +208,7 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
         if ([UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]) {
           SVProgressHUDFont = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         } else {
-          SVProgressHUDFont = [UIFont systemFontOfSize:14.0];
+          SVProgressHUDFont = [UIFont systemFontOfSize:FONT_SIZE];
           SVProgressHUDBackgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
           SVProgressHUDForegroundColor = [UIColor whiteColor];
         }

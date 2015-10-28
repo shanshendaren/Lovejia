@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface SetNewChangeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITextFieldDelegate,UITextViewDelegate>
+@interface SetNewChangeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     UIImageView *iv;
     NSString *picPath;
@@ -48,9 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [VersionAdapter setViewLayout:self];
-//    UIView * viewY = [[UIView alloc]initWithFrame:self.view.frame];
-//    viewY.backgroundColor =  [UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0];
-//    [self.view addSubview:viewY];
     
     RequestUtil *request =[[RequestUtil alloc]init];
     NSString * str =@"WPJHLX";
@@ -58,23 +55,20 @@
     NSString *sid = @"Sysdiclist";
     [request startRequest:sid biz:biz send:self];
 
-
-    
     self.title = @"新建发布";
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:FONT_SIZE],NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     [self createBack];
     
-    UIScrollView * sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 60-44-[VersionAdapter getMoreVarHead])];
+    UIScrollView * sv =[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 -[VersionAdapter getMoreVarHead])];
     [sv setUserInteractionEnabled:YES];
     [sv setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
+//    [sv setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0  blue:238.0/255.0  alpha:1.0]];
     [self.view addSubview:sv];
     
     activity = [[ActivityView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44 - [VersionAdapter getMoreVarHead]) loadStr:NSLocalizedString(@"正在加载...", nil)];
     
-//    self.listTeams = [[NSArray alloc]initWithObjects:@"衣物",@"电器",@"家具",@"数码", nil];
     self.photoArray = [[NSMutableArray alloc]initWithObjects:@"null", nil];
-    
     mobileType = 0;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -93,56 +87,59 @@
     [sv addSubview:self.collectionView];
     
     Y = self.collectionView.frame.size.height + self.collectionView.frame.origin.y;
-    UIView *back_one = [[UIView alloc]initWithFrame:CGRectMake(0, Y+10, self.view.frame.size.width, 44)];
+    UIView *back_one = [[UIView alloc]initWithFrame:CGRectMake(0, Y+1, self.view.frame.size.width, 35)];
     [back_one setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_one];
 
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     titleLabel.text = @"标题";
     titleLabel.textAlignment = 1;
     titleLabel.backgroundColor = [UIColor whiteColor];
     [back_one addSubview:titleLabel];
     
-    UIImageView *lineView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [lineView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    lineView.backgroundColor = LINECOLOR;
     [back_one addSubview:lineView];
     
-    self.titleTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 44, 44)];
+    self.titleTextField = [[UITextField alloc]initWithFrame:CGRectMake(44, 0, self.view.frame.size.width - 60, 35)];
     [self.titleTextField setBackgroundColor:[UIColor whiteColor]];
-    self.titleTextField.placeholder = @"请输入";
+    self.titleTextField.font = [UIFont systemFontOfSize:FONT_SIZE];
+    self.titleTextField.placeholder = @"请输入标题";
     [back_one addSubview:self.titleTextField];
-    Y = back_one.frame.size.height + back_one.frame.origin.y + 10;
+    Y = back_one.frame.size.height + back_one.frame.origin.y + 1;
     
     //类型
-    UIView *back_two = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 44)];
+    UIView *back_two = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [back_two setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_two];
     
-    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 35)];
+    typeLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     typeLabel.text = @"类型";
     typeLabel.textAlignment = 1;
     typeLabel.backgroundColor = [UIColor whiteColor];
     [back_two addSubview:typeLabel];
     
-    UIImageView *lView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 36)];
-    [lView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *lView = [[UIView alloc]initWithFrame:CGRectMake(40, 2, 1, 30)];
+    lView.backgroundColor = LINECOLOR;
     [back_two addSubview:lView];
     
     _type_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_type_btn setFrame:CGRectMake(44, 2,  self.view.frame.size.width-110, 40)];
+    [_type_btn setFrame:CGRectMake(44, 2,  self.view.frame.size.width-110, 35)];
     [back_two addSubview:_type_btn];
     
-    UIImageView *iv11 =[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-64, 20, 20, 20)];
+    UIImageView *iv11 =[[UIImageView alloc]initWithFrame:CGRectMake(self.view.frame.size.width-54, 25, 10, 10)];
     [iv11 setImage:[UIImage imageNamed:@"select.png"]];
     [_type_btn addSubview:iv11];
 
-    self.text_type = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 66, 40)];
+    self.text_type = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 66, 35)];
+    self.text_type.font = [UIFont systemFontOfSize:FONT_SIZE];
     [self.text_type setEnabled:NO];
-//    self.text_type.text = [NSString stringWithFormat:@"%@",self.listTeams[0]];
     [_type_btn addSubview:self.text_type];
     [_type_btn addTarget:self action:@selector(changeOpenStatus:) forControlEvents:UIControlEventTouchUpInside];
     
-    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(44, Y+44, self.view.frame.size.width - 44, 1)];
+    _tb = [[TableViewWithBlock alloc]initWithFrame:CGRectMake(44, Y+36, self.view.frame.size.width - 44, 0.5)];
     [_tb initTableViewDataSourceAndDelegate:^(UITableView *tableView,NSInteger section){
         return (int)self.listTeams.count;
         
@@ -163,9 +160,9 @@
     }];
     
     [_tb.layer setBorderColor:[UIColor clearColor].CGColor];
-    [_tb.layer setBorderWidth:2];
+    [_tb.layer setBorderWidth:1];
 
-    Y = back_two.frame.size.height + back_two.frame.origin.y + 10;
+    Y = back_two.frame.size.height + back_two.frame.origin.y + 1;
     //描述
     UIView *back_three = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 160)];
     [back_three setBackgroundColor:[UIColor whiteColor]];
@@ -173,59 +170,47 @@
     
     UILabel *label_two = [[UILabel alloc]initWithFrame:CGRectMake(0,0, 40, 160)];
     label_two.text = @"描述:";
+    label_two.font = [UIFont systemFontOfSize:FONT_SIZE];
     label_two.textAlignment = 1;
     [back_three addSubview:label_two];
     
-    UIImageView *llView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 4, 1, 152)];
-    [llView setImage:[UIImage imageNamed:@"line.png"]];
+    UIView *llView = [[UIView alloc]initWithFrame:CGRectMake(40, 4, 1, 152)];
+    llView.backgroundColor = LINECOLOR;
     [back_three addSubview:llView];
+    
     self.text_neirong = [[UITextView alloc]initWithFrame:CGRectMake(44, 0,self.view.frame.size.width- 44 ,160)];
     self.text_neirong.delegate = self;
     [back_three addSubview:self.text_neirong ];
     
     
-    Y = back_three.frame.size.height + back_three.frame.origin.y + 10;
+    Y = back_three.frame.size.height + back_three.frame.origin.y + 1;
     
-    UIView *back_four = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 40)];
+    UIView *back_four = [[UIView alloc]initWithFrame:CGRectMake(0, Y, self.view.frame.size.width, 35)];
     [back_four setBackgroundColor:[UIColor whiteColor]];
     [sv addSubview:back_four];
 
-    UISwitch *switchButton = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 5, 50, 30)];
+    UISwitch *switchButton = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 2, 50, 30)];
     [switchButton setOn:NO];
     [switchButton addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [back_four addSubview:switchButton];
 
-    UILabel *chooseLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, self.view.frame.size.width-60, 20)];
+    UILabel *chooseLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-60, 20)];
+    chooseLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     chooseLabel.text = @"请选择是否公开您的电话号码";
     [back_four addSubview:chooseLabel];
     
     [sv addSubview:_tb];
-
     [sv setContentSize:CGSizeMake(self.view.frame.size.width, Y+40)];
 
     //发布
-    UIImageView *backView = [[UIImageView alloc]init];
-//     WithImage:[UIImage imageNamed:@"ip5_03.png"]];
-    backView.userInteractionEnabled = YES;
-    backView.backgroundColor = [UIColor clearColor];
-    backView.frame = CGRectMake(0, self.view.frame.size.height - 60-44-[VersionAdapter getMoreVarHead], self.view.frame.size.width, 60);
-    [self.view addSubview:backView];
-    
     UIButton * btn1 =[UIButton buttonWithType:UIButtonTypeCustom];
-    [btn1 setFrame:CGRectMake(60, 10, 200, 40)];
+    [btn1 setFrame:CGRectMake(20, self.view.frame.size.height-140, self.view.frame.size.width-40, 35)];
+    btn1.titleLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
     [btn1 setTitle:@"发布" forState:UIControlStateNormal];
     [btn1 setBackgroundImage:[UIImage imageNamed:@"17"] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(cilckAction) forControlEvents:UIControlEventTouchUpInside];
-    [backView addSubview:btn1];
-    
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
-    [view setBackgroundColor:[UIColor grayColor]];
-    UIButton *downBtn = [[UIButton alloc]initWithFrame:CGRectMake(280, 0, 40, 30)];
-    [downBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [downBtn addTarget:self action:@selector(downKb:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:downBtn];
-    [self.titleTextField setInputAccessoryView:view];
-    [self.text_neirong setInputAccessoryView:view];
+    [self.view addSubview:btn1];
+
 }
 
 
@@ -237,28 +222,6 @@
         mobileType = 1;
     }else {
         mobileType = 0;
-    }
-}
-
--(void)downKb:(UIButton *)sender
-{
-    [self.text_neirong resignFirstResponder];
-    [self.titleTextField resignFirstResponder];
-    CGRect curFrame = self.view.frame;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.view.frame=CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [VersionAdapter getMoreVarHead], curFrame.size.width, curFrame.size.height);
-    }];
-}
-
--(void)tapGesture:(UITapGestureRecognizer *)tapGestrue
-{
-    if ([self.view pointInside:[tapGestrue locationInView:self.view] withEvent:0]) {
-        [self.text_type resignFirstResponder];
-        [self.titleTextField resignFirstResponder];
-        CGRect curFrame = self.view.frame;
-        [UIView animateWithDuration:0.3f animations:^{
-            self.view.frame=CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [VersionAdapter getMoreVarHead], curFrame.size.width, curFrame.size.height);
-        }];
     }
 }
 
@@ -307,7 +270,7 @@
         [backImage setImage:savedImage];
         [cell.contentView addSubview:backImage];
         
-        UIButton *deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(35, 5, 20, 20)];
+        UIButton *deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(45, 5, 15, 15)];
         [deleteBtn setBackgroundImage:[UIImage imageNamed:@"photo-delete.png"] forState:UIControlStateNormal];
         deleteBtn.tag = indexPath.row;
         [deleteBtn addTarget:self action:@selector(deletePhoto:) forControlEvents:UIControlEventTouchUpInside];
@@ -337,22 +300,7 @@
     }
 }
 
--(void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self.tap setEnabled:YES];
-    CGRect curFrame = self.view.frame;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.view.frame=CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [VersionAdapter getMoreVarHead] - self.text_neirong.frame.size.height - 15, curFrame.size.width, curFrame.size.height);
-    }];
-}
-
-
 -(void)cilckAction{
-//    if ([self.photoArray count] == 1 ) {
-//        UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请添加照片" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//        [view show];
-//        return;
-//    }
     if ([self.titleTextField.text isEqualToString:@""]) {
         UIAlertView *view =[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请输入标题" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [view show];
@@ -379,7 +327,6 @@
     NSArray *arr =[NSArray arrayWithArray:a];
     [requestUtil startUploadFileRequest:biz sid:sid file:arr send:self];
 }
-
 
 -(void)requestStarted:(ASIHTTPRequest *)request{
     if ([activity isVisible] == NO) {

@@ -10,7 +10,9 @@
 #import "Barter.h"
 #import "Carpooling.h"
 
-@interface SendMessageViewController : UIViewController<UITextViewDelegate>
+@interface SendMessageViewController : UIViewController
+
 @property (nonatomic,strong)Barter *valuablesInfo;
 @property (nonatomic,strong)Carpooling *car;
+
 @end
